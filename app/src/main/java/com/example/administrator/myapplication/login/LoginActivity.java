@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         brushface = SPUtils.getInt(LoginActivity.this,"brushface",brushface);
+        L.i("brushface", String.valueOf(brushface));
         initViews();
         initAnims();
 
@@ -91,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                     gotoLogin();
 
                 }
+
+
 
 
             }

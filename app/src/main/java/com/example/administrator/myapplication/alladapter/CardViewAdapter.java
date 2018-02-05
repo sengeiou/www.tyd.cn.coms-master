@@ -64,7 +64,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
        holder.mTextView.setText(cardviewBean.getData().get(position).getMcard_name());
        holder.itcard.setText(cardviewBean.getData().get(position).getMcard_type());
        holder.card_number.setText(cardviewBean.getData().get(position).getMcard_id());
-       notifyItemChanged(position);
+
     }
 
     @Override
