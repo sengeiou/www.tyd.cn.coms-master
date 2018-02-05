@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.model.PayingFaceActivity">
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+    <ImageView
+        android:background="#25b5ff"
+        android:layout_width="match_parent"
+        android:layout_height="119.5dp" />
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="22dp"
+        android:background="@mipmap/allbackbutton"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/Payingfaceback" />
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="110dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:text="人脸支付"
+        android:textSize="16sp" />
+
+    </RelativeLayout>
+    <ImageView
+        android:background="@mipmap/shuaface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

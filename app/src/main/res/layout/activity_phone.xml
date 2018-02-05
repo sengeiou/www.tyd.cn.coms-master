@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:isFirstVisible="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:background="@mipmap/newground"
+                android:layout_width="wrap_content"
+                android:layout_height="210dp"
+                android:id="@+id/imageView4" />
+            <ImageView
+                android:id="@+id/newicon"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="92dp"
+                android:background="@mipmap/ren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+
+                android:layout_below="@+id/newicon"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="330dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@mipmap/signin" />
+
+            <TextView
+
+                android:layout_marginLeft="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/phone_name"
+                android:background="@mipmap/newphoneicon" />
+            <EditText
+
+                android:id="@+id/phone_name"
+                android:layout_width="220dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/imageView4"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="50dp"
+                android:background="@null"
+                android:digits="1234567890"
+                android:hint="手机号"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textSize="12sp" />
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/phone_name"
+                android:layout_marginRight="47dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="47dp"
+                android:background="@color/gainsboro"
+                android:id="@+id/view5">
+
+            </View>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/view5"
+                android:layout_marginTop="28dp"
+                android:id="@+id/relativeLayout2">
+
+                <TextView
+                    android:layout_marginLeft="50dp"
+                    android:background="@mipmap/newcodeicon"
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/timebutton" />
+
+                <Button
+                    android:id="@+id/timebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="220dp"
+                    android:background="@drawable/denglu_button"
+                    android:text="获取"
+                    android:textColor="@color/skyblue"
+                    android:textSize="8.6sp" />
+
+                <EditText
+                    android:id="@+id/Edit_password"
+                    android:layout_width="130dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBaseline="@+id/textView"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="73dp"
+                    android:background="@null"
+                    android:digits="1234567890"
+                    android:hint="验证码"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:textSize="12sp" />
+
+                <View
+                    android:id="@+id/view_edit"
+                    android:layout_marginLeft="47dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/Edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gainsboro">
+
+                </View>
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/request_button"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/view5"
+                android:layout_marginRight="47dp"
+                android:layout_below="@+id/relativeLayout2"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/denglu_tijiao"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+
+
+            <LinearLayout
+                android:id="@+id/Phone_Liner"
+                android:layout_below="@+id/request_button"
+                android:layout_marginRight="47dp"
+                android:layout_marginLeft="47dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_marginLeft="50dp"
+                    android:id="@+id/radiobutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/Phone_h5text"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="10.6sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我已阅读并遵守此APP许可协议"
+                    android:textColor="#888888" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

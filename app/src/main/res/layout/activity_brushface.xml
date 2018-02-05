@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.model.BrushfaceActivity">
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:background="#25b5ff"
+            android:layout_width="match_parent"
+            android:layout_height="105.5dp" />
+        <ImageView
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="15dp"
+            android:background="@mipmap/allbackbutton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView2" />
+
+        <TextView
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="112dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:text="刷脸解锁"
+            android:textSize="16sp" />
+
+
+
+            <ImageView
+                android:layout_marginTop="71dp"
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/burshfacebackground" />
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="27.5dp"
+            android:text="刷脸解锁"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Switch
+            android:id="@+id/switch_btn"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="15dp"
+        android:background="#d3d3d3"
+        android:layout_marginTop="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"></View>
+    <TextView
+        android:textSize="12sp"
+        android:textColor="@color/darkgray"
+        android:layout_marginTop="9dp"
+        android:text="开启后请退出程序,或置后台十秒之后在启动程序"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

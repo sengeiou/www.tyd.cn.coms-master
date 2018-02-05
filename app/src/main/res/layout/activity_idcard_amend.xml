@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.model.IDCardAmendActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/idcard_amend_back"
+            android:layout_width="match_parent"
+            android:layout_height="105.5dp"
+            android:background="#25b5ff" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="19dp"
+            android:background="@mipmap/allbackbutton" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="17dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:text="信息确认"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="18dp"
+            android:text="请仔细核对信息 ,如果有误请点击"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="370dp"
+            android:layout_marginTop="75.5dp"
+            android:background="@mipmap/cardamendgroud"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="姓名"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4"></ImageView>
+
+                <EditText
+                    android:id="@+id/Idcard_amend_name"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/view"
+                    android:layout_alignEnd="@+id/view"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/cardamendredact"
+
+
+                    />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="身份证号"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4"></ImageView>
+
+                <EditText
+                    android:id="@+id/Idcard_amend_Idnumber"
+                    android:layout_width="200dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/view2"
+                    android:layout_alignEnd="@+id/view2"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/cardamendredact"
+
+
+                    />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="有效期限"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/view4"
+                    android:layout_width="140dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4"></ImageView>
+
+                <EditText
+                    android:id="@+id/Idcard_amend_signDate"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/view4"
+                    android:layout_alignEnd="@+id/view4"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/cardamendredact"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/view3"
+                    android:layout_width="140dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4"></ImageView>
+
+                <EditText
+                    android:id="@+id/Idcard_amend_expiryDate"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/view3"
+                    android:layout_alignEnd="@+id/view3"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/cardamendredact" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/Idcard_amend_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="70dp"
+        android:background="@mipmap/cardamendbtn" />
+</LinearLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.model.CxchangeActivity">
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:background="#25b5ff"
+            android:layout_width="match_parent"
+            android:layout_height="105.5dp" />
+        <ImageView
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="15dp"
+            android:background="@mipmap/allbackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2" />
+
+        <TextView
+            android:layout_marginTop="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="108dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:text="交易所编码"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_marginTop="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="330.5dp"
+                android:layout_height="125dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="45dp"
+                android:background="@mipmap/exchangebackground" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:text="交易所编码"
+                android:textColor="#222222"
+                android:textSize="13.2sp" />
+
+            <EditText
+                android:background="@null"
+                android:id="@+id/ExchangeEditText"
+                android:layout_width="284dp"
+                android:layout_height="38dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:hint="请输入您的交易编码"
+                android:textSize="13.4sp" />
+            <TextView
+                android:id="@+id/ExchangeTextText"
+                android:gravity="center"
+                android:layout_width="284dp"
+                android:layout_height="38dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:text="Add待审核"
+                android:textSize="13.4sp" />
+            <View
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ExchangeEditText"
+                android:layout_width="284dp"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="#000000"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_marginRight="42dp"
+        android:text="exchange; house:
+stock exchange; securities exchange; 证券交易所
+commodity exchange 商品交易所"
+        android:textColor="#999999"
+        android:textSize="11.5sp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="45dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/CxchangBtn"
+        android:layout_gravity="center"
+        android:background="@mipmap/exchangebutton"
+        android:layout_marginTop="161dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+</LinearLayout>

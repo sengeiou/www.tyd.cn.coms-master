@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_idcard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ocr_text_cr.IDCardActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="79.5dp"
+            android:background="#25b5ff" />
+
+        <ImageView
+            android:id="@+id/id_card_backimage"
+            android:layout_width="20dp"
+            android:layout_height="19dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="25dp"
+            android:background="@mipmap/allbackbutton" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="19dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:text="实名认证"
+            android:textColor="#ffffff"
+            android:textSize="16.3sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="330.5dp"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="65dp"
+            android:background="@mipmap/personalbutton"
+            android:gravity="center"
+            android:text=" 注 :请在光线充足的情况下,拍摄二代身份证原件
+
+
+（拍摄时禁用闪光灯，确保相片符合规格）"
+            android:textColor="#222222"
+            android:textSize="13.5sp" />
+    </RelativeLayout>
+
+
+
+
+
+ <!--   <ImageView
+        android:id="@+id/id_card_front_button_native"
+        android:layout_width="match_parent"
+        android:layout_height="171dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15.5dp"
+        android:layout_marginRight="14.5dp"
+        android:layout_marginTop="7dp"
+
+        android:text="身份证正面(扫描)" />-->
+
+  <!--  <ImageView
+        android:id="@+id/id_card_back_button_native"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15.5dp"
+        android:layout_marginRight="14.5dp"
+        android:layout_marginTop="8.5dp"
+        android:background="@mipmap/personalinforback"
+        android:text="身份证反面(扫描)" />-->
+
+    <!--   <Button
+           android:id="@+id/gallery_button_front"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="相册选择 正面"
+           android:visibility="gone"
+           tools:ignore="HardcodedText" />
+
+       <Button
+           android:id="@+id/gallery_button_back"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="相册选择 反面"
+           android:visibility="gone"
+           tools:ignore="HardcodedText" />-->
+    <LinearLayout
+        android:layout_marginLeft="15.5dp"
+        android:layout_marginRight="14.5dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="8.5dp"
+            android:background="@mipmap/personalinforfont"
+            android:id="@+id/id_card_front_button"
+            android:layout_width="match_parent"
+            android:layout_height="181dp"
+            android:visibility="visible"
+            tools:ignore="HardcodedText" />
+        <ImageView
+            android:layout_marginTop="8.5dp"
+            android:background="@mipmap/personalinforback"
+            android:id="@+id/id_card_back_button"
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:visibility="visible"
+            tools:ignore="HardcodedText" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/personal_button"
+        android:layout_width="fill_parent"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="83dp"
+        android:layout_marginRight="83dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/denglu_tijiao"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+
+
+</LinearLayout>

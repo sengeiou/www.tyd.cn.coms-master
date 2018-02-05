@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.myapplication.model.IDLookActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="105.5dp"
+            android:background="#25b5ff" />
+
+        <ImageView
+            android:id="@+id/LookBankback"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="19dp"
+            android:background="@mipmap/allbackbutton" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="17dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:text="信息查看"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="370dp"
+            android:layout_marginTop="60dp"
+            android:background="@mipmap/cardamendgroud"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="姓名"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4" />
+
+                <TextView
+                    android:id="@+id/Idcard_look_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="120dp"
+                    android:layout_marginTop="19dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_below="@id/Idcard_look_idcard"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:background="#f4f4f4" />
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/Idcard_look_idcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身份证号"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+
+                <TextView
+                    android:id="@+id/Idcard_look_idcard_show"
+                    android:layout_below="@id/Idcard_look_idcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginRight="100dp"
+
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="有效期限"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:layout_alignStart="@+id/Idcard_IdSignDate"
+                    android:background="#f4f4f4" />
+
+                <TextView
+
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp"
+                    android:id="@+id/Idcard_IdSignDate" />
+
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+
+                    android:background="#f4f4f4" />
+
+                <TextView
+                    android:id="@+id/Idcard_IdExpiryDate"
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="75dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#f4f4f4"
+                    android:cursorVisible="false"
+                    android:maxLines="1"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

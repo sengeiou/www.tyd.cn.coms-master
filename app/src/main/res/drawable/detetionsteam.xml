@@ -1,0 +1,13 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+ <!--   &lt;!&ndash; 其他状态下控件的背景图为button_red_normal &ndash;&gt;
+    <item android:drawable="@drawable/downdetection" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/vivodetection" android:state_pressed="false" />
+
+-->   <!-- 定义按钮按下时的图片 -->
+    <item android:drawable="@drawable/downdetection" android:state_pressed="true"/>
+    <!-- 定义按钮默认的图片 -->
+    <item android:drawable="@drawable/vivodetection"  android:state_pressed="false"/>
+
+
+</selector>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="250dp"
+    android:background="@color/colorWhite"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/assd" />
+
+    <scut.carson_ho.diy_view.SuperEditText
+        android:textSize="12sp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+
+        app:cursor="@drawable/cursortest"
+        app:delete_height="50"
+        app:delete_width="50"
+        app:delete_x="0"
+        app:delete_y="0"
+        app:ic_delete="@drawable/delete"
+
+        app:ic_left_click="@drawable/ic_left_click"
+        app:ic_left_unclick="@drawable/ic_left_unclick"
+        app:left_height="60"
+        app:left_width="60"
+        app:left_x="0"
+        app:left_y="0"
+
+
+        app:lineColor_click="@color/colorfocus"
+        app:lineColor_unclick="@color/colorDeafult"
+        app:linePosition="1"
+
+        />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/avatar"
+        android:text="确认" />
+</LinearLayout>

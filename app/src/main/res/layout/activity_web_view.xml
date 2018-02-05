@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.webview.WebViewActivity">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:background="#25b5ff"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp" />
+                <ImageView
+                    android:id="@+id/WebViwe_back"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="14.5dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@mipmap/allbackbutton" />
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="条款"
+                    android:textSize="14.5sp" />
+        </RelativeLayout>
+        <WebView
+            android:id="@+id/webViewH5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:overScrollMode="never">
+        </WebView>
+
+</LinearLayout>

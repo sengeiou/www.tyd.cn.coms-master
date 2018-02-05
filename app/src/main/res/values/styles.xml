@@ -1,0 +1,93 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 通过windowBackground可以设置背景色、背景图片、能解析出图片的XML文件等-->
+        <item name="android:windowBackground">@drawable/layer_launcher</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="result_pop_scroll">
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
+    <style name="DefaultDialog" parent="android:style/Theme.Dialog">
+
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="TestTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:popupAnimationStyle">@style/MyPopupMenuAnimaiton</item>
+    </style>
+
+    <style name="MyPopupMenuAnimaiton" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/circles_actionbar_pop</item>
+        <item name="android:windowExitAnimation">@anim/popexidanm</item>
+    </style>
+
+    <style name="TestThemes" parent="@android:style/Theme.Holo.Light">
+        <item name="android:popupAnimationStyle">@style/MyPopupMenuAnimaiton</item>
+    </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="style_progressbar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progressbar</item>
+    </style>
+
+    <!--圆形imageView需要的-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/lineColor_click</item>
+        <!-- 关闭时的拇指按钮的颜色 -->
+        <item name="colorSwitchThumbNormal">@color/silver</item>
+        <!-- witch关闭时的轨迹的颜色  30%这个颜色 -->
+        <item name="android:colorForeground">@color/silver</item>
+    </style>
+
+
+    <style name="MyDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!--CustomDialog-->
+    <style name="customDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item><!--取消默认Dialog的windowFrame框-->
+        <item name="android:windowNoTitle">true</item><!--设置无标题Dialog-->
+        <item name="android:backgroundDimEnabled">true</item><!--是否四周变暗-->
+        <item name="android:windowIsFloating">true</item><!-- 是否悬浮在activity上 -->
+        <item name="android:windowContentOverlay">@null</item><!-- 取消默认ContentOverlay背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!--取消window默认背景 不然四角会有黑影-->
+    </style>
+</resources>
