@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.touedian.tyd.com.model.BrushfaceActivity">
+    tools:context="com.example.administrator.myapplication.model.BrushfaceActivity">
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

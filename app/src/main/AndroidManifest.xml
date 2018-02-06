@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.touedian.tyd.com">
+    package="com.example.administrator.myapplication">
+    <!--com.example.administrator.myapplication-->
     <!--www.touedian.com-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -21,7 +22,7 @@
 
     <!-- 自动聚焦权限 -->
     <application
-        android:name="com.touedian.tyd.com.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/tydicon"
         android:label="@string/app_name"
@@ -30,20 +31,20 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name="com.touedian.tyd.com.login.StartActivity"
-            android:theme="@style/AppTheme.Launcher" />
-        <activity android:name="com.touedian.tyd.com.login.LoginActivity">
+            android:name=".login.StartActivity"
+            android:theme="@style/AppTheme.Launcher"></activity>
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.touedian.tyd.com.MainActivity" />
+        <activity android:name=".MainActivity" />
         //身份证和银行卡识别目录
-        <activity android:name="com.touedian.tyd.com.ocr_text_cr.Ocr_Text_Activity" />
+        <activity android:name=".ocr_text_cr.Ocr_Text_Activity" />
         //实名认证,身份证
-        <activity android:name="com.touedian.tyd.com.ocr_text_cr.IDCardActivity" />
+        <activity android:name=".ocr_text_cr.IDCardActivity" />
 
         <!-- fileProvider -->
         <provider
@@ -58,54 +59,55 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
         //9宫格 首页
-        <activity android:name="com.touedian.tyd.com.ocr_face.OcrFaceActivity" />
-        <activity android:name="com.touedian.tyd.com.ocr_face.FaceOnlineVerifyActivity" />
+        <activity android:name=".ocr_face.OcrFaceActivity" />
+        <activity android:name=".ocr_face.FaceOnlineVerifyActivity" />
         // (自定义) 活体人脸动态检测
-        <activity android:name="com.touedian.tyd.com.ocr_face.OfflineFaceLivenessActivity" />
+        <activity android:name=".ocr_face.OfflineFaceLivenessActivity" />
         //在线人脸识别
-        <activity android:name="com.touedian.tyd.com.ocr_discern.DetectLoginActivity" />
+        <activity android:name=".ocr_discern.DetectLoginActivity" />
         //识别返回，{照片和信息}
-        <activity android:name="com.touedian.tyd.com.ocr_discern.LoginResultActivity" />
+        <activity android:name=".ocr_discern.LoginResultActivity" />
         //目录，注册，人脸识别登录，认证登录，
-        <activity android:name="com.touedian.tyd.com.ocr_discern.FaceRecognitionActivity" />
+        <activity android:name=".ocr_discern.FaceRecognitionActivity" />
         //人脸注册
-        <activity android:name="com.touedian.tyd.com.ocr_discern.RegActivity" />
-        <activity android:name="com.touedian.tyd.com.ocr_discern.VerifyLoginActivity" />
+        <activity android:name=".ocr_discern.RegActivity" />
+        <activity android:name=".ocr_discern.VerifyLoginActivity" />
         //在线
-        <activity android:name="com.touedian.tyd.com.ocr_discern.IdentifyLoginActivity" />
+        <activity android:name=".ocr_discern.IdentifyLoginActivity" />
         //活体
-        <activity android:name="com.touedian.tyd.com.ocr_discern.FaceLivenessExpActivity" />
+        <activity android:name=".ocr_discern.FaceLivenessExpActivity" />
         //静态人脸
-        <activity android:name="com.touedian.tyd.com.ocr_discern.FaceDetectExpActivity" />
+        <activity android:name=".ocr_discern.FaceDetectExpActivity" />
         // H5
-        <activity android:name="com.touedian.tyd.com.webview.WebViewActivity" />
+        <activity android:name=".webview.WebViewActivity"></activity>
         //银行仿微信支付宝,层叠
-        <activity android:name="com.touedian.tyd.com.model.CardViewActivity" />
+        <activity android:name=".model.CardViewActivity" />
         //手机号码注册
-        <activity android:name="com.touedian.tyd.com.model.PhoneActivity" />
+        <activity android:name=".model.PhoneActivity" />
         //个人信息页面 设置
-        <activity android:name="com.touedian.tyd.com.model.PersonalActivity" />
+        <activity android:name=".model.PersonalActivity"></activity>
         //活体检测
-        <activity android:name="com.touedian.tyd.com.model.OcrDetectionActivity" />
+        <activity android:name=".model.OcrDetectionActivity" />
         //交易所
-        <activity android:name="com.touedian.tyd.com.model.CxchangeActivity" />
+        <activity android:name=".model.CxchangeActivity" />
         //刷脸登录页面
-        <activity android:name="com.touedian.tyd.com.model.BrushfaceActivity" />
+        <activity android:name=".model.BrushfaceActivity" />
         //修改实名认证
-        <activity android:name="com.touedian.tyd.com.model.IDCardAmendActivity" />
+        <activity android:name=".model.IDCardAmendActivity" />
         //实名认证查看页面
-        <activity android:name="com.touedian.tyd.com.model.IDLookActivity" />
+        <activity android:name=".model.IDLookActivity" />
         //银行卡扫描
-        <activity android:name="com.touedian.tyd.com.model.BankCardActivity" />
+        <activity android:name=".model.BankCardActivity"></activity>
         //刷脸登录
-        <activity android:name="com.touedian.tyd.com.model.ZxingfaceActivity" />
+        <activity android:name=".model.ZxingfaceActivity" />
         // Zxing
-        <activity android:name="com.touedian.tyd.com.google.zxing.activity.CaptureActivity" />
+        <activity android:name=".google.zxing.activity.CaptureActivity" />
         //人脸对比 进入页面
-        <activity android:name="com.touedian.tyd.com.model.IDCardProveActivity" />
+        <activity android:name=".model.IDCardProveActivity" />
         //条款
-        <activity android:name="com.touedian.tyd.com.model.H5Activity" />
-        <activity android:name="com.touedian.tyd.com.model.PayingFaceActivity" />
+        <activity android:name=".model.H5Activity" />
+        <activity android:name=".model.PayingFaceActivity"></activity>
     </application>
+
 
 </manifest>

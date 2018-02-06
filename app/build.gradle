@@ -9,7 +9,7 @@ android {
         def alias = "facetyd"
         def password = "android"
         def filePath = "C:\\Users\\Administrator\\Desktop\\facetyd.jks"  //签名文件路径 如：../faceprint.jks
-        
+
         debug {
             keyAlias alias
             keyPassword password
