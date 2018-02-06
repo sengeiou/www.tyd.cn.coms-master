@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.myapplication.model.PersonalActivity">
+    tools:context="com.touedian.tyd.com.model.PersonalActivity">
 
 
     <RelativeLayout
@@ -50,7 +50,7 @@
                 android:layout_height="80dp"
                 android:layout_marginLeft="19dp">
 
-                <com.example.administrator.myapplication.utilsx.CircleImageView
+                <com.touedian.tyd.com.utilsx.CircleImageView
                     android:id="@+id/UserPictureicon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
