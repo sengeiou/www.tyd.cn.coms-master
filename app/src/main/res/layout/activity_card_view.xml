@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.myapplication.model.CardViewActivity">
+    tools:context="com.touedian.com.facetyd.model.CardViewActivity">
 
 
     <RelativeLayout

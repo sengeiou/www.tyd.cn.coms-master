@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="25dp"
+            android:background="#ff33b5e5"/>
+        <TextView
+            android:id="@+id/func_desc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ff33b5e5"
+            android:textSize="15dp"
+            android:text="状态一"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp">
+        
+        <Button
+            android:id="@+id/func_pop_dialog_button"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/blue_btn_selector"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"
+            android:text="弹窗"/>
+
+        <TextView
+            android:id="@+id/func_desc_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_toLeftOf="@id/func_pop_dialog_button"
+            android:layout_marginRight="13dp"
+            android:layout_centerVertical="true"
+            android:textSize="15dp"
+            android:text="wifi情况下提示安装"/>
+
+    </RelativeLayout>
+</LinearLayout>

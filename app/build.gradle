@@ -27,7 +27,7 @@ android {
     aaptOptions.cruncherEnabled= false
     aaptOptions.useNewCruncher= false
     defaultConfig {
-        applicationId "com.example.administrator.myapplication"
+        applicationId "com.touedian.com.facetyd"
         minSdkVersion 20
         targetSdkVersion 22
         versionCode 1
@@ -81,5 +81,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.mostafagazar:customshapeimageview:1.0.4'
     //圆形ImageView
-
+    implementation files('libs/360update-7.0.3.jar')
 }
