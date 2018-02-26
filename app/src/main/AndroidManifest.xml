@@ -2,16 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.touedian.com.facetyd">
-    <!--com.example.administrator.myapplication-->
+
+    <!-- com.example.administrator.myapplication -->
 
 
-
-
-
-    <!--360版本更新权限。-->
+    <!-- 360版本更新权限。 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!--www.touedian.com-->
+    <!-- www.touedian.com -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,7 +28,7 @@
 
     <!-- 自动聚焦权限 -->
     <application
-        android:name="com.touedian.com.facetyd.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/tydicon"
         android:label="@string/app_name"
@@ -38,25 +36,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-
-
-
-
         <activity
-            android:name="com.touedian.com.facetyd.login.StartActivity"
-            android:theme="@style/AppTheme.Launcher"></activity>
-        <activity android:name="com.touedian.com.facetyd.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.touedian.com.facetyd.MainActivity" />
+            android:name=".login.StartActivity"
+            android:theme="@style/AppTheme.Launcher" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".MainActivity" />
         //身份证和银行卡识别目录
-        <activity android:name="com.touedian.com.facetyd.ocr_text_cr.Ocr_Text_Activity" />
+        <activity android:name=".ocr_text_cr.Ocr_Text_Activity" />
         //实名认证,身份证
-        <activity android:name="com.touedian.com.facetyd.ocr_text_cr.IDCardActivity" />
+        <activity android:name=".ocr_text_cr.IDCardActivity" />
 
         <!-- fileProvider -->
         <provider
@@ -70,64 +58,55 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
-
-
-    //9宫格 首页
-        <activity android:name="com.touedian.com.facetyd.ocr_face.OcrFaceActivity" />
-        <activity android:name="com.touedian.com.facetyd.ocr_face.FaceOnlineVerifyActivity" />
+        //9宫格 首页
+        <activity android:name=".ocr_face.OcrFaceActivity" />
+        <activity android:name=".ocr_face.FaceOnlineVerifyActivity" />
         // (自定义) 活体人脸动态检测
-        <activity android:name="com.touedian.com.facetyd.ocr_face.OfflineFaceLivenessActivity" />
+        <activity android:name=".ocr_face.OfflineFaceLivenessActivity" />
         //在线人脸识别
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.DetectLoginActivity" />
+        <activity android:name=".ocr_discern.DetectLoginActivity" />
         //识别返回，{照片和信息}
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.LoginResultActivity" />
+        <activity android:name=".ocr_discern.LoginResultActivity" />
         //目录，注册，人脸识别登录，认证登录，
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.FaceRecognitionActivity" />
+        <activity android:name=".ocr_discern.FaceRecognitionActivity" />
         //人脸注册
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.RegActivity" />
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.VerifyLoginActivity" />
+        <activity android:name=".ocr_discern.RegActivity" />
+        <activity android:name=".ocr_discern.VerifyLoginActivity" />
         //在线
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.IdentifyLoginActivity" />
+        <activity android:name=".ocr_discern.IdentifyLoginActivity" />
         //活体
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.FaceLivenessExpActivity" />
+        <activity android:name=".ocr_discern.FaceLivenessExpActivity" />
         //静态人脸
-        <activity android:name="com.touedian.com.facetyd.ocr_discern.FaceDetectExpActivity" />
+        <activity android:name=".ocr_discern.FaceDetectExpActivity" />
         // H5
-        <activity android:name="com.touedian.com.facetyd.webview.WebViewActivity"></activity>
+        <activity android:name=".webview.WebViewActivity" />
         //银行仿微信支付宝,层叠
-        <activity android:name="com.touedian.com.facetyd.model.CardViewActivity" />
+        <activity android:name=".model.CardViewActivity" />
         //手机号码注册
-        <activity android:name="com.touedian.com.facetyd.model.PhoneActivity" />
+        <activity android:name=".model.PhoneActivity" />
         //个人信息页面 设置
-        <activity android:name="com.touedian.com.facetyd.model.PersonalActivity"></activity>
+        <activity android:name=".model.PersonalActivity" />
         //活体检测
-        <activity android:name="com.touedian.com.facetyd.model.OcrDetectionActivity" />
+        <activity android:name=".model.OcrDetectionActivity" />
         //交易所
-        <activity android:name="com.touedian.com.facetyd.model.CxchangeActivity" />
+        <activity android:name=".model.CxchangeActivity" />
         //刷脸登录页面
-        <activity android:name="com.touedian.com.facetyd.model.BrushfaceActivity" />
+        <activity android:name=".model.BrushfaceActivity" />
         //修改实名认证
-        <activity android:name="com.touedian.com.facetyd.model.IDCardAmendActivity" />
+        <activity android:name=".model.IDCardAmendActivity" />
         //实名认证查看页面
-        <activity android:name="com.touedian.com.facetyd.model.IDLookActivity" />
+        <activity android:name=".model.IDLookActivity" />
         //银行卡扫描
-        <activity android:name="com.touedian.com.facetyd.model.BankCardActivity"></activity>
+        <activity android:name=".model.BankCardActivity" />
         //刷脸登录
-        <activity android:name="com.touedian.com.facetyd.model.ZxingfaceActivity" />
+        <activity android:name=".model.ZxingfaceActivity" />
         // Zxing
-        <activity android:name="com.touedian.com.facetyd.google.zxing.activity.CaptureActivity" />
+        <activity android:name=".google.zxing.activity.CaptureActivity" />
         //人脸对比 进入页面
-        <activity android:name="com.touedian.com.facetyd.model.IDCardProveActivity" />
+        <activity android:name=".model.IDCardProveActivity" />
         //条款
-        <activity android:name="com.touedian.com.facetyd.model.H5Activity" />
-        <activity android:name="com.touedian.com.facetyd.model.PayingFaceActivity"></activity>
-
-
-
-
-
-
-
+        <activity android:name=".model.H5Activity" />
+        <activity android:name=".model.PayingFaceActivity" />
 
         <!-- 360版本更新SDK -->
         <activity
@@ -135,7 +114,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 360版本更新SDK -->
         <service
             android:name="com.qihoo.appstore.updatelib.CheckUpdateService"
@@ -144,18 +123,28 @@
         <provider
             android:name="com.qihoo.appstore.updatelib.UpdateProvider"
             android:authorities="com.touedian.com.facetyd"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/update_apk_path" />
         </provider>
-        <activity android:name="com.touedian.com.facetyd.qohoosdk.TestActivity">
 
+        <activity android:name=".qohoosdk.TestActivity" />
+        //驾驶证
+        <activity android:name=".ocr_text_cr.DrivingActivity"></activity>
+        //律师证
+        <activity android:name=".ocr_text_cr.LawyerCardActivity">
 
         </activity>
+        //网络图片文字
+        <activity android:name=".ocr_text_cr.NetworksActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
-
 
 </manifest>

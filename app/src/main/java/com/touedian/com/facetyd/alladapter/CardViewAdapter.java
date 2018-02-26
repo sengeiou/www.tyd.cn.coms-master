@@ -37,6 +37,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
             itcard = v.findViewById(R.id.itcard);
             card_number = v.findViewById(R.id.card_number);
+
+
         }
     }
 
@@ -54,6 +56,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
                 .inflate(R.layout.layout_recyclerview_item_view, parent, false);
 
         return new ViewHolder(v);
+
     }
 
     // 为Item绑定数据
@@ -76,8 +79,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
 
             }
+            notifyDataSetChanged();
             return 0;
         }
         return 0;
+
     }
 }

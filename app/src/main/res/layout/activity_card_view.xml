@@ -51,6 +51,7 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
+
     <com.southernbox.parallaxrecyclerview.ParallaxRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

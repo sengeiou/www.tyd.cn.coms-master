@@ -185,6 +185,7 @@ public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
             bmp.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
             outputStream.close();
 
+            //人脸活体检测照片路径
             bestImagePath = file.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();

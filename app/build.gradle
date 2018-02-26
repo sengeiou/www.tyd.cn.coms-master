@@ -24,8 +24,8 @@ android {
         }
     }
     compileSdkVersion 26
-    aaptOptions.cruncherEnabled= false
-    aaptOptions.useNewCruncher= false
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.touedian.com.facetyd"
         minSdkVersion 20
@@ -35,7 +35,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 加了其他的文件夹（比如 armeabi-v7a，x86等）可能会出问题
-            
+
             abiFilters "armeabi-v7a"
             // 设置支持的SO库架构
             //abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'

@@ -70,5 +70,8 @@ import android.util.Log;
         {  
             if (isDebug)  
                 Log.i(tag, msg);  
-        }  
+        }
+
+
+
     }  
