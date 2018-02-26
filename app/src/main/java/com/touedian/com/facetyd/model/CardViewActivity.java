@@ -130,6 +130,7 @@ public class CardViewActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(adapter);
+
     }
 
 /*    private List<String> constructTestDatas() {
@@ -149,6 +150,9 @@ public class CardViewActivity extends AppCompatActivity {
 
     }*/
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }
