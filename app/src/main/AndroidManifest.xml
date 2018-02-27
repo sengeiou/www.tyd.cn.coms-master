@@ -142,13 +142,16 @@
         //车牌识别
         <activity android:name=".ocr_text_cr.LicenPlateActivity" />
         // 营业执照识别
-        <activity android:name=".ocr_text_cr.BusinessLicenseActivity"></activity>
+        <activity android:name=".ocr_text_cr.BusinessLicenseActivity" />
         // 通用票据识别
-        <activity android:name=".ocr_text_cr.BillActivity">
-
-        </activity>
+        <activity android:name=".ocr_text_cr.BillActivity"></activity>
         // 通用文字识别（含位置信息版）
         <activity android:name=".ocr_text_cr.CommonLanguageActivity">
+
+        </activity>
+
+        //表格识别
+        <activity android:name=".ocr_text_cr.GridActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

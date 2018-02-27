@@ -27,26 +27,32 @@ public class Config {
 
 
     //newcodeicon
-    public  static  String TYD_Verification_Code ="http://face.touedian.com/index.php?m=face&f=index&v=sms";
+    public static String TYD_Verification_Code = "http://face.touedian.com/index.php?m=face&f=index&v=sms";
 
     //登录
-    public  static  String TYD_Phone_Login ="http://face.touedian.com/index.php?m=face&f=index&v=login";
+    public static String TYD_Phone_Login = "http://face.touedian.com/index.php?m=face&f=index&v=login";
 
     //身份证信息上传
-    public  static  String  TYD_IDcardMessage_up="http://face.touedian.com/index.php?m=face&f=index&v=upload_card";
+    public static String TYD_IDcardMessage_up = "http://face.touedian.com/index.php?m=face&f=index&v=upload_card";
 
     //银行卡信息上传
-    public  static  String   TYD_BankcardMessage_up="http://face.touedian.com/index.php?m=face&f=index&v=upload_mcard";
+    public static String TYD_BankcardMessage_up = "http://face.touedian.com/index.php?m=face&f=index&v=upload_mcard";
 
 
     //银行卡信息获取
-    public  static  String   TYD_BankcardMessage_get="http://face.touedian.com/index.php?m=face&f=index&v=get_cardinfo";
+    public static String TYD_BankcardMessage_get = "http://face.touedian.com/index.php?m=face&f=index&v=get_cardinfo";
 
 
     //交易所编码
-    public  static  String   TYD_ExchangeMessage_get="http://face.touedian.com/index.php?m=face&f=index&v=money";
+    public static String TYD_ExchangeMessage_get = "http://face.touedian.com/index.php?m=face&f=index&v=money";
 
     //用户头像||更改头像
-    public  static  String   TYD_PersonIcon=" http://face.touedian.com/index.php?m=face&f=index&v=member_info";
+    public static String TYD_PersonIcon = " http://face.touedian.com/index.php?m=face&f=index&v=member_info";
+
+    //表格文字识别 _ 提交请求接口
+    public static String TYD_GridMessage = "https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request";
+
+    //OAuth2.0       获取Access Token
+    public static String Access_Token = "https://aip.baidubce.com/oauth/2.0/token";
 
 }
