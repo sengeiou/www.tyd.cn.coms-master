@@ -2,21 +2,21 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
-
 import com.touedian.com.facetyd.R;
-import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
+
+import com.touedian.com.facetyd.ocr_text_bean.LicencePlateBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
@@ -24,42 +24,44 @@ import com.touedian.com.facetyd.utilsx.L;
 import org.json.JSONObject;
 
 
-//驾驶证识别
-public class DrivingActivity extends AppCompatActivity {
+public class LicenPlateActivity extends AppCompatActivity {
     private AlertDialog.Builder alertDialog;
     private boolean hasGotToken = false;
-    private static final int REQUEST_CODE_DRIVING_LICENSE = 121;
-    private String DrivingCardMessage;
+    private static final int REQUEST_CODE_LICENSE_PLATE = 122;
+    private String LicenPlateMessage;
     private JSONObject jsonObject;
-    private DrivingCardBean drivingCardBean;
-    private TextView textView;
+    private TextView licencePlate_text1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driving);
+        setContentView(R.layout.activity_licen_plate);
+
+
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
 
-        InitDate();
-        // 驾驶证识别
-        findViewById(R.id.driving_license_button).setOnClickListener(new View.OnClickListener() {
+
+        initdate();
+        // 车牌识别
+        findViewById(R.id.license_plate_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(DrivingActivity.this, CameraActivity.class);
+                if (!checkTokenStatus()) {
+                    return;
+                }
+                Intent intent = new Intent(LicenPlateActivity.this, CameraActivity.class);
                 intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                         FileUtil.getSaveFile(getApplication()).getAbsolutePath());
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_DRIVING_LICENSE);
+                startActivityForResult(intent, REQUEST_CODE_LICENSE_PLATE);
             }
         });
     }
 
-    private void InitDate() {
-        textView = findViewById(R.id.zhuzhi);
-
+    private void initdate() {
+        licencePlate_text1 = findViewById(R.id.LicencePlate_Text1);
     }
 
     private void initAccessTokenWithAkSk() {
@@ -89,45 +91,43 @@ public class DrivingActivity extends AppCompatActivity {
         });
 
 
-        DrivingCardMessage =message;
-        L.i("11111DrivingCardMessage", "" + DrivingCardMessage);
+        LicenPlateMessage = message;
+        L.i("LicenPlateMessage", "" + LicenPlateMessage);
 
         try {
-            jsonObject = new JSONObject(DrivingCardMessage);
+            jsonObject = new JSONObject(LicenPlateMessage);
 
-            drivingCardBean = JsonUtil.parseJsonToBean(DrivingCardMessage,DrivingCardBean.class);
+            LicencePlateBean licencePlateBean = JsonUtil.parseJsonToBean(LicenPlateMessage,LicencePlateBean.class);
 
-            DrivingCardBean.WordsResultBean words_result = drivingCardBean.getWords_result();
+            LicencePlateBean.WordsResultBean words_result = licencePlateBean.getWords_result();
+
+            String number = words_result.getNumber();
 
 
-            String words = words_result.get证号().getWords();
+            licencePlate_text1.setText(number);
 
-            String words1 = words_result.get住址().getWords();
-            textView.setText(words1);
-            L.i(textView.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
-
     private void infoPopText(final String result) {
         alertText("", result);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        // 识别成功回调，驾驶证识别
-        if (requestCode == REQUEST_CODE_DRIVING_LICENSE && resultCode == Activity.RESULT_OK) {
-            RecognizeService.recDrivingLicense(FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
+        // 识别成功回调，车牌识别
+        if (requestCode == REQUEST_CODE_LICENSE_PLATE && resultCode == Activity.RESULT_OK) {
+            RecognizeService.recLicensePlate(FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
                             infoPopText(result);
-                            L.i(result);
+                            L.i(result.toString());
                         }
                     });
         }
@@ -136,5 +136,10 @@ public class DrivingActivity extends AppCompatActivity {
 
     }
 
-
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
+        }
+        return hasGotToken;
+    }
 }

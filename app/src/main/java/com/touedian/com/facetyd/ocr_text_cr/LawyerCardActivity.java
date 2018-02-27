@@ -15,9 +15,9 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.touedian.com.facetyd.R;
-import com.touedian.com.facetyd.bean.DrivingCardBean;
+import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 
-import com.touedian.com.facetyd.bean.LawyerCardBean;
+import com.touedian.com.facetyd.ocr_text_bean.LawyerCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;

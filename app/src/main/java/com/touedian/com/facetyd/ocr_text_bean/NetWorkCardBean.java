@@ -1,4 +1,4 @@
-package com.touedian.com.facetyd.bean;
+package com.touedian.com.facetyd.ocr_text_bean;
 
 import java.util.List;
 

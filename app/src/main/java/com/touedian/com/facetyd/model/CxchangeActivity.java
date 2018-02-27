@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
-import com.touedian.com.facetyd.bean.CxchangeBean;
+import com.touedian.com.facetyd.ocr_text_bean.CxchangeBean;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;

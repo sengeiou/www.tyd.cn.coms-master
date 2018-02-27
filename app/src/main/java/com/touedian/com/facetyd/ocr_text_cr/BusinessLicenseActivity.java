@@ -2,64 +2,70 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
-
 import com.touedian.com.facetyd.R;
-import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
+import com.touedian.com.facetyd.ocr_text_bean.BusinessLicenseBean;
+import com.touedian.com.facetyd.ocr_text_bean.LicencePlateBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 
 import org.json.JSONObject;
 
-
-//驾驶证识别
-public class DrivingActivity extends AppCompatActivity {
+public class BusinessLicenseActivity extends AppCompatActivity {
     private AlertDialog.Builder alertDialog;
     private boolean hasGotToken = false;
-    private static final int REQUEST_CODE_DRIVING_LICENSE = 121;
-    private String DrivingCardMessage;
     private JSONObject jsonObject;
-    private DrivingCardBean drivingCardBean;
-    private TextView textView;
+
+    private static final int REQUEST_CODE_BUSINESS_LICENSE = 123;
+    private String BusinessLicenseMessage;
+    private TextView business_text1;
+    private TextView business_text2;
+    private TextView business_text3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driving);
+        setContentView(R.layout.activity_business_license);
+
+
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
 
-        InitDate();
-        // 驾驶证识别
-        findViewById(R.id.driving_license_button).setOnClickListener(new View.OnClickListener() {
+
+        initdate();
+        // 营业执照识别
+        findViewById(R.id.business_license_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(DrivingActivity.this, CameraActivity.class);
+                if (!checkTokenStatus()) {
+                    return;
+                }
+                Intent intent = new Intent(BusinessLicenseActivity.this, CameraActivity.class);
                 intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                         FileUtil.getSaveFile(getApplication()).getAbsolutePath());
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_DRIVING_LICENSE);
+                startActivityForResult(intent, REQUEST_CODE_BUSINESS_LICENSE);
             }
         });
     }
 
-    private void InitDate() {
-        textView = findViewById(R.id.zhuzhi);
-
+    private void initdate() {
+        business_text1 = findViewById(R.id.Business_license_text1);
+        business_text2 = findViewById(R.id.Business_license_text2);
+        business_text3 = findViewById(R.id.Business_license_text3);
     }
 
     private void initAccessTokenWithAkSk() {
@@ -77,6 +83,8 @@ public class DrivingActivity extends AppCompatActivity {
             }
         }, getApplicationContext(), "9evxCWG1MTN8k7u3XU0qVIqi", "5eesgiqRtSflHYOM5OUZLSsSeMPCC81n");
     }
+
+
     private void alertText(final String title, final String message) {
         this.runOnUiThread(new Runnable() {
             @Override
@@ -88,23 +96,27 @@ public class DrivingActivity extends AppCompatActivity {
             }
         });
 
-
-        DrivingCardMessage =message;
-        L.i("11111DrivingCardMessage", "" + DrivingCardMessage);
+        BusinessLicenseMessage = message;
+        L.i("BusinessLicenseMessage", "" + BusinessLicenseMessage);
 
         try {
-            jsonObject = new JSONObject(DrivingCardMessage);
+            jsonObject = new JSONObject(BusinessLicenseMessage);
 
-            drivingCardBean = JsonUtil.parseJsonToBean(DrivingCardMessage,DrivingCardBean.class);
-
-            DrivingCardBean.WordsResultBean words_result = drivingCardBean.getWords_result();
+            BusinessLicenseBean businessLicenseBean = JsonUtil.parseJsonToBean(BusinessLicenseMessage,BusinessLicenseBean.class);
 
 
-            String words = words_result.get证号().getWords();
+            BusinessLicenseBean.WordsResultBean words_result = businessLicenseBean.getWords_result();
 
-            String words1 = words_result.get住址().getWords();
-            textView.setText(words1);
-            L.i(textView.toString());
+
+            String words_wordname = words_result.get单位名称().getWords();
+            String words_address = words_result.get地址().getWords();
+            String words_data = words_result.get成立日期().getWords();
+
+            business_text1.setText(words_wordname);
+            business_text2.setText(words_address);
+            business_text3.setText(words_data);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,26 +127,31 @@ public class DrivingActivity extends AppCompatActivity {
     private void infoPopText(final String result) {
         alertText("", result);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        // 识别成功回调，驾驶证识别
-        if (requestCode == REQUEST_CODE_DRIVING_LICENSE && resultCode == Activity.RESULT_OK) {
-            RecognizeService.recDrivingLicense(FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
+        // 识别成功回调，营业执照识别
+        if (requestCode == REQUEST_CODE_BUSINESS_LICENSE && resultCode == Activity.RESULT_OK) {
+            RecognizeService.recBusinessLicense(FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
                             infoPopText(result);
-                            L.i(result);
+                            L.i(result.toString());
                         }
                     });
         }
 
 
-
     }
 
-
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
+        }
+        return hasGotToken;
+    }
 }

@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.ocr.sdk.OCR;
@@ -15,8 +14,7 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.touedian.com.facetyd.R;
-import com.touedian.com.facetyd.bean.DrivingCardBean;
-import com.touedian.com.facetyd.bean.NetWorkCardBean;
+import com.touedian.com.facetyd.ocr_text_bean.NetWorkCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;

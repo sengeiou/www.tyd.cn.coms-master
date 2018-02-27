@@ -132,16 +132,27 @@
 
         <activity android:name=".qohoosdk.TestActivity" />
         //驾驶证
-        <activity android:name=".ocr_text_cr.DrivingActivity"></activity>
+        <activity android:name=".ocr_text_cr.DrivingActivity" />
         //律师证
-        <activity android:name=".ocr_text_cr.LawyerCardActivity">
+        <activity android:name=".ocr_text_cr.LawyerCardActivity" />
+        //网络图片文字
+        <activity android:name=".ocr_text_cr.NetworksActivity" />
+        // 行驶证识别
+        <activity android:name=".ocr_text_cr.LineCardActivity" />
+        //车牌识别
+        <activity android:name=".ocr_text_cr.LicenPlateActivity" />
+        // 营业执照识别
+        <activity android:name=".ocr_text_cr.BusinessLicenseActivity"></activity>
+        // 通用票据识别
+        <activity android:name=".ocr_text_cr.BillActivity">
 
         </activity>
-        //网络图片文字
-        <activity android:name=".ocr_text_cr.NetworksActivity">
+        // 通用文字识别（含位置信息版）
+        <activity android:name=".ocr_text_cr.CommonLanguageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
