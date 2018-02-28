@@ -528,11 +528,11 @@ public class PersonalActivity extends AppCompatActivity {
                             if (outputUri != null) {
                                 bm = ImageTools.decodeUriAsBitmap(outputUri);
 
-                             /*   //如果是拍照的,删除临时文件
+                                //如果是拍照的,删除临时文件
                                 temFile = new File(imgPath);
                                 if (temFile.exists()) {
                                     temFile.delete();
-                                }*/
+                                }
                                 //进行上传，上传成功后显示新图片,这里不演示上传的逻辑，上传只需将scaleImgPath路径下的文件上传即可。
                                 //复制并压缩到自己的目录并压缩
                                 scaleImgPath = FileUtils.saveBitmapByQuality(bm, 80);
@@ -633,12 +633,11 @@ public class PersonalActivity extends AppCompatActivity {
         params = new HashMap<String, String>();
 
         params.put("uname", setTextName.getText().toString());
-        L.i("uname", setTextName.getText().toString());
+
         params.put("uid", String.valueOf(usid));
-        L.i("uid", String.valueOf(usid));
 
         params.put("avatar", scaleImgPath);
-        L.i("avatar", scaleImgPath);
+
 
 
         HttpUtils.doPost(Config.TYD_PersonIcon, params, new Callback() {

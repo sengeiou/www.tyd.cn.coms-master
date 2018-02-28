@@ -39,12 +39,21 @@
         <activity
             android:name=".login.StartActivity"
             android:theme="@style/AppTheme.Launcher" />
-        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity" />
         //身份证和银行卡识别目录
         <activity android:name=".ocr_text_cr.Ocr_Text_Activity" />
         //实名认证,身份证
-        <activity android:name=".ocr_text_cr.IDCardActivity" />
+        <activity android:name=".ocr_text_cr.IDCardActivity" >
+
+        </activity>
 
         <!-- fileProvider -->
         <provider
@@ -146,12 +155,7 @@
         <activity android:name=".ocr_text_cr.BillActivity"></activity>
         // 通用文字识别（含位置信息版）
         <activity android:name=".ocr_text_cr.CommonLanguageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         //表格识别

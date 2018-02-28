@@ -3,8 +3,11 @@
  */
 package com.touedian.com.facetyd.ocr_text_cr;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,9 +23,11 @@ import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bumptech.glide.Glide;
 import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
+import com.touedian.com.facetyd.bean.PersonalIConBean;
 import com.touedian.com.facetyd.model.IDCardAmendActivity;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
+import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.SPUtils;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
@@ -30,9 +35,14 @@ import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -40,6 +50,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -79,7 +90,7 @@ public class IDCardActivity extends AppCompatActivity {
     private String signDate;
     private String expiryDate;
     private String iDcardMassgAmend;
-
+    private String scaleImgPath;
     private ImageView id_card_front_button;
     private ImageView id_card_back_button;
     private Map<String, String> Idcard_up = new HashMap<String, String>();
@@ -90,10 +101,14 @@ public class IDCardActivity extends AppCompatActivity {
     private JSONObject jsonObjectfront;
     private int uid;
 
-
+    private String fileName;
     private HashMap<String, String> idcard_zhuan;
     private int ieGrid;
+    private HashMap<String, String> params;
 
+    private String filePathls_front;
+    private String filePathls_back;
+    private Bitmap bitmap;
 
     private boolean checkGalleryPermission() {
         int ret = ActivityCompat.checkSelfPermission(IDCardActivity.this, Manifest.permission
@@ -112,21 +127,20 @@ public class IDCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_idcard);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         if (intent != null) {
 
-               // uid = intent.getStringExtra("uid");
-            ieGrid = intent.getExtras().getInt("identity_status");
-             //   L.i("111",uid.toString());
-            uid=   SPUtils.getInt(IDCardActivity.this,"uid",uid);
 
+            ieGrid = intent.getExtras().getInt("identity_status");
+
+            uid = SPUtils.getInt(IDCardActivity.this, "uid", uid);
 
 
         }
         initAccessTokenWithAkSk();
         alertDialog = new AlertDialog.Builder(this);
 
-        ImageView id_card_backimage=findViewById(R.id.id_card_backimage);
+        ImageView id_card_backimage = findViewById(R.id.id_card_backimage);
         id_card_backimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,18 +159,21 @@ public class IDCardActivity extends AppCompatActivity {
                 //展示的页面，不可修改
                 // Intent intent =new Intent(IDCardActivity.this,IDLookActivity.class);
                 // intent.putExtra("IDcardMassageshow", iDcardMassg);
-                 //startActivity(intent);
+                //startActivity(intent);
                 PostIdCard();
+
+
+
                 //可修改的页面
                 Intent intent = new Intent(IDCardActivity.this, IDCardAmendActivity.class);
 
                 intent.putExtra("IDcardMassageshow", iDcardMassg);
 
-                intent.putExtra("identity_status",ieGrid);
+                intent.putExtra("identity_status", ieGrid);
                 intent.putExtra("name", name);
-//                L.i("6666",name);
+
                 intent.putExtra("idNumber", idNumber);
-                L.i("6666",idNumber);
+
                 intent.putExtra("signDate", signDate);
 
                 intent.putExtra("expiryDate", expiryDate);
@@ -174,7 +191,7 @@ public class IDCardActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-               // PostIdCard();
+                // PostIdCard();
                 Intent intent = new Intent(IDCardActivity.this, CameraActivity.class);
                 intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                         FileUtil.getSaveFile(getApplication()).getAbsolutePath());
@@ -194,47 +211,10 @@ public class IDCardActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
         });
+
+
     }
 
-
-  /*      //身份证正面扫描
-        findViewById(R.id.id_card_front_button_native).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(IDCardActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-
-                intent.putExtra(CameraActivity.KEY_NATIVE_TOKEN,
-                        OCR.getInstance().getLicense());
-                intent.putExtra(CameraActivity.KEY_NATIVE_ENABLE,
-                        true);
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_FRONT);
-                startActivityForResult(intent, REQUEST_CODE_CAMERA);
-            }
-        });*/
-
-
-
-    /*    //身份证反面扫描
-        findViewById(R.id.id_card_back_button_native).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(IDCardActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_NATIVE_TOKEN,
-                        OCR.getInstance().getLicense());
-                intent.putExtra(CameraActivity.KEY_NATIVE_ENABLE,
-                        true);
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_BACK);
-                startActivityForResult(intent, REQUEST_CODE_CAMERA);
-            }
-        });
-    }*/
 
     private void initAccessTokenWithAkSk() {
         OCR.getInstance().initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
@@ -252,7 +232,7 @@ public class IDCardActivity extends AppCompatActivity {
         }, getApplicationContext(), "9evxCWG1MTN8k7u3XU0qVIqi", "5eesgiqRtSflHYOM5OUZLSsSeMPCC81n");
     }
 
-    private void recIDCard(String idCardSide, String filePath) {
+    private void recIDCard(String idCardSide, final String filePath) {
         IDCardParams param = new IDCardParams();
         param.setImageFile(new File(filePath));
         // 设置身份证正反面
@@ -268,10 +248,13 @@ public class IDCardActivity extends AppCompatActivity {
                 if (result != null) {
                     alertText("", result.toString());
 
+
+
                     ToastUtils.showShort(IDCardActivity.this, "认证成功");
 
                 }
             }
+
 
             @Override
             public void onError(OCRError error) {
@@ -311,6 +294,7 @@ public class IDCardActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
             if (data != null) {
+
                 String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
 
                 // 通过临时文件获取拍摄的图片
@@ -319,8 +303,19 @@ public class IDCardActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(contentType)) {
                     if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
                         recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePathls);
+
+                        ImageGName();
+                        filePathls_front = filePathls;
+                        //getImageFromAssetsFile(IDCardActivity.this,fileName);
+
+
+                      //  bitmap = BitmapFactory.decodeFile(getImageFromAssetsFile(IDCardActivity.this,fileName));
+                        saveBitmapToSharedPreferences(getImageFromAssetsFile(IDCardActivity.this,fileName));
                         //身份证正面照片展示
                         this.runOnUiThread(new Runnable() {
+
+
+
                             @Override
                             public void run() {
 
@@ -334,12 +329,24 @@ public class IDCardActivity extends AppCompatActivity {
                                             .into(id_card_front_button);
 
                                 }
+
                             }
+
+
                         });
                     } else if (CameraActivity.CONTENT_TYPE_ID_CARD_BACK.equals(contentType)) {
                         recIDCard(IDCardParams.ID_CARD_SIDE_BACK, filePathls);
+
+                        filePathls_back = filePathls;
+
+                       // Bitmap bitmap1  = GetBitmap(filePathls_back, 200, 200);
+
+                       // saveBitmapToSharedPreferences(bitmap1);
                         //身份证反面照片展示
                         this.runOnUiThread(new Runnable() {
+
+
+
                             @Override
                             public void run() {
 
@@ -350,9 +357,14 @@ public class IDCardActivity extends AppCompatActivity {
                                             .skipMemoryCache(true)
                                             .diskCacheStrategy(NONE)
                                             .into(id_card_back_button);
+
+                                   // saveBitmapToSharedPreferences(convertStringToIcon(filePathls_back));
                                 }
 
+
                             }
+
+
                         });
                     }
 
@@ -394,7 +406,7 @@ public class IDCardActivity extends AppCompatActivity {
 
                 birthday = jsonObjectfront.optString("birthday");//出生日期
 
-                SPUtils.putString(IDCardActivity.this,"name",name);
+                SPUtils.putString(IDCardActivity.this, "name", name);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -416,7 +428,6 @@ public class IDCardActivity extends AppCompatActivity {
                 issueAuthority = jsonObjectback.optString("issueAuthority");//签发机关
                 signDate = jsonObjectback.optString("signDate");
                 expiryDate = jsonObjectback.optString("expiryDate");
-
 
 
             } catch (JSONException e) {
@@ -449,17 +460,17 @@ public class IDCardActivity extends AppCompatActivity {
 
         idcard_zhuan = new HashMap<String, String>();
 
-        L.i("11111",idcard_zhuan.toString());
+        L.i("11111", idcard_zhuan.toString());
 
         Idcard_up.put("uid", String.valueOf(uid));
 
-        idcard_zhuan.put("truename",name);
+        idcard_zhuan.put("truename", name);
 
-        idcard_zhuan.put("sex",sex);
+        idcard_zhuan.put("sex", sex);
 
         idcard_zhuan.put("familyname", familyname);
 
-        idcard_zhuan.put("birthday",birthday);
+        idcard_zhuan.put("birthday", birthday);
 
         idcard_zhuan.put("address", address);
 
@@ -472,57 +483,36 @@ public class IDCardActivity extends AppCompatActivity {
         idcard_zhuan.put("end_time", expiryDate);
 
 
-
-        Idcard_up.put("data",getGet(idcard_zhuan));
-
+        Idcard_up.put("data", getGet(idcard_zhuan));
 
 
+        HttpUtils.doPost(Config.TYD_IDcardMessage_up, Idcard_up, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                ToastUtils.showShort(IDCardActivity.this, "参数错误");
 
+            }
 
-            HttpUtils.doPost(Config.TYD_IDcardMessage_up, Idcard_up, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    ToastUtils.showShort(IDCardActivity.this,"参数错误");
-/*
-               /* if(e.hashCode()==-newhomepageone){
-                    ToastUtils.showLong(IDCardActivity.this,"参数错误");
-                }
-                else if(e.hashCode()==newhomepageone){
-                    ToastUtils.showLong(IDCardActivity.this,"姓名格式有误");
-                }
-                else if(e.hashCode()==3){
-                    ToastUtils.showLong(IDCardActivity.this,"名字格式有误");
-                }
-                else if(e.hashCode()==4){
-                    ToastUtils.showLong(IDCardActivity.this,"身份证格式有误");
-                }
-                else if(e.hashCode()==6){
-                    ToastUtils.showLong(IDCardActivity.this,"上传失败");
-                }*/
-                }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-
-                    if(response.code()==200){
-                        L.i("身份证上传成功",response.body().string());
-
-
-
-
-                    }
-                    //关闭防止内存泄漏
-                    if (response.body() != null) {
-                        response.body().close();
-
-                        Idcard_up.clear();
-                    }
+                if (response.code() == 200) {
+                    L.i("身份证上传成功", response.body().string());
 
                 }
+                //关闭防止内存泄漏
+                if (response.body() != null) {
+                    response.body().close();
 
-            });
+                    Idcard_up.clear();
+                }
+
+            }
+
+        });
 
     }
+
     /**
      * 转换get请求参数   集合转换字符串工具
      *
@@ -539,11 +529,121 @@ public class IDCardActivity extends AppCompatActivity {
             key = it.next();
             sb.append(key + "=" + map.get(key) + "&");
         }
-        String sbss=sb.substring(0,sb.length()-1);//减去最后一个字符号&
+        String sbss = sb.substring(0, sb.length() - 1);//减去最后一个字符号&
 
-        L.i("sbss",sbss.toString());
+        L.i("sbss", sbss.toString());
         return sbss.toString();
 
 
     }
+
+    //保存图片到SharedPreferences
+    private void saveBitmapToSharedPreferences(Bitmap bitmap) {
+
+        //第一步:将Bitmap压缩至字节数组输出流ByteArrayOutputStream
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        //第二步:利用Base64将字节数组输出流中的数据转换成字符串String
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String imageString = new String(Base64.encodeToString(byteArray, Base64.NO_WRAP));
+        //第三步:将String保持至SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("testSP", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("image", imageString);
+        editor.commit();
+
+
+        //上传
+        setImgByStr(imageString, "");
+
+
+    }
+
+    private void setImgByStr(String imageString, String imgName) {
+        //这里是头像接口，通过Post请求，拼接接口地址和ID，上传数据。
+        scaleImgPath = imageString;
+
+        params = new HashMap<String, String>();
+
+        params.put("uid", String.valueOf(uid));
+
+        params.put("cardimg1", filePathls_front);
+
+        params.put("cardimg2", filePathls_back);
+
+        HttpUtils.doPost(Config.TYD_IdCardPhone, params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+                    String s = response.body().string();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(s);
+
+                      //  personalIConBean = JsonUtil.parseJsonToBean(s, PersonalIConBean.class);
+
+
+                        L.i("0000000000000000000000", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                //   ToastUtils.showShort(PersonalActivity.this, "上传成功");
+
+
+                L.d("33333333333", response.body().string());
+                L.d("33333333333", "成功");
+
+
+            }
+        });
+
+    }
+
+    /**
+     * 通过读取Assets目录下面的文件,将其转为Bitmap对象
+     * @param fileName
+     * @return
+     */
+    private static Bitmap getImageFromAssetsFile(Context context, String fileName){
+        Bitmap image = null;
+        AssetManager manager = context.getResources().getAssets();
+        try {
+            InputStream inputStream = manager.open(fileName);
+            image = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    public void ImageGName() {
+
+        // 创建File
+        File mFile = new File(filePathls);
+
+        // 取得文件名
+        fileName = mFile.getName();
+
+    }
+
+
 }

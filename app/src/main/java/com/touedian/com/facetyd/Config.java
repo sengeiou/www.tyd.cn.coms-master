@@ -49,8 +49,8 @@ public class Config {
     //用户头像||更改头像
     public static String TYD_PersonIcon = " http://face.touedian.com/index.php?m=face&f=index&v=member_info";
 
-    //表格文字识别 _ 提交请求接口
-    public static String TYD_GridMessage = "https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request";
+    //用户头像||更改头像
+    public static String TYD_IdCardPhone = "http://face.touedian.com/index.php?m=face&f=index&v=ceshi";
 
     //OAuth2.0       获取Access Token
     public static String Access_Token = "https://aip.baidubce.com/oauth/2.0/token";
