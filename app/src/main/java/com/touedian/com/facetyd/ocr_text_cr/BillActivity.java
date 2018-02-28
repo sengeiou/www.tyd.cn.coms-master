@@ -45,6 +45,7 @@ public class BillActivity extends AppCompatActivity {
 
         initdate();
 
+
         // 通用票据识别
         findViewById(R.id.receipt_button).setOnClickListener(new View.OnClickListener() {
             @Override
