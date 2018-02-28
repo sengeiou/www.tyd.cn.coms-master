@@ -136,7 +136,6 @@
         //律师证
         <activity android:name=".ocr_text_cr.LawyerCardActivity" />
         //网络图片文字
-        <activity android:name=".ocr_text_cr.NetworksActivity" />
         // 行驶证识别
         <activity android:name=".ocr_text_cr.LineCardActivity" />
         //车牌识别
@@ -147,11 +146,6 @@
         <activity android:name=".ocr_text_cr.BillActivity"></activity>
         // 通用文字识别（含位置信息版）
         <activity android:name=".ocr_text_cr.CommonLanguageActivity">
-
-        </activity>
-
-        //表格识别
-        <activity android:name=".ocr_text_cr.GridActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -159,6 +153,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        //表格识别
     </application>
 
 </manifest>
