@@ -42,6 +42,7 @@ public class BillActivity extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
 
+
         initdate();
 
         // 通用票据识别
