@@ -105,7 +105,7 @@ public class OcrFaceActivity extends AppCompatActivity {
 
 
 
-
+            SPUtils.putString(OcrFaceActivity.this, "username", username);
             uisd = SPUtils.getInt(OcrFaceActivity.this, "uid", uisd);
             L.i("IeGrid", "" + uisd);
             L.i("IeGrid", "" + avatar);

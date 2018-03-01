@@ -22,6 +22,8 @@ import com.touedian.com.facetyd.exception.FaceException;
 import com.touedian.com.facetyd.ocr_model.AccessToken;
 import com.touedian.com.facetyd.ocr_model.LivenessVsIdcardResult;
 import com.touedian.com.facetyd.utils.OnResultListener;
+import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.SPUtils;
 
 import java.io.File;
 
@@ -33,8 +35,8 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
     public static final int OFFLINE_FACE_LIVENESS_REQUEST = 100;
 
-    private String username;
-    private String idnumber;
+    private String username="韩文瑞";
+    private String idnumber="140202199601112039";
 
     private TextView resultTipTV;
     private TextView onlineFacelivenessTipTV;
@@ -44,6 +46,7 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
     private String filePath;
     private boolean policeVerifyFinish = false;
     private boolean waitAccesstoken = true;
+    private String idnumber1;
 
 
     @Override
@@ -53,10 +56,14 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
 
         Intent intent = getIntent();
-        if (intent != null) {
+      /*  if (intent != null) {
             username = intent.getStringExtra("username");
             idnumber = intent.getStringExtra("idnumber");
-        }
+        }*/
+
+        //idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idnumber", this.idnumber);
+        //username = SPUtils.getString(FaceOnlineVerifyActivity.this, "username", this.username);
+
 
         resultTipTV = (TextView) findViewById(R.id.result_tip_tv);
         onlineFacelivenessTipTV = (TextView) findViewById(R.id.online_faceliveness_tip_tv);
@@ -112,10 +119,12 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
     private void initAccessToken() {
 
         displayTip(resultTipTV, "加载中");
+
         APIService.getInstance().init(getApplicationContext());
         APIService.getInstance().initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
             @Override
             public void onResult(AccessToken result) {
+                L.i(result.toString());
                 if (result != null && !TextUtils.isEmpty(result.getAccessToken())) {
                     Log.e("111111","AccessToken result1="+result.getAccessToken());
                     waitAccesstoken = false;
@@ -137,6 +146,7 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
                 // TODO 错误处理
                 displayTip(resultTipTV, "在线活体token获取失败3");
                 retBtn.setVisibility(View.VISIBLE);
+                L.i(error.toString());
             }
         }, Config.apiKey, Config.secretKey);
     }
@@ -164,6 +174,8 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
         displayTip(resultTipTV, "公安身份核实中...");
         APIService.getInstance().policeVerify(username, idnumber, filePath, new
                 OnResultListener<LivenessVsIdcardResult>() {
+
+
             @Override
             public void onResult(LivenessVsIdcardResult result) {
                 delete();
@@ -181,6 +193,8 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
             @Override
             public void onError(FaceException error) {
+                L.e(username.toString());
+                L.e(idnumber.toString());
                 delete();
                 displayTip(resultTipTV, "核身失败：" + error.getErrorMessage());
                 // TODO 错误处理

@@ -14,7 +14,7 @@ public class Config {
 //     为了的安全，建议放在您的服务端，端把人脸传给服务器，在服务端端进行人脸注册、识别放在示例里面是为了您快速看到效果
     public static String apiKey = "G8Yb4pN89mMGRUgwi5DAWjde";
     public static String secretKey = "UW2Z6YEaCrdkXO14Mv0BlmD6o1jG23as";
-    public static String licenseID = "facetyd-face-android";
+    public static String licenseID = "facestyd-face-android";
     public static String licenseFileName = "idl-license.face-android";
 
     /**

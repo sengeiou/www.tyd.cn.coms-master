@@ -39,13 +39,9 @@
         <activity
             android:name=".login.StartActivity"
             android:theme="@style/AppTheme.Launcher" />
+        //Log
         <activity android:name=".login.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         //身份证和银行卡识别目录
@@ -69,9 +65,19 @@
         </provider>
         //9宫格 首页
         <activity android:name=".ocr_face.OcrFaceActivity" />
-        <activity android:name=".ocr_face.FaceOnlineVerifyActivity" />
+        //在线检测活体和公安核实
+        <activity android:name=".ocr_face.FaceOnlineVerifyActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         // (自定义) 活体人脸动态检测
-        <activity android:name=".ocr_face.OfflineFaceLivenessActivity" />
+        <activity android:name=".ocr_face.OfflineFaceLivenessActivity" >
+
+        </activity>
         //在线人脸识别
         <activity android:name=".ocr_discern.DetectLoginActivity" />
         //识别返回，{照片和信息}

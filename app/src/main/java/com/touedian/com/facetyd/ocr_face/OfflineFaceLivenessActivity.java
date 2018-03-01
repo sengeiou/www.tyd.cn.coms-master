@@ -36,7 +36,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //活体检测参数设置
-public class OfflineFaceLivenessActivity extends FaceLivenessActivity {
+public class    OfflineFaceLivenessActivity extends FaceLivenessActivity {
 
     private String bestImagePath;
     private AlertDialog.Builder alertDialog;

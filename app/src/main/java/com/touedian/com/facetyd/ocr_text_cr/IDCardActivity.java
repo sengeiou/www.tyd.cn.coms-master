@@ -408,6 +408,8 @@ public class IDCardActivity extends AppCompatActivity {
 
                 SPUtils.putString(IDCardActivity.this, "name", name);
 
+                SPUtils.putString(IDCardActivity.this, "idNumber", idNumber);
+
             } catch (JSONException e) {
                 e.printStackTrace();
 

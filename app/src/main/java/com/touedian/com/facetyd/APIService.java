@@ -35,11 +35,13 @@ import java.util.UUID;
 public class APIService {
 
 
+
     // 获取在线活体检测和公安接口使用的token， client_id为ak， client_secret为sk，为了安全起见，请把ak，sk放在自己的服务端去获取token
-    private static final String ACCESS_TOKEN_URL = "https://aip.baidubce.com/oauth/newhomepagetwo.0/token";
+    private static final String ACCESS_TOKEN_URL = "https://aip.baidubce.com/oauth/2.0/token";
+
 
     // 公安接口
-    private static final String LIVENESS_VS_IDCARD_URL = "https://aip.baidubce.com/rest/newhomepagetwo.0/face/v2/person/verify";
+    private static final String LIVENESS_VS_IDCARD_URL = "https://aip.baidubce.com/rest/2.0/face/v2/person/verify";
 
 
     private static final String BASE_URL = "https://aip.baidubce.com";
@@ -89,6 +91,7 @@ public class APIService {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
+
     /**
      * 明文aksk获取token
      *
@@ -100,10 +103,10 @@ public class APIService {
                                         String sk) {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("client_id=").append("G8Yb4pN89mMGRUgwi5DAWjde");
-        sb.append("&client_secret=").append("UW2Z6YEaCrdkXO14Mv0BlmD6o1jG23as");
+        sb.append("client_id=").append(ak);
+        sb.append("&client_secret=").append(sk);
         sb.append("&grant_type=client_credentials");
-        HttpUtil.getInstance().getAccessToken(listener, ACCESS_TOEKN_URL, sb.toString());
+        HttpUtil.getInstance().getAccessToken(listener, ACCESS_TOKEN_URL, sb.toString());
 
     }
 
