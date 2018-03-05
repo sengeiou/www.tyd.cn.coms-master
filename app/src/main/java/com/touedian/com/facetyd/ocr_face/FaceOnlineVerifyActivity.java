@@ -56,10 +56,10 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
 
         Intent intent = getIntent();
-      /*  if (intent != null) {
+        if (intent != null && username.isEmpty() && idnumber.isEmpty()) {
             username = intent.getStringExtra("username");
             idnumber = intent.getStringExtra("idnumber");
-        }*/
+        }
 
         //idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idnumber", this.idnumber);
         //username = SPUtils.getString(FaceOnlineVerifyActivity.this, "username", this.username);
