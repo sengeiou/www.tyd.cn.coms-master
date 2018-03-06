@@ -123,7 +123,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
             }
             if(10 == position  ){
 
-                holder.imageView.setBackgroundResource(R.mipmap.linecardimg);
+                holder.imageView.setBackgroundResource(R.mipmap.downlinecardimg);
                 notifyDataSetChanged();
             }
             if(11 == position  ){
