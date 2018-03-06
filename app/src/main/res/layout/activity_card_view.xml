@@ -14,7 +14,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="45.5dp"
+            android:layout_height="60.5dp"
             android:background="#25b5ff" />
 
         <ImageView
@@ -22,7 +22,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="32dp"
             android:background="@mipmap/allbackbutton" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="125dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="32dp"
             android:layout_toEndOf="@+id/bankcard_back"
             android:text="银行卡"
             android:textColor="@color/white"

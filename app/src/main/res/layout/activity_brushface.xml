@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="105.5dp" />
         <ImageView
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="34dp"
             android:layout_marginLeft="15dp"
             android:background="@mipmap/allbackbutton"
             android:layout_width="20dp"
@@ -24,7 +24,7 @@
 
         <TextView
             android:textColor="@color/colorWhite"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="34dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

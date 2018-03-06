@@ -9,13 +9,13 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="60dp">
     <ImageView
         android:background="#25b5ff"
         android:layout_width="match_parent"
-        android:layout_height="119.5dp" />
+        android:layout_height="300dp" />
     <ImageView
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="22dp"
         android:background="@mipmap/allbackbutton"
         android:layout_width="15dp"
@@ -25,7 +25,7 @@
     <TextView
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

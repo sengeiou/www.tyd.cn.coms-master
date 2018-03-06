@@ -18,7 +18,7 @@
             android:layout_height="119.5dp" />
         <ImageView
             android:id="@+id/personal_back"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="14.5dp"
             android:layout_width="15dp"
             android:layout_height="15dp"
@@ -27,7 +27,7 @@
 
         <TextView
             android:textColor="@color/white"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

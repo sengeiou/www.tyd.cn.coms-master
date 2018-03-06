@@ -7,9 +7,9 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
 
-        >
+
 
         <ImageView
 
@@ -48,10 +48,11 @@
         android:layout_height="wrap_content">
 
         <ScrollView
+            android:overScrollMode="never"
             android:scrollbars="none"
             android:layout_width="wrap_content"
-            android:layout_height="1500dp"
-            android:overScrollMode="never">
+            android:layout_height="1500dp">
+
 
             <com.touedian.com.facetyd.wigdet.MyGridView
                 android:id="@+id/gridview"

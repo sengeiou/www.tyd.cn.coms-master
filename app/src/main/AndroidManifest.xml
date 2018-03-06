@@ -121,6 +121,7 @@
         <activity android:name=".model.IDCardProveActivity" />
         //条款
         <activity android:name=".model.H5Activity" />
+        //人脸支付
         <activity android:name=".model.PayingFaceActivity" />
 
         <!-- 360版本更新SDK -->

@@ -30,9 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="115dp"
+       android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:layout_toEndOf="@+id/bankcard_back"
         android:text="添加银行卡"
         android:textColor="@color/white"
         android:textSize="16sp" />
