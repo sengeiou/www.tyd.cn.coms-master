@@ -133,22 +133,6 @@ public class CardViewActivity extends AppCompatActivity {
 
     }
 
-/*    private List<String> constructTestDatas() {
-        datas = new ArrayList<>();
-        datas.add("刘一");
-        datas.add("陈二");
-        datas.add("张三");
-        datas.add("李四");
-        datas.add("王五");
-        datas.add("赵六");
-        datas.add("孙七");
-        datas.add("周八");
-        datas.add("吴九");
-        datas.add("郑十");
-        return datas;
-
-
-    }*/
 
     @Override
     protected void onResume() {

@@ -3,6 +3,7 @@ package com.touedian.com.facetyd.model;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,14 +26,19 @@ import com.baidu.ocr.sdk.model.BankCardParams;
 import com.baidu.ocr.sdk.model.BankCardResult;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.bean.CardviewBean;
+import com.touedian.com.facetyd.ocr_text_cr.IDCardActivity;
 import com.touedian.com.facetyd.ocr_text_cr.RecognizeService;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.PictureUtil;
 import com.touedian.com.facetyd.utilsx.SPUtils;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
 
@@ -70,9 +76,10 @@ public class BankCardActivity extends AppCompatActivity {
     private Button bankcard_btn;
     private ImageView imageView2;
 
-
+    private HashMap<String, String> params;
     private boolean Yhk;
     private CardviewBean cardviewBean;
+    private String stringBase64;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +131,10 @@ public class BankCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                BankCardsetImgByStr();
+
                  finish();
+
             }
         });
 
@@ -201,7 +211,25 @@ public class BankCardActivity extends AppCompatActivity {
                                             .diskCacheStrategy(NONE)
                                             .into(idcard_button);
 
+                                        //URL 转bitmap
+                                        Glide.with(BankCardActivity.this)
+                                                .load(filePath)
+                                                .asBitmap()
+                                                .diskCacheStrategy(NONE)
+                                                .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
 
+
+
+                                                    @Override
+                                                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                                        //得到bitmap
+                                                        L.i("88888"+bitmap.toString());
+
+                                                        stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+                                                    }
+
+                                                });
 
                                         PostBankcard();
                                     }else {
@@ -278,7 +306,57 @@ public class BankCardActivity extends AppCompatActivity {
         });
 
     }
+    private void BankCardsetImgByStr() {
+        //这里是头像接口，通过Post请求，拼接接口地址和ID，上传数据。
 
+
+        params = new HashMap<String, String>();
+
+        params.put("uid", String.valueOf(uid));
+
+        params.put("mcard_id", number);
+
+        params.put("mcard_img", stringBase64);
+
+        HttpUtils.doPost(Config.TYD_BankCardpicture, params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    try {
+
+
+
+                        L.i("Base64+++++++++1111111111", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                L.i("银行卡照片上传成功", response.body().string());
+                L.d("Base64+++++++++33333333333", "成功");
+
+
+            }
+        });
+
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -301,22 +379,10 @@ public class BankCardActivity extends AppCompatActivity {
 
 
         ToastUtils.showShort(BankCardActivity.this, result.toString());
-        //alertText("", result);
+
     }
 
-    private void alertText(final String title, final String message) {
 
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog
-                        .setMessage("请稍等")
-                        .setPositiveButton("exchangebutton", null)
-                        .show();
-
-            }
-        });
-    }
 
 
     /**

@@ -50,7 +50,11 @@ public class Config {
     public static String TYD_PersonIcon = " http://face.touedian.com/index.php?m=face&f=index&v=member_info";
 
     // 身份证照片
-    public static String TYD_IdCardPhone = "http://face.touedian.com/index.php?m=face&f=index&v=ceshi";
+    public static String TYD_IdCardpicture = "http://face.touedian.com/index.php?m=face&f=index&v=ceshi";
+
+    // 银行卡照片
+
+    public static String TYD_BankCardpicture ="http://face.touedian.com/index.php?m=face&f=index&v=ceshid";
 
     //OAuth2.0       获取Access Token
     public static String Access_Token = "https://aip.baidubce.com/oauth/2.0/token";

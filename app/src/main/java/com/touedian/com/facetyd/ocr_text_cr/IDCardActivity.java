@@ -589,27 +589,7 @@ public class IDCardActivity extends AppCompatActivity {
 
     }
 
-    //保存图片到SharedPreferences
-    private void saveBitmapToSharedPreferences(Bitmap bitmap) {
 
-        //第一步:将Bitmap压缩至字节数组输出流ByteArrayOutputStream
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
-        //第二步:利用Base64将字节数组输出流中的数据转换成字符串String
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String imageString = new String(Base64.encodeToString(byteArray, Base64.NO_WRAP));
-        //第三步:将String保持至SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("testSP", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("image", imageString);
-        editor.commit();
-
-
-        //上传
-        //setImgByStr(imageString, "");
-
-
-    }
 
     private void setImgByStr() {
         //这里是头像接口，通过Post请求，拼接接口地址和ID，上传数据。
@@ -623,7 +603,7 @@ public class IDCardActivity extends AppCompatActivity {
 
         params.put("cardimg2", back_stringBase64);
 
-        HttpUtils.doPost(Config.TYD_IdCardPhone, params, new Callback() {
+        HttpUtils.doPost(Config.TYD_IdCardpicture, params, new Callback() {
 
 
             @Override
