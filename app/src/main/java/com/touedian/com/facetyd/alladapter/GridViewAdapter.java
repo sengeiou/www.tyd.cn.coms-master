@@ -113,7 +113,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
             }
             if(8 == position  ){
 
-                holder.imageView.setBackgroundResource(R.mipmap.fit);
+                holder.imageView.setBackgroundResource(R.mipmap.certificateimg);
                 notifyDataSetChanged();
             }
             if(9 == position  ){
@@ -123,7 +123,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
             }
             if(10 == position  ){
 
-                holder.imageView.setBackgroundResource(R.mipmap.downlinecardimg);
+                holder.imageView.setBackgroundResource(R.mipmap. linecardimg);
                 notifyDataSetChanged();
             }
             if(11 == position  ){
@@ -187,7 +187,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
                 notifyDataSetChanged();
             }
             if(8 == position ){
-                holder.imageView.setBackgroundResource(R.mipmap.downfit);
+                holder.imageView.setBackgroundResource(R.mipmap.downcertificateimg);
                 notifyDataSetChanged();
             }
             if(9 == position ){
@@ -195,7 +195,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
                 notifyDataSetChanged();
             }
             if(10 == position ){
-                holder.imageView.setBackgroundResource(R.mipmap.linecardimg);
+                holder.imageView.setBackgroundResource(R.mipmap.downlinecardimg);
                 notifyDataSetChanged();
             }
             if(11 == position ){

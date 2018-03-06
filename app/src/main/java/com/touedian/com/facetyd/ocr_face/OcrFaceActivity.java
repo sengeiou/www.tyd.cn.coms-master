@@ -35,6 +35,7 @@ import com.touedian.com.facetyd.ocr_text_cr.BusinessLicenseActivity;
 import com.touedian.com.facetyd.ocr_text_cr.CommonLanguageActivity;
 import com.touedian.com.facetyd.ocr_text_cr.DrivingActivity;
 import com.touedian.com.facetyd.ocr_text_cr.IDCardActivity;
+import com.touedian.com.facetyd.ocr_text_cr.LawyerCardActivity;
 import com.touedian.com.facetyd.ocr_text_cr.LicenPlateActivity;
 import com.touedian.com.facetyd.ocr_text_cr.LineCardActivity;
 import com.touedian.com.facetyd.utilsx.L;
@@ -87,6 +88,7 @@ public class OcrFaceActivity extends AppCompatActivity {
     private String identity_card;
     private String truename;
     private String username;
+    private ImageView btninstall;
 
 
     @Override
@@ -152,6 +154,25 @@ public class OcrFaceActivity extends AppCompatActivity {
             mGridData.add(item);
 
         }
+        //设置按钮
+        btninstall = findViewById(R.id.Btninstall);
+        btninstall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                        Intent intent = new Intent(getApplicationContext(), PersonalActivity.class);
+                        intent.putExtra("avatar", avatar);
+                        L.d("url",avatar+"++++++++++++");
+
+                        intent.putExtra("identity_card", identity_card);
+                        intent.putExtra("truename", truename);
+                        intent.putExtra("username", username);
+                        L.d("url",username+"+++++++------");
+                        startActivity(intent);
+
+            }
+        });
         mGridViewAdapter1 = new GridViewAdapter(this, R.layout.gridview_ui, mGridData, IeGrid);
         gridView.setAdapter(mGridViewAdapter1);
 
@@ -236,16 +257,11 @@ public class OcrFaceActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
+
+
                     if (position == 8) {
                         ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
-                        Intent intent = new Intent(getApplicationContext(), PersonalActivity.class);
-                        intent.putExtra("avatar", avatar);
-                        L.d("url",avatar+"++++++++++++");
-
-                        intent.putExtra("identity_card", identity_card);
-                        intent.putExtra("truename", truename);
-                        intent.putExtra("username", username);
-                        L.d("url",username+"+++++++------");
+                        Intent intent = new Intent(getApplicationContext(), LawyerCardActivity.class);
                         startActivity(intent);
                     }
                     if (position == 9) {

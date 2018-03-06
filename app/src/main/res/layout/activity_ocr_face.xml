@@ -12,25 +12,35 @@
         >
 
         <ImageView
+
             android:layout_width="match_parent"
-            android:layout_height="50.5dp"
+            android:layout_height="70.5dp"
             android:background="#25b5ff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
 
             android:text="首页"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:id="@+id/textView3" />
+
+        <ImageView
+            android:id="@+id/Btninstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_marginLeft="320dp"
+            android:background="@mipmap/installbtn" />
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="202dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="70dp" />
     </RelativeLayout>
 
     <RelativeLayout
