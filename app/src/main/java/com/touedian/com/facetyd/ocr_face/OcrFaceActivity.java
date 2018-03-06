@@ -30,7 +30,13 @@ import com.touedian.com.facetyd.model.IDLookActivity;
 import com.touedian.com.facetyd.model.OcrDetectionActivity;
 import com.touedian.com.facetyd.model.PayingFaceActivity;
 import com.touedian.com.facetyd.model.PersonalActivity;
+import com.touedian.com.facetyd.ocr_text_cr.BillActivity;
+import com.touedian.com.facetyd.ocr_text_cr.BusinessLicenseActivity;
+import com.touedian.com.facetyd.ocr_text_cr.CommonLanguageActivity;
+import com.touedian.com.facetyd.ocr_text_cr.DrivingActivity;
 import com.touedian.com.facetyd.ocr_text_cr.IDCardActivity;
+import com.touedian.com.facetyd.ocr_text_cr.LicenPlateActivity;
+import com.touedian.com.facetyd.ocr_text_cr.LineCardActivity;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.SPUtils;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
@@ -40,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OcrFaceActivity extends AppCompatActivity {
-    // IeGridOne 是已经认证完成 ,IeGridTwo 是要实名认证
+    // IeGridOne 是已经认证完成 ,IeGridTwo 是未实名认证
     public int IeGridOne = 1;
     public int IeGridTwo = 0;
 
@@ -55,6 +61,12 @@ public class OcrFaceActivity extends AppCompatActivity {
 
     //初始图片
     private String[] imgURLHs = {
+            String.valueOf(R.drawable.launch_logo),
+            String.valueOf(R.drawable.launch_logo),
+            String.valueOf(R.drawable.launch_logo),
+            String.valueOf(R.drawable.launch_logo),
+            String.valueOf(R.drawable.launch_logo),
+            String.valueOf(R.drawable.launch_logo),
             String.valueOf(R.drawable.launch_logo),
             String.valueOf(R.drawable.launch_logo),
             String.valueOf(R.drawable.launch_logo),
@@ -131,6 +143,7 @@ public class OcrFaceActivity extends AppCompatActivity {
         banner = findViewById(R.id.banner);
         gridView = findViewById(R.id.gridview);
         gridView = (GridView) findViewById(R.id.gridview);
+        gridView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mGridData = new ArrayList<GridviewBean>();
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         for (int i = 0; i < imgURLHs.length; i++) {
@@ -233,6 +246,36 @@ public class OcrFaceActivity extends AppCompatActivity {
                         intent.putExtra("truename", truename);
                         intent.putExtra("username", username);
                         L.d("url",username+"+++++++------");
+                        startActivity(intent);
+                    }
+                    if (position == 9) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                        Intent intent = new Intent(getApplicationContext(), DrivingActivity.class);
+                        startActivity(intent);
+                    }
+                    if (position == 10) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                         Intent intent = new Intent(getApplicationContext(), LineCardActivity.class);
+                         startActivity(intent);
+                    }
+                    if (position == 11) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                         Intent intent = new Intent(getApplicationContext(), LicenPlateActivity.class);
+                         startActivity(intent);
+                    }
+                    if (position == 12) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                         Intent intent = new Intent(getApplicationContext(), BusinessLicenseActivity.class);
+                         startActivity(intent);
+                    }
+                    if (position == 13) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                         Intent intent = new Intent(getApplicationContext(), BillActivity.class);
+                         startActivity(intent);
+                    }
+                    if (position == 14) {
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                        Intent intent = new Intent(getApplicationContext(), CommonLanguageActivity.class);
                         startActivity(intent);
                     }
                     mGridViewAdapter1.notifyDataSetChanged();

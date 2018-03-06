@@ -116,6 +116,36 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
                 holder.imageView.setBackgroundResource(R.mipmap.fit);
                 notifyDataSetChanged();
             }
+            if(9 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.drivingimg);
+                notifyDataSetChanged();
+            }
+            if(10 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.linecardimg);
+                notifyDataSetChanged();
+            }
+            if(11 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.cardimg);
+                notifyDataSetChanged();
+            }
+            if(12 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.businessimg);
+                notifyDataSetChanged();
+            }
+            if(13 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.billimg);
+                notifyDataSetChanged();
+            }
+            if(14 == position  ){
+
+                holder.imageView.setBackgroundResource(R.mipmap.commonlanguageimg);
+                notifyDataSetChanged();
+            }
 
 
 
@@ -158,6 +188,30 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
             }
             if(8 == position ){
                 holder.imageView.setBackgroundResource(R.mipmap.downfit);
+                notifyDataSetChanged();
+            }
+            if(9 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.downdrivingimg);
+                notifyDataSetChanged();
+            }
+            if(10 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.linecardimg);
+                notifyDataSetChanged();
+            }
+            if(11 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.downcardimg);
+                notifyDataSetChanged();
+            }
+            if(12 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.downbusinessimg);
+                notifyDataSetChanged();
+            }
+            if(13 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.downbillimg);
+                notifyDataSetChanged();
+            }
+            if(14 == position ){
+                holder.imageView.setBackgroundResource(R.mipmap.downcommonlanguage);
                 notifyDataSetChanged();
             }
 

@@ -128,6 +128,7 @@ public class DrivingActivity extends AppCompatActivity {
                         public void onResult(String result) {
                             infoPopText(result);
                             L.i(result);
+                            String absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
                         }
                     });
         }
