@@ -505,7 +505,7 @@ public class IDCardActivity extends AppCompatActivity {
 
         idcard_zhuan = new HashMap<String, String>();
 
-        L.i("11111", idcard_zhuan.toString());
+        L.i("11111idcard_zhuan", idcard_zhuan.toString());
 
         Idcard_up.put("uid", String.valueOf(uid));
 
@@ -529,6 +529,11 @@ public class IDCardActivity extends AppCompatActivity {
 
 
         Idcard_up.put("data", getGet(idcard_zhuan));
+
+        L.i("Idcard_up666"+Idcard_up.toString());
+
+
+
 
         SPUtils.putString(IDCardActivity.this, "name", name);
 
@@ -635,10 +640,10 @@ public class IDCardActivity extends AppCompatActivity {
 
                 if (response.code() == 200) {
 
-                    String s = response.body().string();
+                   // String s = response.body().string();
 
                     try {
-                        JSONObject jsonObject = new JSONObject(s);
+                        //JSONObject jsonObject = new JSONObject(s);
 
                       //  personalIConBean = JsonUtil.parseJsonToBean(s, PersonalIConBean.class);
 
@@ -654,7 +659,7 @@ public class IDCardActivity extends AppCompatActivity {
 
                 //   ToastUtils.showShort(PersonalActivity.this, "上传成功");
 
-
+                L.i("身份证照片上传成功", response.body().string());
                 L.d("Base64+++++++++22222222222", response.body().string());
                 L.d("Base64+++++++++33333333333", "成功");
 
