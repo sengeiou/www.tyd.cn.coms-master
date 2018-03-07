@@ -23,6 +23,7 @@ import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_face.OcrFaceActivity;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
+import com.touedian.com.facetyd.utilsx.CleanUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 
@@ -37,7 +38,27 @@ public class DrivingActivity extends AppCompatActivity {
     private String DrivingCardMessage;
     private JSONObject jsonObject;
     private DrivingCardBean drivingCardBean;
-    private TextView textView;
+    private TextView address;
+    private TextView idnumber;
+    private TextView driving_name;
+    private TextView nationality;
+    private TextView driving_birth;
+    private TextView one_certificate;
+    private TextView effective_date;
+    private TextView card_type;
+    private TextView effective_date_eid;
+    private String address_words;
+    private String idnumber_words;
+    private String driving_name_words;
+    private String nationality_words;
+    private String driving_birth_words;
+    private String one_certificate_words;
+    private String effective_date_words;
+    private String card_type_words;
+    private String effective_date_eid_words;
+    private TextView driving_sex;
+    private String driving_sex_words;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +85,26 @@ public class DrivingActivity extends AppCompatActivity {
     }
 
     private void InitDate() {
-        textView = findViewById(R.id.zhuzhi);
+        //住址
+        address = findViewById(R.id.zhuzhi);
+        //证号
+        idnumber = findViewById(R.id.idnumber);
+        //姓名
+        driving_name = findViewById(R.id.driving_name);
+
+        driving_sex = findViewById(R.id.driving_sex);
+        //国籍
+        nationality = findViewById(R.id.nationality);
+        //出生日期
+        driving_birth = findViewById(R.id.driving_birth);
+        //初次领证日期
+        one_certificate = findViewById(R.id.one_certificate);
+        //有效日期
+        effective_date = findViewById(R.id.effective_date);
+        //车架类型
+        card_type = findViewById(R.id.card_type);
+        //有效日期 至
+        //effective_date_eid = findViewById(R.id.effective_date_eid);
 
     }
 
@@ -84,7 +124,7 @@ public class DrivingActivity extends AppCompatActivity {
         }, getApplicationContext(), "9evxCWG1MTN8k7u3XU0qVIqi", "5eesgiqRtSflHYOM5OUZLSsSeMPCC81n");
     }
     private void alertText(final String title, final String message) {
-        this.runOnUiThread(new Runnable() {
+       /* this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 alertDialog.setTitle(title)
@@ -92,7 +132,7 @@ public class DrivingActivity extends AppCompatActivity {
                         .setPositiveButton("确定", null)
                         .show();
             }
-        });
+        });*/
 
 
         DrivingCardMessage =message;
@@ -106,11 +146,30 @@ public class DrivingActivity extends AppCompatActivity {
             DrivingCardBean.WordsResultBean words_result = drivingCardBean.getWords_result();
 
 
-            String words = words_result.get证号().getWords();
+            idnumber_words = words_result.get证号().getWords();
 
-            String words1 = words_result.get住址().getWords();
-            textView.setText(words1);
-            L.i(textView.toString());
+            address_words = words_result.get住址().getWords();
+
+            driving_name_words = words_result.get姓名().getWords();
+
+            driving_sex_words = words_result.get性别().getWords();
+
+            nationality_words = words_result.get国籍().getWords();
+
+            driving_birth_words = words_result.get出生日期().getWords();
+
+            one_certificate_words = words_result.get初次领证日期().getWords();
+
+            effective_date_words = words_result.get有效期限().getWords();
+
+            card_type_words = words_result.get准驾车型().getWords();
+
+            //effective_date_eid_words = words_result.get至().getWords();
+
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,6 +180,7 @@ public class DrivingActivity extends AppCompatActivity {
     private void infoPopText(final String result) {
         alertText("", result);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -132,9 +192,32 @@ public class DrivingActivity extends AppCompatActivity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
+                            L.i("55555"+result);
                             infoPopText(result);
-                            L.i(result);
+
+                            address.setText(address_words);
+
+                            idnumber.setText(idnumber_words);
+
+                            driving_name.setText(driving_name_words);
+
+                            driving_sex.setText(driving_sex_words);
+
+                            nationality.setText(nationality_words);
+
+                            driving_birth.setText(driving_birth_words);
+
+                            one_certificate.setText(one_certificate_words);
+
+                            effective_date.setText(effective_date_words);
+
+                            card_type.setText(card_type_words);
+
+                          //  effective_date_eid.setText(effective_date_eid_words);
+
                             String absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+
+                            L.i(absolutePath.toString());
                         }
                     });
         }
