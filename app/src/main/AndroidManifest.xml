@@ -153,7 +153,7 @@
         <activity android:name=".ocr_text_cr.LawyerCardActivity" />
         //网络图片文字
 
-        // 行驶证识别
+        //行驶证识别
         <activity android:name=".ocr_text_cr.LineCardActivity" />
         //车牌识别
         <activity android:name=".ocr_text_cr.LicenPlateActivity" />

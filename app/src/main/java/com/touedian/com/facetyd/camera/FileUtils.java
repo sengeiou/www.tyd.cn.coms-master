@@ -158,7 +158,7 @@ public class FileUtils
 		// intent.putExtra("return-data", false);
 
 		//        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-		//                Uri.fromFile(new File(FileUtils.picPath)));
+		//                Uri.fromFile(new File(FileUti.picPath)));
 
 		intent.putExtra("return-data", false);// true:不返回uri，false：返回uri
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));

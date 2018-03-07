@@ -2,11 +2,15 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.baidu.ocr.sdk.OCR;
@@ -18,13 +22,21 @@ import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 
 import com.touedian.com.facetyd.ocr_text_bean.LawyerCardBean;
+
 import com.touedian.com.facetyd.utils.FileUtil;
+import com.touedian.com.facetyd.utilsx.Base64Uti;
+
+import com.touedian.com.facetyd.utilsx.FileUti;
+
+import com.touedian.com.facetyd.utilsx.HttpU;
+import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 
 
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -53,10 +65,30 @@ public class LawyerCardActivity extends AppCompatActivity {
     private TextView textViews10;
     private TextView textViews11;
     private TextView textViews12;
+    private TextView lawyer_organization;
+    private String words执业机构;
+    private TextView lawyer_type;
+    private TextView lawyer_number;
+    private TextView lawyer_certificate_number;
+    private TextView lawyer_holder;
+    private TextView lawyer_sex;
+    private TextView lawyer_idcode;
+    private String words律师;
+    private String words律师类别;
+    private String words执业证号;
+    private String words执业证号xx;
+    private String words律师职业资格证;
+    private String words律师职业资格证号码;
+    private String words律师7;
+    private String words律师11;
+    private String words律师8;
+    private String words律师10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fullScreen(LawyerCardActivity.this);
         setContentView(R.layout.activity_lawyer_card);
         initAccessTokenWithAkSk();
         alertDialog = new AlertDialog.Builder(this);
@@ -79,6 +111,9 @@ public class LawyerCardActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
 
     private void InitDate() {
@@ -97,6 +132,27 @@ public class LawyerCardActivity extends AppCompatActivity {
         textViews11 = findViewById(R.id.textss11);
         textViews12 = findViewById(R.id.textss12);
 
+        //执业机构
+        lawyer_organization = findViewById(R.id.lawyer_organization);
+
+        //执业证类型
+        lawyer_type = findViewById(R.id.lawyer_type);
+
+        //执业证号
+        lawyer_number = findViewById(R.id.lawyer_number);
+
+        //法律职业资格\n或律师资格证号
+        lawyer_certificate_number = findViewById(R.id.lawyer_certificate_number);
+
+        //持证人
+        lawyer_holder = findViewById(R.id.lawyer_holder);
+
+        //性别
+        lawyer_sex = findViewById(R.id.lawyer_sex);
+
+        //身份证号
+        lawyer_idcode = findViewById(R.id.lawyer_idcode);
+
 
     }
 
@@ -106,6 +162,7 @@ public class LawyerCardActivity extends AppCompatActivity {
             public void onResult(AccessToken result) {
 
                 hasGotToken = true;
+                L.i(result.getAccessToken());
             }
 
             @Override
@@ -117,15 +174,7 @@ public class LawyerCardActivity extends AppCompatActivity {
     }
 
     private void alertText(final String title, final String message) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });
+
 
         LawyerCardMessage = message;
         L.i("11111DrivingCardMessage", "" + LawyerCardMessage);
@@ -137,32 +186,36 @@ public class LawyerCardActivity extends AppCompatActivity {
 
             List<LawyerCardBean.WordsResultBean> words_result = lawyerCardBean.getWords_result();
 
-            String words执业机构 = words_result.get(0).getWords();
-            // String words = words_result.get证号().getWords();
 
-            String words律师 = words_result.get(1).getWords();
+            words执业机构 = words_result.get(0).getWords();
 
-            String words律师类别 = words_result.get(2).getWords();
+            words律师 = words_result.get(1).getWords();
 
-            String words执业证号 = words_result.get(3).getWords();
+            words律师类别 = words_result.get(2).getWords();
 
-            String words执业证号xx = words_result.get(4).getWords();
+            words执业证号 = words_result.get(3).getWords();
 
-            String words律师职业资格证 = words_result.get(5).getWords();
+            words执业证号xx = words_result.get(4).getWords();
 
-            String words律师职业资格证号码 = words_result.get(6).getWords();
+            words律师职业资格证 = words_result.get(5).getWords();
 
-            String words律师7 = words_result.get(7).getWords();
+            words律师职业资格证号码 = words_result.get(6).getWords();
 
-            String words律师8 = words_result.get(8).getWords();
+            words律师7 = words_result.get(7).getWords();
+
+            words律师8 = words_result.get(8).getWords();
 
             String words律师9 = words_result.get(9).getWords();
 
-            String words律师10 = words_result.get(10).getWords();
+            words律师10 = words_result.get(10).getWords();
 
-            String words律师11 = words_result.get(11).getWords();
+            words律师11 = words_result.get(11).getWords();
 
-            String words律师12 = words_result.get(12).getWords();
+            //String words律师12 = words_result.get(12).getWords();
+
+
+
+
             //String words1 = words_result.get住址().getWords();
             textViewss.setText(words执业机构);
             textViews1.setText(words律师);
@@ -176,10 +229,10 @@ public class LawyerCardActivity extends AppCompatActivity {
             textViews9.setText(words律师9);
             textViews10.setText(words律师10);
             textViews11.setText(words律师11);
-            textViews12.setText(words律师12);
+            //textViews12.setText(words律师12);
 
 
-            L.i(textViewss.toString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,8 +259,32 @@ public class LawyerCardActivity extends AppCompatActivity {
                             infoPopText(result);
                             //拍摄的照片
                             absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
-                            LogUtil.e("aaa", result.toString());
-                            //textViewss.setText(result.toString());
+
+                            LogUtil.e("aaa", absolutePath.toString());
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Tone();
+                                }
+                            }).start();
+                            lawyer_organization.setText(words执业机构);
+
+                            lawyer_type.setText(words律师);
+
+                            lawyer_number.setText(words执业证号);
+
+                            lawyer_certificate_number.setText(words律师10);
+
+                            lawyer_holder.setText(words执业证号xx);
+
+                            lawyer_sex.setText(words律师8);
+
+                            lawyer_idcode.setText(words律师11);
+
+
+
+
                         }
                     });
         }
@@ -215,6 +292,36 @@ public class LawyerCardActivity extends AppCompatActivity {
 
     }
 
+    private void Tone(){
+
+        // 通用识别url
+        String otherHost = "https://aip.baidubce.com/rest/2.0/solution/v1/iocr/recognise";
+        // 本地图片路径
+        String filePath = absolutePath;
+        L.i("*********************"+filePath.toString());
+        String templateSign = "94bb3a1d85352a9c8246a19eedc2c275";
+
+        try {
+            byte[] imgData = FileUti.readFileByBytes(filePath);
+
+            String imgStr = Base64Uti.encode(imgData);
+            L.i("*********************"+imgStr.toString());
+            String params = "templateSign=94bb3a1d85352a9c8246a19eedc2c275&image=" + URLEncoder.encode(imgStr, "UTF-8");
+            //String params = templateSign + URLEncoder.encode(imgStr, "UTF-8");
+            /**
+             * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
+             */
+            String accessToken ="24.e6ebae8cf6c5879c422dc45c58fa5b39.2592000.1523002683.282335-10615594";
+            String result = HttpU.post(otherHost, accessToken, params);
+
+            LogUtil.e("----------------------",result);
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+        }
+    }
     public static class LogUtil {
         /**
          * 截断输出日志
@@ -240,5 +347,34 @@ public class LawyerCardActivity extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * 通过设置全屏，设置状态栏透明
+     *
+     * @param activity
+     */
+    private void fullScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色
+                Window window = activity.getWindow();
+                View decorView = window.getDecorView();
+                //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+                //导航栏颜色也可以正常设置
+//                window.setNavigationBarColor(Color.TRANSPARENT);
+            } else {
+                Window window = activity.getWindow();
+                WindowManager.LayoutParams attributes = window.getAttributes();
+                int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+                attributes.flags |= flagTranslucentStatus;
+//                attributes.flags |= flagTranslucentNavigation;
+                window.setAttributes(attributes);
+            }
+        }
+    }
 }

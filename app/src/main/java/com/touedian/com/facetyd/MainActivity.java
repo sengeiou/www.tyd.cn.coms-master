@@ -22,6 +22,7 @@ import com.touedian.com.facetyd.camera.FileUtils;
 import com.touedian.com.facetyd.camera.ImageTools;
 import com.touedian.com.facetyd.camera.UIUtils;
 import com.touedian.com.facetyd.utils.PermissionListener;
+import com.touedian.com.facetyd.utils.HttpUtil;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.L;
 

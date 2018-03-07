@@ -43,10 +43,10 @@ public class HttpUtils {
         return client;
     }
     public static OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
-                    .readTimeout(READ_TIMEOUT,TimeUnit.SECONDS)//设置读取超时时间
-                    .writeTimeout(WRITE_TIMEOUT,TimeUnit.SECONDS)//设置写的超时时间
-                    .connectTimeout(CONNECT_TIMEOUT,TimeUnit.SECONDS)//设置连接超时时间
-                    .build();
+            .readTimeout(READ_TIMEOUT,TimeUnit.SECONDS)//设置读取超时时间
+            .writeTimeout(WRITE_TIMEOUT,TimeUnit.SECONDS)//设置写的超时时间
+            .connectTimeout(CONNECT_TIMEOUT,TimeUnit.SECONDS)//设置连接超时时间
+            .build();
 
     public void run() throws Exception {
         Request request = new Request.Builder()
@@ -126,7 +126,7 @@ public class HttpUtils {
                         RequestBody.create(MEDIA_TYPE, new File(pathName)));
         //发出请求参数
         Request request = new Request.Builder()
-              //  .header("Authorization", "Client-ID " + "9199fdef135c122")
+                //  .header("Authorization", "Client-ID " + "9199fdef135c122")
                 .url(url)
                 .post(builder.build())
                 .build();
