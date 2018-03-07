@@ -19,7 +19,7 @@
             android:background="#25b5ff" />
 
         <ImageView
-            android:id="@+id/bankcard_back"
+            android:id="@+id/driving_bankcard_back"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="12dp"

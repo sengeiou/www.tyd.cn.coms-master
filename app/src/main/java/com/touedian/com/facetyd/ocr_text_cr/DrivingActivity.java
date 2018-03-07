@@ -11,6 +11,7 @@ import android.view.View;
 import android.support.v7.app.AlertDialog;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.ocr.sdk.OCR;
@@ -85,6 +86,13 @@ public class DrivingActivity extends AppCompatActivity {
     }
 
     private void InitDate() {
+        ImageView bankcard_back=findViewById(R.id.driving_bankcard_back);
+        bankcard_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //住址
         address = findViewById(R.id.zhuzhi);
         //证号
