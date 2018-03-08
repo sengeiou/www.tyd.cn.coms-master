@@ -319,10 +319,9 @@ public class IDCardActivity extends AppCompatActivity {
 
 
 
+
                         //身份证正面照片展示
                         this.runOnUiThread(new Runnable() {
-
-
 
                             @Override
                             public void run() {

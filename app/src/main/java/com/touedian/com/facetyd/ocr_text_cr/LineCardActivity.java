@@ -2,6 +2,7 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -18,13 +19,20 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.LineCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.PictureUtil;
 
 import org.json.JSONObject;
+
+import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
 // 行驶证识别
 public class LineCardActivity extends AppCompatActivity {
@@ -57,6 +65,8 @@ public class LineCardActivity extends AppCompatActivity {
     private String linecard_enginecode_words;
     private String linecard_signdate_words;
     private String linecard_lssuedate_words;
+    private String absolutePath;
+    private ImageView vehicle_license_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +105,9 @@ public class LineCardActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        vehicle_license_button = findViewById(R.id.vehicle_license_button);
+
         //号牌号码
         lineCard_idnumber = findViewById(R.id.lineCard_idnumber);
         //车辆类型
@@ -194,6 +207,34 @@ public class LineCardActivity extends AppCompatActivity {
                         public void onResult(String result) {
                             infoPopText(result);
                             L.i(result);
+                            absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+
+                            Glide
+                                    .with(LineCardActivity.this)
+                                    .load(absolutePath)
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(NONE)
+                                    .into(vehicle_license_button);
+
+                            //URL 转bitmap
+                            Glide.with(LineCardActivity.this)
+                                    .load(absolutePath)
+                                    .asBitmap()
+                                    .diskCacheStrategy(NONE)
+                                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+
+
+                                        @Override
+                                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                            //得到bitmap
+                                            L.i(bitmap.toString());
+                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+                                            L.i("88888" + front_stringBase64.toString());
+                                        }
+
+                                    });
+
 
                             lineCard_idnumber.setText(lineCard_idnumber_words);
 

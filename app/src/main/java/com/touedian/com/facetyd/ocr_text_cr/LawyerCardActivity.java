@@ -2,6 +2,7 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,10 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 
@@ -36,6 +42,7 @@ import com.touedian.com.facetyd.utilsx.HttpU;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.PictureUtil;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 
@@ -43,6 +50,8 @@ import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.List;
+
+import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
 
 public class LawyerCardActivity extends AppCompatActivity {
@@ -78,7 +87,10 @@ public class LawyerCardActivity extends AppCompatActivity {
     private String word5;
     private String word6;
 
-    private Handler handler=null;
+    private Handler handler = null;
+    private ImageView lawyer_bankcard_back;
+    private ImageView general_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +99,7 @@ public class LawyerCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lawyer_card);
 
         //创建属于主线程的handler
-        handler=new Handler();
+        handler = new Handler();
         initAccessTokenWithAkSk();
         alertDialog = new AlertDialog.Builder(this);
 
@@ -112,7 +124,7 @@ public class LawyerCardActivity extends AppCompatActivity {
 
     private void InitDate() {
 
-        ImageView lawyer_bankcard_back=findViewById(R.id.lawyer_bankcard_back);
+        lawyer_bankcard_back = findViewById(R.id.lawyer_bankcard_back);
 
         lawyer_bankcard_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +133,8 @@ public class LawyerCardActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        general_button = findViewById(R.id.general_button);
         //执业机构
         lawyer_organization = findViewById(R.id.lawyer_organization);
 
@@ -166,7 +180,7 @@ public class LawyerCardActivity extends AppCompatActivity {
 
     private void alertText(final String title, final String message) {
 
-        ToastUtils.show(getApplication(),"请稍后,等待时间大概2~3秒",0);
+        ToastUtils.show(getApplication(), "请稍后,等待时间大概2~3秒", 0);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -202,7 +216,34 @@ public class LawyerCardActivity extends AppCompatActivity {
                             //拍摄的照片
                             absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
 
+                            Glide
+                                    .with(LawyerCardActivity.this)
+                                    .load(absolutePath)
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(NONE)
+                                    .into(general_button);
+
+                            //URL 转bitmap
+                            Glide.with(LawyerCardActivity.this)
+                                    .load(absolutePath)
+                                    .asBitmap()
+                                    .diskCacheStrategy(NONE)
+                                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+
+
+                                        @Override
+                                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                            //得到bitmap
+                                            L.i(bitmap.toString());
+                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+                                            L.i("88888" + front_stringBase64.toString());
+                                        }
+
+                                    });
+
                             LogUtil.e("aaa", absolutePath.toString());
+
 
                             infoPopText(result);
 
@@ -265,20 +306,18 @@ public class LawyerCardActivity extends AppCompatActivity {
             L.i("word6" + word6.toString());
 
 
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
 
 
         }
     }
+
     // 构建Runnable对象，在runnable中更新界面
-       Runnable  runnableUi=new  Runnable(){
+    Runnable runnableUi = new Runnable() {
         @Override
         public void run() {
-             lawyer_organization.setText(word0);
+            lawyer_organization.setText(word0);
 
             lawyer_type.setText(word3);
 
@@ -295,6 +334,7 @@ public class LawyerCardActivity extends AppCompatActivity {
         }
 
     };
+
     public static class LogUtil {
         /**
          * 截断输出日志

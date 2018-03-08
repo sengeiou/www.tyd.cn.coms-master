@@ -2,6 +2,7 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_face.OcrFaceActivity;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
@@ -27,8 +32,11 @@ import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.CleanUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.PictureUtil;
 
 import org.json.JSONObject;
+
+import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
 
 //驾驶证识别
@@ -59,6 +67,9 @@ public class DrivingActivity extends AppCompatActivity {
     private String effective_date_eid_words;
     private TextView driving_sex;
     private String driving_sex_words;
+    private String absolutePath;
+    private ImageView bankcard_back;
+    private ImageView driving_license_button;
 
 
     @Override
@@ -86,13 +97,15 @@ public class DrivingActivity extends AppCompatActivity {
     }
 
     private void InitDate() {
-        ImageView bankcard_back=findViewById(R.id.driving_bankcard_back);
+        bankcard_back = findViewById(R.id.driving_bankcard_back);
         bankcard_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        driving_license_button = findViewById(R.id.driving_license_button);
         //住址
         address = findViewById(R.id.zhuzhi);
         //证号
@@ -131,6 +144,7 @@ public class DrivingActivity extends AppCompatActivity {
             }
         }, getApplicationContext(), "9evxCWG1MTN8k7u3XU0qVIqi", "5eesgiqRtSflHYOM5OUZLSsSeMPCC81n");
     }
+
     private void alertText(final String title, final String message) {
        /* this.runOnUiThread(new Runnable() {
             @Override
@@ -143,13 +157,13 @@ public class DrivingActivity extends AppCompatActivity {
         });*/
 
 
-        DrivingCardMessage =message;
+        DrivingCardMessage = message;
         L.i("11111DrivingCardMessage", "" + DrivingCardMessage);
 
         try {
             jsonObject = new JSONObject(DrivingCardMessage);
 
-            drivingCardBean = JsonUtil.parseJsonToBean(DrivingCardMessage,DrivingCardBean.class);
+            drivingCardBean = JsonUtil.parseJsonToBean(DrivingCardMessage, DrivingCardBean.class);
 
             DrivingCardBean.WordsResultBean words_result = drivingCardBean.getWords_result();
 
@@ -175,9 +189,6 @@ public class DrivingActivity extends AppCompatActivity {
             //effective_date_eid_words = words_result.get至().getWords();
 
 
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,8 +211,35 @@ public class DrivingActivity extends AppCompatActivity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            L.i("55555"+result);
+                            L.i("55555" + result);
                             infoPopText(result);
+                            absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+                            Glide
+                                    .with(DrivingActivity.this)
+                                    .load(absolutePath)
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(NONE)
+                                    .into(driving_license_button);
+
+                            //URL 转bitmap
+                            Glide.with(DrivingActivity.this)
+                                    .load(absolutePath)
+                                    .asBitmap()
+                                    .diskCacheStrategy(NONE)
+                                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+
+
+                                        @Override
+                                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                            //得到bitmap
+                                            L.i(bitmap.toString());
+                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+                                            L.i("88888" + front_stringBase64.toString());
+                                        }
+
+                                    });
+
 
                             address.setText(address_words);
 
@@ -221,9 +259,8 @@ public class DrivingActivity extends AppCompatActivity {
 
                             card_type.setText(card_type_words);
 
-                          //  effective_date_eid.setText(effective_date_eid_words);
+                            //  effective_date_eid.setText(effective_date_eid_words);
 
-                            String absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
 
                             L.i(absolutePath.toString());
                         }
@@ -231,8 +268,8 @@ public class DrivingActivity extends AppCompatActivity {
         }
 
 
-
     }
+
     /**
      * 通过设置全屏，设置状态栏透明
      *

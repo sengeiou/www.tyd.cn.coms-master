@@ -48,7 +48,7 @@
             android:background="@mipmap/bankcar_ground"
             android:id="@+id/imageView5" />
 
-        <Button
+        <ImageView
             android:id="@+id/driving_license_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
