@@ -19,7 +19,7 @@
             android:background="#25b5ff" />
 
         <ImageView
-            android:id="@+id/linecard_bankcard_back"
+            android:id="@+id/lawyer_bankcard_back"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="12dp"
@@ -388,65 +388,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/textss3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/textss4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/textss5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/textss6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textss12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp" />
         </LinearLayout>
     </ScrollView>
 

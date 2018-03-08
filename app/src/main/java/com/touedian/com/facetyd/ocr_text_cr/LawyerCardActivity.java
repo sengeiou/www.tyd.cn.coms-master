@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
@@ -23,6 +26,7 @@ import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 
 import com.touedian.com.facetyd.ocr_text_bean.LawyerCardBean;
 
+import com.touedian.com.facetyd.ocr_text_bean.LawyerCardBeandate;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.Base64Uti;
 
@@ -32,6 +36,7 @@ import com.touedian.com.facetyd.utilsx.HttpU;
 import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 
 import org.json.JSONObject;
@@ -48,52 +53,43 @@ public class LawyerCardActivity extends AppCompatActivity {
     private boolean hasGotToken = false;
     private String LawyerCardMessage;
     private JSONObject jsonObject;
-    private DrivingCardBean drivingCardBean;
+
 
     private String absolutePath;
-    private TextView textViewss;
-    private LawyerCardBean lawyerCardBean;
-    private TextView textViews1;
-    private TextView textViews2;
-    private TextView textViews3;
-    private TextView textViews4;
-    private TextView textViews5;
-    private TextView textViews6;
-    private TextView textViews7;
-    private TextView textViews8;
-    private TextView textViews9;
-    private TextView textViews10;
-    private TextView textViews11;
-    private TextView textViews12;
+
+    private LawyerCardBeandate lawyerCardBeandate;
+
     private TextView lawyer_organization;
-    private String words执业机构;
+
     private TextView lawyer_type;
     private TextView lawyer_number;
     private TextView lawyer_certificate_number;
     private TextView lawyer_holder;
     private TextView lawyer_sex;
     private TextView lawyer_idcode;
-    private String words律师;
-    private String words律师类别;
-    private String words执业证号;
-    private String words执业证号xx;
-    private String words律师职业资格证;
-    private String words律师职业资格证号码;
-    private String words律师7;
-    private String words律师11;
-    private String words律师8;
-    private String words律师10;
 
+    private String accessToken;
+    private String result;
+    private String word0;
+    private String word1;
+    private String word2;
+    private String word3;
+    private String word4;
+    private String word5;
+    private String word6;
+
+    private Handler handler=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         fullScreen(LawyerCardActivity.this);
         setContentView(R.layout.activity_lawyer_card);
+
+        //创建属于主线程的handler
+        handler=new Handler();
         initAccessTokenWithAkSk();
         alertDialog = new AlertDialog.Builder(this);
-
-
 
 
         InitDate();
@@ -112,26 +108,19 @@ public class LawyerCardActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void InitDate() {
-        textViewss = findViewById(R.id.textsss);
 
-        textViews1 = findViewById(R.id.textss1);
-        textViews2 = findViewById(R.id.textss2);
-        textViews3 = findViewById(R.id.textss3);
-        textViews4 = findViewById(R.id.textss4);
-        textViews5 = findViewById(R.id.textss5);
-        textViews6 = findViewById(R.id.textss6);
-        textViews7 = findViewById(R.id.textss7);
-        textViews8 = findViewById(R.id.textss8);
-        textViews9 = findViewById(R.id.textss9);
-        textViews10 = findViewById(R.id.textss10);
-        textViews11 = findViewById(R.id.textss11);
-        textViews12 = findViewById(R.id.textss12);
+        ImageView lawyer_bankcard_back=findViewById(R.id.lawyer_bankcard_back);
 
+        lawyer_bankcard_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
         //执业机构
         lawyer_organization = findViewById(R.id.lawyer_organization);
 
@@ -162,6 +151,8 @@ public class LawyerCardActivity extends AppCompatActivity {
             public void onResult(AccessToken result) {
 
                 hasGotToken = true;
+                accessToken = result.getAccessToken();
+
                 L.i(result.getAccessToken());
             }
 
@@ -175,70 +166,21 @@ public class LawyerCardActivity extends AppCompatActivity {
 
     private void alertText(final String title, final String message) {
 
+        ToastUtils.show(getApplication(),"请稍后,等待时间大概2~3秒",0);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                Tone();
+
+                handler.post(runnableUi);
+            }
+        }).start();
 
         LawyerCardMessage = message;
         L.i("11111DrivingCardMessage", "" + LawyerCardMessage);
 
-        try {
-            jsonObject = new JSONObject(LawyerCardMessage);
 
-            lawyerCardBean = JsonUtil.parseJsonToBean(LawyerCardMessage, LawyerCardBean.class);
-
-            List<LawyerCardBean.WordsResultBean> words_result = lawyerCardBean.getWords_result();
-
-
-            words执业机构 = words_result.get(0).getWords();
-
-            words律师 = words_result.get(1).getWords();
-
-            words律师类别 = words_result.get(2).getWords();
-
-            words执业证号 = words_result.get(3).getWords();
-
-            words执业证号xx = words_result.get(4).getWords();
-
-            words律师职业资格证 = words_result.get(5).getWords();
-
-            words律师职业资格证号码 = words_result.get(6).getWords();
-
-            words律师7 = words_result.get(7).getWords();
-
-            words律师8 = words_result.get(8).getWords();
-
-            String words律师9 = words_result.get(9).getWords();
-
-            words律师10 = words_result.get(10).getWords();
-
-            words律师11 = words_result.get(11).getWords();
-
-            //String words律师12 = words_result.get(12).getWords();
-
-
-
-
-            //String words1 = words_result.get住址().getWords();
-            textViewss.setText(words执业机构);
-            textViews1.setText(words律师);
-            textViews2.setText(words律师类别);
-            textViews3.setText(words执业证号);
-            textViews4.setText(words执业证号xx);
-            textViews5.setText(words律师职业资格证);
-            textViews6.setText(words律师职业资格证号码);
-            textViews7.setText(words律师7);
-            textViews8.setText(words律师8);
-            textViews9.setText(words律师9);
-            textViews10.setText(words律师10);
-            textViews11.setText(words律师11);
-            //textViews12.setText(words律师12);
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-       // notify();
     }
 
     private void infoPopText(final String result) {
@@ -256,33 +198,13 @@ public class LawyerCardActivity extends AppCompatActivity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            infoPopText(result);
+
                             //拍摄的照片
                             absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
 
                             LogUtil.e("aaa", absolutePath.toString());
 
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Tone();
-                                }
-                            }).start();
-                            lawyer_organization.setText(words执业机构);
-
-                            lawyer_type.setText(words律师);
-
-                            lawyer_number.setText(words执业证号);
-
-                            lawyer_certificate_number.setText(words律师10);
-
-                            lawyer_holder.setText(words执业证号xx);
-
-                            lawyer_sex.setText(words律师8);
-
-                            lawyer_idcode.setText(words律师11);
-
-
+                            infoPopText(result);
 
 
                         }
@@ -292,36 +214,87 @@ public class LawyerCardActivity extends AppCompatActivity {
 
     }
 
-    private void Tone(){
+    private void Tone() {
 
         // 通用识别url
         String otherHost = "https://aip.baidubce.com/rest/2.0/solution/v1/iocr/recognise";
         // 本地图片路径
         String filePath = absolutePath;
-        L.i("*********************"+filePath.toString());
+        L.i("*********************" + filePath.toString());
         String templateSign = "94bb3a1d85352a9c8246a19eedc2c275";
 
         try {
             byte[] imgData = FileUti.readFileByBytes(filePath);
 
             String imgStr = Base64Uti.encode(imgData);
-            L.i("*********************"+imgStr.toString());
+            L.i("*********************" + imgStr.toString());
+
             String params = "templateSign=94bb3a1d85352a9c8246a19eedc2c275&image=" + URLEncoder.encode(imgStr, "UTF-8");
             //String params = templateSign + URLEncoder.encode(imgStr, "UTF-8");
             /**
              * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
              */
-            String accessToken ="24.e6ebae8cf6c5879c422dc45c58fa5b39.2592000.1523002683.282335-10615594";
-            String result = HttpU.post(otherHost, accessToken, params);
+            // String accessToken ="24.e6ebae8cf6c5879c422dc45c58fa5b39.2592000.1523002683.282335-10615594";
+            result = HttpU.post(otherHost, accessToken, params);
 
-            LogUtil.e("----------------------",result);
+
+            LogUtil.e("----------------------", result);
             System.out.println(result);
+
+
+            jsonObject = new JSONObject(result);
+
+            lawyerCardBeandate = JsonUtil.parseJsonToBean(result, LawyerCardBeandate.class);
+
+            List<LawyerCardBeandate.DataBean.RetBean> ret = lawyerCardBeandate.getData().getRet();
+
+            word0 = ret.get(0).getWord();
+
+            L.i("word0" + word0.toString());
+            word1 = ret.get(1).getWord();
+
+            word2 = ret.get(2).getWord();
+
+            word3 = ret.get(3).getWord();
+
+            word4 = ret.get(4).getWord();
+
+            word5 = ret.get(5).getWord();
+
+            word6 = ret.get(6).getWord();
+            L.i("word6" + word6.toString());
+
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
 
 
         }
     }
+    // 构建Runnable对象，在runnable中更新界面
+       Runnable  runnableUi=new  Runnable(){
+        @Override
+        public void run() {
+             lawyer_organization.setText(word0);
+
+            lawyer_type.setText(word3);
+
+            lawyer_number.setText(word2);
+
+            lawyer_certificate_number.setText(word1);
+
+            lawyer_holder.setText(word5);
+
+            lawyer_sex.setText(word6);
+
+            lawyer_idcode.setText(word4);
+
+        }
+
+    };
     public static class LogUtil {
         /**
          * 截断输出日志
@@ -347,6 +320,7 @@ public class LawyerCardActivity extends AppCompatActivity {
             }
         }
     }
+
     /**
      * 通过设置全屏，设置状态栏透明
      *
@@ -376,5 +350,14 @@ public class LawyerCardActivity extends AppCompatActivity {
                 window.setAttributes(attributes);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        //将线程销毁掉
+        handler.removeCallbacks(runnableUi);
+        Log.d("Thread", "Activity --onDestroy中线程是否活着:" + handler.toString());
+        super.onDestroy();
+
     }
 }
