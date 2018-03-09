@@ -413,7 +413,7 @@ public class PersonalActivity extends AppCompatActivity {
 
 
     /**
-     * 拍照,使用存储卡路径（需要申请存储权限），即图片的路径在  存储卡目录下 -> 包名 -> icon文件夹下
+     * businesspicture,使用存储卡路径（需要申请存储权限），即图片的路径在  存储卡目录下 -> 包名 -> icon文件夹下
      */
     public void takePhoto(View view) {
         imgPath = FileUtils.generateImgePathInStoragePath();

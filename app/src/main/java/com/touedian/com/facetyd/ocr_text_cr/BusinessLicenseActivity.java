@@ -2,10 +2,16 @@ package com.touedian.com.facetyd.ocr_text_cr;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,14 +20,21 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.BusinessLicenseBean;
 import com.touedian.com.facetyd.ocr_text_bean.LicencePlateBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.PictureUtil;
 
 import org.json.JSONObject;
+
+import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
 public class BusinessLicenseActivity extends AppCompatActivity {
     private AlertDialog.Builder alertDialog;
@@ -33,10 +46,27 @@ public class BusinessLicenseActivity extends AppCompatActivity {
     private TextView business_text1;
     private TextView business_text2;
     private TextView business_text3;
+    private TextView business_login_number;
+    private TextView business_socialCredit_code;
+    private TextView business_company_name;
+    private TextView business_address;
+    private TextView business_legal_representative;
+    private TextView business_effective_date;
+    private String words_login_number;
+    private String words_code;
+    private String words_company_name;
+    private String words_address;
+    private String words_legal_representative;
+    private String words_effective_date;
+    private String words_data;
+    private ImageView business_bankcard_back;
+    private ImageView business_license_button;
+    private String absolutePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fullScreen(BusinessLicenseActivity.this);
         setContentView(R.layout.activity_business_license);
 
 
@@ -63,9 +93,37 @@ public class BusinessLicenseActivity extends AppCompatActivity {
     }
 
     private void initdate() {
-        business_text1 = findViewById(R.id.Business_license_text1);
-        business_text2 = findViewById(R.id.Business_license_text2);
-        business_text3 = findViewById(R.id.Business_license_text3);
+
+
+        business_bankcard_back = findViewById(R.id.Business_bankcard_back);
+        business_bankcard_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        business_license_button = findViewById(R.id.business_license_button);
+
+        //注册号
+        business_login_number = findViewById(R.id.Business_login_number);
+
+        //社会信用代码
+        business_socialCredit_code = findViewById(R.id.Business_SocialCredit_code);
+
+        //企业名称
+        business_company_name = findViewById(R.id.Business_company_name);
+
+        //企业住址
+        business_address = findViewById(R.id.Business_address);
+
+        //法定代表人
+        business_legal_representative = findViewById(R.id.Business_legal_representative);
+
+        //有效日期至
+        business_effective_date = findViewById(R.id.Business_effective_date);
+
+
     }
 
     private void initAccessTokenWithAkSk() {
@@ -86,15 +144,7 @@ public class BusinessLicenseActivity extends AppCompatActivity {
 
 
     private void alertText(final String title, final String message) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });
+
 
         BusinessLicenseMessage = message;
         L.i("BusinessLicenseMessage", "" + BusinessLicenseMessage);
@@ -108,13 +158,16 @@ public class BusinessLicenseActivity extends AppCompatActivity {
             BusinessLicenseBean.WordsResultBean words_result = businessLicenseBean.getWords_result();
 
 
-            String words_wordname = words_result.get单位名称().getWords();
-            String words_address = words_result.get地址().getWords();
-            String words_data = words_result.get成立日期().getWords();
 
-            business_text1.setText(words_wordname);
-            business_text2.setText(words_address);
-            business_text3.setText(words_data);
+
+            words_data = words_result.get成立日期().getWords();
+            words_login_number = words_result.get证件编号().getWords();
+            words_code = words_result.get社会信用代码().getWords();
+            words_company_name = words_result.get单位名称().getWords();
+            words_address = words_result.get地址().getWords();
+            words_legal_representative = words_result.get法人().getWords();
+            words_effective_date = words_result.get有效期().getWords();
+
 
 
         } catch (Exception e) {
@@ -141,6 +194,39 @@ public class BusinessLicenseActivity extends AppCompatActivity {
                         public void onResult(String result) {
                             infoPopText(result);
                             L.i(result.toString());
+
+                            absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+                            Glide
+                                    .with(BusinessLicenseActivity.this)
+                                    .load(absolutePath)
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(NONE)
+                                    .into(business_license_button);
+
+                            //URL 转bitmap
+                            Glide.with(BusinessLicenseActivity.this)
+                                    .load(absolutePath)
+                                    .asBitmap()
+                                    .diskCacheStrategy(NONE)
+                                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+
+
+                                        @Override
+                                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                                            //得到bitmap
+                                            L.i(bitmap.toString());
+                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+                                            L.i("88888" + front_stringBase64.toString());
+                                        }
+
+                                    });
+                            business_login_number.setText(words_login_number);
+                            business_socialCredit_code.setText(words_code);
+                            business_company_name.setText(words_company_name);
+                            business_address.setText(words_address);
+                            business_legal_representative.setText(words_legal_representative);
+                            business_effective_date.setText(words_data);
                         }
                     });
         }
@@ -153,5 +239,36 @@ public class BusinessLicenseActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
         }
         return hasGotToken;
+    }
+
+    /**
+     * 通过设置全屏，设置状态栏透明
+     *
+     * @param activity
+     */
+    private void fullScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色
+                Window window = activity.getWindow();
+                View decorView = window.getDecorView();
+                //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+                //导航栏颜色也可以正常设置
+//                window.setNavigationBarColor(Color.TRANSPARENT);
+            } else {
+                Window window = activity.getWindow();
+                WindowManager.LayoutParams attributes = window.getAttributes();
+                int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+                attributes.flags |= flagTranslucentStatus;
+//                attributes.flags |= flagTranslucentNavigation;
+                window.setAttributes(attributes);
+            }
+        }
     }
 }
