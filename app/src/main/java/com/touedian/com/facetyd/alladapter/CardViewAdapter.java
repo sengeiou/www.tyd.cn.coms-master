@@ -34,7 +34,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         ViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.card_name);
-
             itcard = v.findViewById(R.id.itcard);
             card_number = v.findViewById(R.id.card_number);
 
