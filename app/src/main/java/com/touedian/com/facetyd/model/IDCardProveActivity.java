@@ -66,7 +66,8 @@ public class IDCardProveActivity extends AppCompatActivity {
     private Button btn;
     private String names;
     private String name_duibi;
-
+    public static final String ID_CARD_SIDE_FRONT = "front";
+    public static final String ID_CARD_SIDE_BACK = "back";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,6 +192,7 @@ public class IDCardProveActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(contentType)) {
                     if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
                         recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePathls);
+
                         //身份证正面照片展示
                         this.runOnUiThread(new Runnable() {
                             @Override

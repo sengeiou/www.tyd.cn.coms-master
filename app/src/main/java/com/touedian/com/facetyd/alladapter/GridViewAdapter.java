@@ -113,7 +113,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
             }
             if(8 == position  ){
 
-                holder.imageView.setBackgroundResource(R.mipmap.certificateimg);
+                holder.imageView.setBackgroundResource(R.mipmap.installs);
                 notifyDataSetChanged();
             }
             if(9 == position  ){
@@ -187,7 +187,7 @@ public class GridViewAdapter extends ArrayAdapter<GridviewBean> {
                 notifyDataSetChanged();
             }
             if(8 == position ){
-                holder.imageView.setBackgroundResource(R.mipmap.downcertificateimg);
+                holder.imageView.setBackgroundResource(R.mipmap.installsbtn);
                 notifyDataSetChanged();
             }
             if(9 == position ){

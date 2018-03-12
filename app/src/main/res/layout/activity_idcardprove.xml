@@ -21,14 +21,14 @@
             android:layout_width="15dp"
             android:layout_height="19dp"
             android:layout_marginLeft="12.5dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="42dp"
             android:background="@mipmap/allbackbutton" />
 
         <TextView
             android:layout_width="70dp"
             android:layout_height="19dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:text="人脸核身"
             android:textColor="#ffffff"
             android:textSize="14.3sp" />
@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="75dp"
             android:background="@mipmap/personalbutton"
             android:gravity="center"
             android:text=" 注 :请在光线充足的情况下,拍摄二代身份证原件
