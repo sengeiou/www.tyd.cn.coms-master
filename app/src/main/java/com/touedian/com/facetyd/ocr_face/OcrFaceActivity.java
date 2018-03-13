@@ -89,6 +89,7 @@ public class OcrFaceActivity extends AppCompatActivity {
     private String truename;
     private String username;
     private ImageView btninstall;
+    private String data;
 
 
     @Override
@@ -121,9 +122,12 @@ public class OcrFaceActivity extends AppCompatActivity {
 
             SPUtils.putString(OcrFaceActivity.this, "username", username);
             uisd = SPUtils.getInt(OcrFaceActivity.this, "uid", uisd);
+
+            SPUtils.putString(OcrFaceActivity.this, "identity_card", identity_card.toString());
             L.i("IeGrid", "" + uisd);
             L.i("IeGrid", "" + avatar);
             L.i("IeGrid", "" + identity_card);
+            L.i("IeGrid", "" + identity_card.toString());
             L.i("IeGrid", "" + truename);
             L.i("IeGrid", "" + username);
 

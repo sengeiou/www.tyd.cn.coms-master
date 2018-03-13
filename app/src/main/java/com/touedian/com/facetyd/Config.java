@@ -56,6 +56,11 @@ public class Config {
 
     public static String TYD_BankCardpicture ="http://face.touedian.com/index.php?m=face&f=index&v=ceshid";
 
+
+    // 驾驶证照片
+
+    public static String TYD_drivingMessage ="http://face.touedian.com/index.php?m=face&f=index&v=driverinfo";
+
     //OAuth2.0       获取Access Token
     public static String Access_Token = "https://aip.baidubce.com/oauth/2.0/token";
 

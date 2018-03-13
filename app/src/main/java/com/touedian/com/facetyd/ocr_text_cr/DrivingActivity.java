@@ -12,6 +12,7 @@ import android.view.View;
 import android.support.v7.app.AlertDialog;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,16 +26,31 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
+import com.touedian.com.facetyd.bean.PersonalIConBean;
+import com.touedian.com.facetyd.model.PersonalActivity;
 import com.touedian.com.facetyd.ocr_face.OcrFaceActivity;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.CleanUtils;
+import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.PictureUtil;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
@@ -70,7 +86,14 @@ public class DrivingActivity extends AppCompatActivity {
     private String absolutePath;
     private ImageView bankcard_back;
     private ImageView driving_license_button;
-
+    private Button driving_btn;
+    private HashMap<String, String> params;
+    private HashMap<String, String> zhuans;
+    private int usid;
+    private int uid;
+    private String data;
+    private String idNumber;
+    private String identity_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +102,15 @@ public class DrivingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_driving);
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
+        //从本地获取Uid
+        usid = SPUtils.getInt(DrivingActivity.this, "uid", uid);
+        L.i("usid", String.valueOf(usid));
+
+        identity_status = SPUtils.getString(DrivingActivity.this, "identity_card", idNumber);
+
+        //identity_card
+
+        L.i("identity_card", identity_status.toString());
 
         InitDate();
         // 驾驶证识别
@@ -127,7 +159,17 @@ public class DrivingActivity extends AppCompatActivity {
         //有效日期 至
         //effective_date_eid = findViewById(R.id.effective_date_eid);
 
+        driving_btn = findViewById(R.id.driving_btn);
+        driving_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ToastUtils.show(getApplication(),"成功",0);
+            }
+        });
+
     }
+
 
     private void initAccessTokenWithAkSk() {
         OCR.getInstance().initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
@@ -146,15 +188,6 @@ public class DrivingActivity extends AppCompatActivity {
     }
 
     private void alertText(final String title, final String message) {
-       /* this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });*/
 
 
         DrivingCardMessage = message;
@@ -186,13 +219,86 @@ public class DrivingActivity extends AppCompatActivity {
 
             card_type_words = words_result.get准驾车型().getWords();
 
-            //effective_date_eid_words = words_result.get至().getWords();
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+    }
+
+    private void PostDrivingMess() {
+
+        params = new HashMap<String, String>();
+        zhuans = new HashMap<String, String>();
+
+        params.put("uid", String.valueOf(usid));
+
+
+        zhuans.put("driver_num", idnumber_words);
+
+        zhuans.put("driver_name",driving_name_words);
+
+        zhuans.put("driver_sex",driving_sex_words);
+
+        zhuans.put("driver_nationality",nationality_words);
+
+        zhuans.put("driver_address",address_words);
+
+        zhuans.put("driver_birthday",driving_birth_words);
+
+        zhuans.put("driver_first",one_certificate_words);
+
+        zhuans.put("driver_type",card_type_words);
+
+        zhuans.put("driver_time",effective_date_words);
+
+        params.put("data", getGet(zhuans));
+
+        L.i("params666"+params.toString());
+        HttpUtils.doPost(Config.TYD_drivingMessage, params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+                    String s = response.body().string();
+
+                    try {
+                      ///  JSONObject jsonObject = new JSONObject(s);
+
+                     //   personalIConBean = JsonUtil.parseJsonToBean(s, PersonalIConBean.class);
+
+
+                        L.i("0000000000000000000000", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                //   ToastUtils.showShort(PersonalActivity.this, "上传成功");
+
+
+                L.d("33333333333", response.body().string());
+                L.d("33333333333", "成功");
+
+
+            }
+        });
 
     }
 
@@ -259,10 +365,9 @@ public class DrivingActivity extends AppCompatActivity {
 
                             card_type.setText(card_type_words);
 
-                            //  effective_date_eid.setText(effective_date_eid_words);
-
 
                             L.i(absolutePath.toString());
+                            PostDrivingMess();
                         }
                     });
         }
@@ -300,5 +405,27 @@ public class DrivingActivity extends AppCompatActivity {
             }
         }
     }
+    /**
+     * 转换get请求参数   集合转换字符串工具
+     *
+     * @param map
+     * @return
+     */
+    public static String getGet(HashMap<String, String> map) {
+        StringBuffer sb = new StringBuffer();
+        String key = null;
+        Set<String> set = map.keySet();
+        Iterator<String> it = set.iterator();
 
+        while (it.hasNext()) {
+            key = it.next();
+            sb.append(key + "=" + map.get(key) + "&");
+        }
+        String sbss = sb.substring(0, sb.length() - 1);//减去最后一个字符号&
+
+        L.i("sbss", sbss.toString());
+        return sbss.toString();
+
+
+    }
 }
