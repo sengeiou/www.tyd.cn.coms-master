@@ -128,6 +128,7 @@ public class PersonalActivity extends AppCompatActivity {
     private String filePath;
     private String path;
     private String cachePath;
+    private TextView phoneAll;
 
 
     @Override
@@ -261,6 +262,23 @@ public class PersonalActivity extends AppCompatActivity {
             }
         });
 
+        phoneAll = findViewById(R.id.phoneAll);
+        phoneAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                call();
+              /*  //点击拨打电话是,因为是危险权限,所以需要动态申请.
+                //首先判断这个权限是否已被申请通过.
+                if (ContextCompat.checkSelfPermission(PersonalActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED) {
+                    //未通过,继续申请
+                    ActivityCompat.requestPermissions(PersonalActivity.this,new String[] {Manifest.permission.CALL_PHONE},1);
+                } else {
+                    //通过,直接拨打电话
+                    call();
+                }*/
+            }
+        });
 
         //返回键
         ImageView personal_back = findViewById(R.id.personal_back);
@@ -272,6 +290,12 @@ public class PersonalActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void call() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:13935225970"));
+        startActivity(intent);
     }
 
     public void clickDialogIos(View v) {
@@ -817,6 +841,9 @@ public class PersonalActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
 }
 
 
