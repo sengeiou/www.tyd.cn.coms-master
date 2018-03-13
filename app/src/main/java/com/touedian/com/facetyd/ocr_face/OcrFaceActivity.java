@@ -154,7 +154,7 @@ public class OcrFaceActivity extends AppCompatActivity {
             mGridData.add(item);
 
         }
-      /*  //设置按钮
+        //设置按钮
         btninstall = findViewById(R.id.Btninstall);
         btninstall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +172,7 @@ public class OcrFaceActivity extends AppCompatActivity {
                         startActivity(intent);
 
             }
-        });*/
+        });
         mGridViewAdapter1 = new GridViewAdapter(this, R.layout.gridview_ui, mGridData, IeGrid);
         gridView.setAdapter(mGridViewAdapter1);
 
@@ -261,7 +261,7 @@ public class OcrFaceActivity extends AppCompatActivity {
 
                     if (position == 8) {
 
-                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                     /*   ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
                         Intent intent = new Intent(getApplicationContext(), PersonalActivity.class);
                         intent.putExtra("avatar", avatar);
                         L.d("url",avatar+"++++++++++++");
@@ -270,12 +270,12 @@ public class OcrFaceActivity extends AppCompatActivity {
                         intent.putExtra("truename", truename);
                         intent.putExtra("username", username);
                         L.d("url",username+"+++++++------");
-                        startActivity(intent);
-                       /* ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
-                        Intent intent = new Intent(getApplicationContext(), LawyerCardActivity.class);
                         startActivity(intent);*/
+                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
+                        Intent intent = new Intent(getApplicationContext(), LawyerCardActivity.class);
+                        startActivity(intent);
                     }
-                  /*  if (position == 9) {
+                    if (position == 9) {
                         ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
                         Intent intent = new Intent(getApplicationContext(), DrivingActivity.class);
                         startActivity(intent);
@@ -304,7 +304,7 @@ public class OcrFaceActivity extends AppCompatActivity {
                         ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
                         Intent intent = new Intent(getApplicationContext(), CommonLanguageActivity.class);
                         startActivity(intent);
-                    }*/
+                    }
                     mGridViewAdapter1.notifyDataSetChanged();
                 }
             });

@@ -21,7 +21,7 @@ public class CardviewBean {
     public static class DataBean {
         /**
          * mcard_id : 8888
-         * mcard_name : 中国银行
+         * mcard_name : chinabankicon
          * mcard_type : Credit
          */
         private String mcard_id;
