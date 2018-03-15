@@ -89,11 +89,13 @@ public class DrivingActivity extends AppCompatActivity {
     private Button driving_btn;
     private HashMap<String, String> params;
     private HashMap<String, String> zhuans;
+    private HashMap<String, String> stringBase64List;
     private int usid;
     private int uid;
     private String data;
     private String idNumber;
     private String identity_status;
+    private String stringBase64;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,12 +161,14 @@ public class DrivingActivity extends AppCompatActivity {
         //有效日期 至
         //effective_date_eid = findViewById(R.id.effective_date_eid);
 
+        //确定按钮
         driving_btn = findViewById(R.id.driving_btn);
         driving_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 ToastUtils.show(getApplication(),"成功",0);
+                finish();
             }
         });
 
@@ -226,6 +230,55 @@ public class DrivingActivity extends AppCompatActivity {
 
 
     }
+    private void   UpPicture() {
+        stringBase64List = new HashMap<String, String>();
+
+        stringBase64List.put("uid", String.valueOf(usid));
+
+        stringBase64List.put("photo", stringBase64);
+
+        HttpUtils.doPost(Config.TYD_drivingPicture, stringBase64List, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+
+                    L.i(response.body().string());
+
+                    try {
+
+
+                        L.i("UpPicture", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    PostDrivingMess();
+
+                }
+
+
+                L.d("UpPicture33333333333", response.body().string());
+                L.d("UpPicture33333333333", "成功");
+
+
+            }
+        });
+
+    }
 
     private void PostDrivingMess() {
 
@@ -233,7 +286,6 @@ public class DrivingActivity extends AppCompatActivity {
         zhuans = new HashMap<String, String>();
 
         params.put("uid", String.valueOf(usid));
-
 
         zhuans.put("driver_num", idnumber_words);
 
@@ -273,8 +325,9 @@ public class DrivingActivity extends AppCompatActivity {
 
                 if (response.code() == 200) {
 
-                    String s = response.body().string();
 
+
+                    L.i(response.body().string());
                     try {
                       ///  JSONObject jsonObject = new JSONObject(s);
 
@@ -339,10 +392,12 @@ public class DrivingActivity extends AppCompatActivity {
                                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                                             //得到bitmap
                                             L.i(bitmap.toString());
-                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+                                            stringBase64 = PictureUtil.bitmapToString(bitmap);
 
-                                            L.i("88888" + front_stringBase64.toString());
+                                            L.i("88888" + stringBase64.toString());
+                                            UpPicture();
                                         }
+
 
                                     });
 
@@ -367,13 +422,18 @@ public class DrivingActivity extends AppCompatActivity {
 
 
                             L.i(absolutePath.toString());
-                            PostDrivingMess();
+
+
+
+
+
                         }
                     });
         }
 
 
     }
+
 
     /**
      * 通过设置全屏，设置状态栏透明

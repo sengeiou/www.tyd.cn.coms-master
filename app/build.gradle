@@ -81,5 +81,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.mostafagazar:customshapeimageview:1.0.4'
     //圆形ImageView
-    implementation files('libs/360update-7.0.3.jar')
+    //implementation files('libs/360update-7.0.3.jar')
 }

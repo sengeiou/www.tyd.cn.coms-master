@@ -1,6 +1,9 @@
 package com.touedian.com.facetyd.utilsx;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 文件读取工具类
@@ -68,5 +71,28 @@ public class FileUti {
                 bos.close();
             }
         }
+    }
+    /**
+     * 转换get请求参数   集合转换字符串工具
+     *
+     * @param map
+     * @return
+     */
+    public static String getGet(HashMap<String, String> map) {
+        StringBuffer sb = new StringBuffer();
+        String key = null;
+        Set<String> set = map.keySet();
+        Iterator<String> it = set.iterator();
+
+        while (it.hasNext()) {
+            key = it.next();
+            sb.append(key + "=" + map.get(key) + "&");
+        }
+        String sbss = sb.substring(0, sb.length() - 1);//减去最后一个字符号&
+
+        L.i("sbss", sbss.toString());
+        return sbss.toString();
+
+
     }
 }

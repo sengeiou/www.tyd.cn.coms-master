@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +25,27 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.BusinessLicenseBean;
 import com.touedian.com.facetyd.ocr_text_bean.LicencePlateBean;
 import com.touedian.com.facetyd.utils.FileUtil;
+import com.touedian.com.facetyd.utilsx.FileUti;
+import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.PictureUtil;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
@@ -62,6 +75,13 @@ public class BusinessLicenseActivity extends AppCompatActivity {
     private ImageView business_bankcard_back;
     private ImageView business_license_button;
     private String absolutePath;
+    private int uid;
+    private int usid;
+    private HashMap<String, String> Picture_params;
+    private HashMap<String, String> Business_Message_params;
+    private HashMap<String, String> Business_Message_data;
+    private String businessStringBase64;
+    private Button business_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +92,7 @@ public class BusinessLicenseActivity extends AppCompatActivity {
 
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
-
+        usid = SPUtils.getInt(BusinessLicenseActivity.this, "uid", uid);
 
         initdate();
         // 营业执照识别
@@ -99,6 +119,16 @@ public class BusinessLicenseActivity extends AppCompatActivity {
         business_bankcard_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        business_btn = findViewById(R.id.Business_btn);
+        business_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.show(getApplication(),"成功",0);
                 finish();
             }
         });
@@ -215,9 +245,11 @@ public class BusinessLicenseActivity extends AppCompatActivity {
                                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                                             //得到bitmap
                                             L.i(bitmap.toString());
-                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+                                            businessStringBase64 = PictureUtil.bitmapToString(bitmap);
 
-                                            L.i("88888" + front_stringBase64.toString());
+                                            L.i("88888" + businessStringBase64.toString());
+
+                                            BusinessPicture();
                                         }
 
                                     });
@@ -227,11 +259,126 @@ public class BusinessLicenseActivity extends AppCompatActivity {
                             business_address.setText(words_address);
                             business_legal_representative.setText(words_legal_representative);
                             business_effective_date.setText(words_data);
+
+                            PostBusinessMessage();
                         }
                     });
         }
 
 
+    }
+
+    private void BusinessPicture() {
+
+        Picture_params =new HashMap<>();
+        Picture_params.put("uid", String.valueOf(usid));
+        Picture_params.put("photo",businessStringBase64);
+
+        HttpUtils.doPost(Config.TYD_BusinessLicensePicture, Picture_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Picture_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("Picture_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("Picture_params33333333333", response.body().string());
+                L.d("Picture_params33333333333", "成功");
+
+
+            }
+        });
+
+    }
+
+    private void PostBusinessMessage() {
+        Business_Message_params=new HashMap<>();
+        Business_Message_data =new HashMap<>();
+
+
+        Business_Message_params.put("uid", String.valueOf(usid));
+
+        Business_Message_data.put("number", words_login_number);
+
+        Business_Message_data.put("code", words_code);
+
+        Business_Message_data.put("unitname", words_company_name);
+
+        Business_Message_data.put("address", words_address);
+
+        Business_Message_data.put("legal", words_legal_representative);
+
+        Business_Message_data.put("day_to", words_data);
+
+
+
+        Business_Message_params.put("data", FileUti.getGet(Business_Message_data));
+
+
+        HttpUtils.doPost(Config.TYD_BusinessMessage, Business_Message_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Business_Message_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("Business_Message_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("Business_Message_params333333333", response.body().string());
+                L.d("Business_Message_params333333333", "成功");
+
+
+            }
+        });
     }
 
     private boolean checkTokenStatus() {

@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.DrivingCardBean;
 
@@ -43,13 +44,20 @@ import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.PictureUtil;
+import com.touedian.com.facetyd.utilsx.SPUtils;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
@@ -90,6 +98,13 @@ public class LawyerCardActivity extends AppCompatActivity {
     private Handler handler = null;
     private ImageView lawyer_bankcard_back;
     private ImageView general_button;
+    private String lawyercard_stringBase64;
+    private HashMap<String, String> Picture_params;
+    private HashMap<String, String> Laywer_Message_params;
+    private HashMap<String, String> Laywer_Message_data;
+    private int uid;
+    private int usid;
+    private Button lawyer_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +112,8 @@ public class LawyerCardActivity extends AppCompatActivity {
 
         fullScreen(LawyerCardActivity.this);
         setContentView(R.layout.activity_lawyer_card);
-
+        usid = SPUtils.getInt(LawyerCardActivity.this, "uid", uid);
+        L.i("Lawyer_usid", String.valueOf(usid));
         //创建属于主线程的handler
         handler = new Handler();
         initAccessTokenWithAkSk();
@@ -130,6 +146,17 @@ public class LawyerCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                finish();
+            }
+        });
+
+        lawyer_btn = findViewById(R.id.Lawyer_btn);
+
+        lawyer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ToastUtils.show(getApplication(),"成功",0);
                 finish();
             }
         });
@@ -235,9 +262,11 @@ public class LawyerCardActivity extends AppCompatActivity {
                                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                                             //得到bitmap
                                             L.i(bitmap.toString());
-                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+                                            lawyercard_stringBase64 = PictureUtil.bitmapToString(bitmap);
 
-                                            L.i("88888" + front_stringBase64.toString());
+                                            L.i("88888" + lawyercard_stringBase64.toString());
+                                            LawyerCardPicture();
+
                                         }
 
                                     });
@@ -253,6 +282,121 @@ public class LawyerCardActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void LawyerCardPicture() {
+        Picture_params = new HashMap<>();
+
+        Picture_params.put("uid", String.valueOf(usid));
+
+        Picture_params.put("photo", lawyercard_stringBase64);
+
+        HttpUtils.doPost(Config.TYD_LawyerPicture, Picture_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Picture_params"+response.body().string());
+
+                    try {
+
+
+                        L.i("Picture_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("Picture_params33333333333", response.body().string());
+                L.d("Picture_params33333333333", "成功");
+
+
+            }
+        });
+    }
+
+    private void PostLawerMess() {
+        Laywer_Message_params = new HashMap<>();
+        Laywer_Message_data = new HashMap<>();
+
+        Laywer_Message_params.put("uid", String.valueOf(usid));
+
+        Laywer_Message_data.put("cardholder", word4);
+
+        Laywer_Message_data.put("practising", word0);
+
+        Laywer_Message_data.put("license", word2);
+
+        Laywer_Message_data.put("number", word3);
+
+        Laywer_Message_data.put("practice", word1);
+
+        Laywer_Message_data.put("idnumber", word6);
+
+        Laywer_Message_data.put("sex", word5);
+
+
+
+        Laywer_Message_params.put("data", FileUti.getGet(Laywer_Message_data));
+
+
+
+        HttpUtils.doPost(Config.TYD_LawyerMessage, Laywer_Message_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Laywer_Message_params"+response.body().string());
+
+                    try {
+
+
+                        L.i("Laywer_Message_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("Laywer_Message_params33333333333", response.body().string());
+                L.d("Laywer_Message_params33333333333", "成功");
+
+
+            }
+        });
     }
 
     private void Tone() {
@@ -330,7 +474,7 @@ public class LawyerCardActivity extends AppCompatActivity {
             lawyer_sex.setText(word6);
 
             lawyer_idcode.setText(word4);
-
+            PostLawerMess();
         }
 
     };

@@ -7,7 +7,9 @@
 
 
     <!-- 360版本更新权限。 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+<!--
+   <uses-permission android:name="android.permission.WAKE_LOCK" />
+-->
 
     <!-- www.touedian.com -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -125,35 +127,12 @@
         //人脸支付
         <activity android:name=".model.PayingFaceActivity" />
 
-        <!-- 360版本更新SDK -->
-        <activity
-            android:name="com.qihoo.appstore.common.updatesdk.lib.UpdateTipDialogActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- 360版本更新SDK -->
-        <service
-            android:name="com.qihoo.appstore.updatelib.CheckUpdateService"
-            android:exported="false" />
-        <!-- 360版本更新SDK -->
-        <provider
-            android:name="com.qihoo.appstore.updatelib.UpdateProvider"
-            android:authorities="com.touedian.com.facetyd"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/update_apk_path" />
-        </provider>
 
-        <activity android:name=".qohoosdk.TestActivity" />
+
         //驾驶证
         <activity android:name=".ocr_text_cr.DrivingActivity" />
         //律师证
         <activity android:name=".ocr_text_cr.LawyerCardActivity" />
-        //网络图片文字
-
         //行驶证识别
         <activity android:name=".ocr_text_cr.LineCardActivity" />
         //车牌识别

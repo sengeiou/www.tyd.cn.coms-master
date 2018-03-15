@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,14 +24,26 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
 import com.touedian.com.facetyd.ocr_text_bean.LineCardBean;
 import com.touedian.com.facetyd.utils.FileUtil;
+import com.touedian.com.facetyd.utilsx.FileUti;
+import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.PictureUtil;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
@@ -67,6 +80,13 @@ public class LineCardActivity extends AppCompatActivity {
     private String linecard_lssuedate_words;
     private String absolutePath;
     private ImageView vehicle_license_button;
+    private HashMap<String, String> Picture_params;
+    private HashMap<String, String> LineCard_Message_params;
+    private HashMap<String, String> LineCard_Message_data;
+    private String picture_stringBase64;
+    private int uid;
+    private int usid;
+    private Button line_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +96,7 @@ public class LineCardActivity extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
 
-
+        usid = SPUtils.getInt(LineCardActivity.this, "uid", uid);
         initdate();
 
         // 行驶证识别
@@ -98,10 +118,19 @@ public class LineCardActivity extends AppCompatActivity {
     private void initdate() {
 
 
-        ImageView bankcard_back=findViewById(R.id.linecard_bankcard_back);
+        ImageView bankcard_back = findViewById(R.id.linecard_bankcard_back);
         bankcard_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+
+        line_btn = findViewById(R.id.Line_btn);
+        line_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.show(getApplication(),"成功",0);
                 finish();
             }
         });
@@ -149,18 +178,16 @@ public class LineCardActivity extends AppCompatActivity {
     }
 
 
-
     private void alertText(final String title, final String message) {
 
 
-
-        LineCardMessage =message;
+        LineCardMessage = message;
         L.i("LineCardMessage", "" + LineCardMessage);
 
         try {
             jsonObject = new JSONObject(LineCardMessage);
 
-            LineCardBean lineCardBean = JsonUtil.parseJsonToBean(LineCardMessage,LineCardBean.class);
+            LineCardBean lineCardBean = JsonUtil.parseJsonToBean(LineCardMessage, LineCardBean.class);
             LineCardBean.WordsResultBean words_result = lineCardBean.getWords_result();
 
 
@@ -191,7 +218,6 @@ public class LineCardActivity extends AppCompatActivity {
 
 
     }
-
 
 
     @Override
@@ -228,10 +254,12 @@ public class LineCardActivity extends AppCompatActivity {
                                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                                             //得到bitmap
                                             L.i(bitmap.toString());
-                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+                                            picture_stringBase64 = PictureUtil.bitmapToString(bitmap);
 
-                                            L.i("88888" + front_stringBase64.toString());
+                                            L.i("88888" + picture_stringBase64.toString());
+                                            LineCardPicture();
                                         }
+
 
                                     });
 
@@ -259,6 +287,126 @@ public class LineCardActivity extends AppCompatActivity {
                     });
         }
 
+    }
+
+    private void LineCardPicture() {
+        Picture_params = new HashMap<>();
+
+        Picture_params.put("uid", String.valueOf(usid));
+        Picture_params.put("photo", picture_stringBase64);
+
+        HttpUtils.doPost(Config.TYD_LinePicture, Picture_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Picture_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("Picture_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    PostLineMessage();
+
+                }
+
+
+                L.d("Picture_params33333333333", response.body().string());
+                L.d("Picture_params33333333333", "成功");
+
+
+            }
+        });
+    }
+
+    private void PostLineMessage() {
+
+        LineCard_Message_params = new HashMap<>();
+
+        LineCard_Message_data = new HashMap<>();
+
+
+        LineCard_Message_params.put("uid", String.valueOf(usid));
+
+        LineCard_Message_data.put("number", lineCard_idnumber_words);
+
+        LineCard_Message_data.put("cartype", linecard_type_words);
+
+        LineCard_Message_data.put("every", linecard_all_words);
+
+        LineCard_Message_data.put("address", linecard_address_words);
+
+        LineCard_Message_data.put("useproperty", linecard_nature_words);
+
+        LineCard_Message_data.put("brandmodel", linecard_pinpaitype_words);
+
+        LineCard_Message_data.put("code", linecard_code_words);
+
+        LineCard_Message_data.put("engine_number", linecard_enginecode_words);
+
+        LineCard_Message_data.put("registration", linecard_signdate_words);
+
+        LineCard_Message_data.put("issuing", linecard_lssuedate_words);
+
+
+        LineCard_Message_params.put("data", FileUti.getGet(LineCard_Message_data));
+
+        HttpUtils.doPost(Config.TYD_LineMessage, LineCard_Message_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("LineCard_Message_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("LineCard_Message_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("LineCard_Message_params333333333", response.body().string());
+                L.d("LineCard_Message_params333333333", "成功");
+
+
+            }
+        });
     }
 
     private void infoPopText(final String result) {

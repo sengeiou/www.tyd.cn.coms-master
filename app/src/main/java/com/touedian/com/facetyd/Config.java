@@ -49,6 +49,28 @@ public class Config {
     //用户头像||更改头像
     public static String TYD_PersonIcon = " http://face.touedian.com/index.php?m=face&f=index&v=member_info";
 
+
+
+    // 驾驶证信息
+    public static String TYD_drivingMessage ="http://face.touedian.com/index.php?m=face&f=index&v=driverinfo";
+
+    // 律师证信息
+    public static String TYD_LawyerMessage="http://face.touedian.com/index.php?m=face&f=index&v=lawyerinfo";
+
+    // 行驶证信息
+    public static String TYD_LineMessage="http://face.touedian.com/index.php?m=face&f=index&v=licenseinfo";
+
+    // 车牌信息
+    public static String TYD_LicenPlateMessage=" http://face.touedian.com/index.php?m=face&f=index&v=carinfo";
+
+    // 营业执照信息
+    public static String TYD_BusinessMessage="http://face.touedian.com/index.php?m=face&f=index&v=businessinfo";
+
+
+
+
+
+
     // 身份证照片
     public static String TYD_IdCardpicture = "http://face.touedian.com/index.php?m=face&f=index&v=ceshi";
 
@@ -56,10 +78,22 @@ public class Config {
 
     public static String TYD_BankCardpicture ="http://face.touedian.com/index.php?m=face&f=index&v=ceshid";
 
-
     // 驾驶证照片
+    public static String TYD_drivingPicture ="http://face.touedian.com/index.php?m=face&f=index&v=driver_img";
 
-    public static String TYD_drivingMessage ="http://face.touedian.com/index.php?m=face&f=index&v=driverinfo";
+    // 律师证照片
+    public static String TYD_LawyerPicture ="http://face.touedian.com/index.php?m=face&f=index&v=lawyer_img";
+
+    // 行驶证照片
+    public static String TYD_LinePicture ="http://face.touedian.com/index.php?m=face&f=index&v=license_img";
+
+    // 行驶证照片
+    public static String TYD_LicenPlatePicture ="http://face.touedian.com/index.php?m=face&f=index&v=car_img";
+
+    // 营业执照照片
+    public static String TYD_BusinessLicensePicture ="http://face.touedian.com/index.php?m=face&f=index&v=business_img";
+
+
 
     //OAuth2.0       获取Access Token
     public static String Access_Token = "https://aip.baidubce.com/oauth/2.0/token";

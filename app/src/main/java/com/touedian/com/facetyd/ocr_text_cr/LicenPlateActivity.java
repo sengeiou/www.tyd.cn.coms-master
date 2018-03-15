@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,15 +29,27 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.touedian.com.facetyd.Config;
 import com.touedian.com.facetyd.R;
 
 import com.touedian.com.facetyd.ocr_text_bean.LicencePlateBean;
 import com.touedian.com.facetyd.utils.FileUtil;
+import com.touedian.com.facetyd.utilsx.FileUti;
+import com.touedian.com.facetyd.utilsx.HttpUtils;
 import com.touedian.com.facetyd.utilsx.JsonUtil;
 import com.touedian.com.facetyd.utilsx.L;
 import com.touedian.com.facetyd.utilsx.PictureUtil;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.engine.DiskCacheStrategy.NONE;
 
@@ -56,6 +69,13 @@ public class LicenPlateActivity extends AppCompatActivity {
     private String absolutePath;
     private String licence_plate_number;
     private String licence_plate_color;
+    private String licenPlatestringBase64;
+    private HashMap<String, String> Picture_params;
+    private HashMap<String, String> LicenPlate_Message_params;
+    private HashMap<String, String> LicenPlate_Message_data;
+    private int uid;
+    private int usid;
+    private Button licenPlate_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +87,7 @@ public class LicenPlateActivity extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this);
         initAccessTokenWithAkSk();
 
+        usid = SPUtils.getInt(LicenPlateActivity.this, "uid", uid);
 
         initdate();
         // 车牌识别
@@ -96,6 +117,16 @@ public class LicenPlateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        licenPlate_btn = findViewById(R.id.LicenPlate_btn);
+        licenPlate_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.show(getApplication(),"成功",0);
+                finish();
+            }
+        });
+
 
         license_plate_button = findViewById(R.id.license_plate_button);
 
@@ -189,9 +220,11 @@ public class LicenPlateActivity extends AppCompatActivity {
                                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                                             //得到bitmap
                                             L.i(bitmap.toString());
-                                            String front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+                                            licenPlatestringBase64 = PictureUtil.bitmapToString(bitmap);
 
-                                            L.i("88888" + front_stringBase64.toString());
+                                            L.i("88888" + licenPlatestringBase64.toString());
+
+                                            LicenPlatePictuer();
                                         }
 
                                     });
@@ -205,6 +238,112 @@ public class LicenPlateActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void LicenPlatePictuer() {
+
+        Picture_params=new HashMap<>();
+
+        Picture_params.put("uid", String.valueOf(usid));
+        Picture_params.put("photo",licenPlatestringBase64);
+
+        HttpUtils.doPost(Config.TYD_LicenPlatePicture, Picture_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("Picture_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("Picture_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    PostLicenPlateMessage();
+
+                }
+
+
+                L.d("Picture_params33333333333", response.body().string());
+                L.d("Picture_params33333333333", "成功");
+
+
+            }
+        });
+    }
+
+    private void PostLicenPlateMessage() {
+
+        LicenPlate_Message_params =new HashMap<>();
+        LicenPlate_Message_data =new HashMap<>();
+
+
+        LicenPlate_Message_params.put("uid", String.valueOf(usid));
+
+        LicenPlate_Message_data.put("car_num", licence_plate_number);
+
+        LicenPlate_Message_data.put("car_color", licence_plate_color);
+
+
+
+
+        LicenPlate_Message_params.put("data", FileUti.getGet(LicenPlate_Message_data));
+
+        HttpUtils.doPost(Config.TYD_LicenPlateMessage, LicenPlate_Message_params, new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.d("11111111111", "### fileName : " + e.toString());
+                L.d("11111111111", "失败");
+
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+
+                if (response.code() == 200) {
+
+
+                    L.i("LicenPlate_Message_params" + response.body().string());
+
+                    try {
+
+
+                        L.i("LicenPlate_Message_params", "成功");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                L.d("LicenPlate_Message_params333333333", response.body().string());
+                L.d("LicenPlate_Message_params333333333", "成功");
+
+
+            }
+        });
     }
 
     private boolean checkTokenStatus() {
@@ -245,26 +384,6 @@ public class LicenPlateActivity extends AppCompatActivity {
         }
     }
 
-    public class RotateTransformation extends BitmapTransformation {
-        private float rotateRotationAngle = 0f;
-
-        public RotateTransformation(Context context, float rotateRotationAngle) {
-            super(context);
-            this.rotateRotationAngle = rotateRotationAngle;
-        }
-
-        @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-            Matrix matrix = new Matrix();
-            matrix.postRotate(rotateRotationAngle);
-            return Bitmap.createBitmap(toTransform, 0, 0, toTransform.getWidth(), toTransform.getHeight(), matrix, true);
-        }
-
-        @Override
-        public String getId() {
-            return "rotate" + rotateRotationAngle;
-        }
-    }
 
 
 

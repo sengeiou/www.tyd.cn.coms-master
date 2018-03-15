@@ -356,7 +356,7 @@ public class IDCardActivity extends AppCompatActivity {
 
                                         });
 
-                                //setImgByStr(front_stringBase64, "");
+
                             }
 
 
