@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,12 +46,17 @@ public class CxchangeActivity extends AppCompatActivity {
     private int uId;
     private Button cxchangBtn;
     private TextView exchangeTextText;
+    private Handler handler=null;
+    private CxchangeBean cxchangeBean;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullScreen(CxchangeActivity.this);
         setContentView(R.layout.activity_cxchange);
+        //创建属于主线程的handler
+        handler=new Handler();
         ButterKnife.bind(this);
 
         uId = SPUtils.getInt(CxchangeActivity.this,"uid",uid);
@@ -117,18 +123,22 @@ public class CxchangeActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject=new JSONObject(s);
 
-                     CxchangeBean cxchangeBean=   JsonUtil.parseJsonToBean(s,CxchangeBean.class);
+                        cxchangeBean = JsonUtil.parseJsonToBean(s,CxchangeBean.class);
 
-                        View view=new View(CxchangeActivity.this);
-                        if (cxchangeBean.getStatus()==1){
+                        view = new View(CxchangeActivity.this);
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                if (cxchangeBean.getStatus()==1){
+                                    exchangeEditText.setVisibility(view.GONE);
+                                    exchangeTextText.setVisibility(view.VISIBLE);
+                                }else {
+                                    exchangeEditText.setVisibility(view.VISIBLE);
+                                    exchangeTextText.setVisibility(view.GONE);
+                                }
+                            }
+                        }.start();
 
-
-                            exchangeEditText.setVisibility(view.GONE);
-                            exchangeTextText.setVisibility(view.VISIBLE);
-                        }else {
-                            exchangeEditText.setVisibility(view.VISIBLE);
-                            exchangeTextText.setVisibility(view.GONE);
-                        }
 
                     } catch ( Exception e) {
                         e.printStackTrace();
