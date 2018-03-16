@@ -127,6 +127,7 @@ public class CardViewActivity extends AppCompatActivity {
                         cardviewBean = JsonUtil.parseJsonToBean(s, CardviewBean.class);
 
                         adapter.setDatas(cardviewBean);
+                        adapter.notifyDataSetChanged();
 
                         //notify();
                     } catch (Exception e) {

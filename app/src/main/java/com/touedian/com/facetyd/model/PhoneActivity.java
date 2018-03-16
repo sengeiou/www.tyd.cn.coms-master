@@ -283,13 +283,13 @@ public class PhoneActivity extends AppCompatActivity {
 
                                 phoneLogin = JsonUtil.parseJsonToBean(s, PhoneLogin.class);
 
-                            if (phoneLogin.getStatus()==1){
+
                                 Intent intent=new Intent(PhoneActivity.this,OcrFaceActivity.class);
                                 intent.putExtra("identity_status",phoneLogin.getIdentity_status());
                                 intent.putExtra("uid",phoneLogin.getUid());
-                                //
+
                                 intent.putExtra("avatar",phoneLogin.getAvatar());
-                                Log.d("url",phoneLogin.getAvatar());
+
 
                                 intent.putExtra("identity_card",phoneLogin.getIdentity_card());
                                 intent.putExtra("truename",phoneLogin.getTruename());
@@ -300,10 +300,8 @@ public class PhoneActivity extends AppCompatActivity {
                                 SPUtils.putString(PhoneActivity.this,"truename", phoneLogin.getTruename());
                                 SPUtils.putString(PhoneActivity.this,"username", phoneLogin.getUsername());
                                 startActivity(intent);
-                              //  ToastUtils.showShort(PhoneActivity.this, phoneLogin.getMsg());
-                            }else {
-                               // ToastUtils.showShort(PhoneActivity.this, phoneLogin.getMsg());
-                            }
+
+
 
                         } catch (Exception e) {
                             e.printStackTrace();

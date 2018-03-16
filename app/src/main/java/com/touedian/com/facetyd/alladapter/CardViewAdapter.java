@@ -58,7 +58,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
     public void setDatas(CardviewBean cardviewBean) {
         this.cardviewBean = cardviewBean;
-        notifyDataSetChanged();
+
+
     }
 
     // 创建视图
