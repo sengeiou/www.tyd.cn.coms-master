@@ -11,14 +11,22 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.touedian.com.facetyd.R;
+import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 public class PayingFaceActivity extends AppCompatActivity {
+    public boolean IdcardCode ;
+    private boolean IdcardCodes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fullScreen(PayingFaceActivity.this);
-        setContentView(R.layout.activity_paying_face);
+
+            setContentView(R.layout.activity_paying_face);
+
+
 
         ImageView Payingfaceback=findViewById(R.id.Payingfaceback);
         Payingfaceback.setOnClickListener(new View.OnClickListener() {
@@ -58,4 +66,6 @@ public class PayingFaceActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

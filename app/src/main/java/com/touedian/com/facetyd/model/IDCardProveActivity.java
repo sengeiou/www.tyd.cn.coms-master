@@ -25,9 +25,11 @@ import com.baidu.ocr.sdk.model.IDCardResult;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bumptech.glide.Glide;
 import com.touedian.com.facetyd.R;
+import com.touedian.com.facetyd.ocr_face.FaceOnlineVerifyActivity;
 import com.touedian.com.facetyd.ocr_text_cr.DrivingActivity;
 import com.touedian.com.facetyd.utils.FileUtil;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.SPUtils;
 import com.touedian.com.facetyd.utilsx.ToastUtils;
 
 import org.json.JSONException;
@@ -68,6 +70,11 @@ public class IDCardProveActivity extends AppCompatActivity {
     private String name_duibi;
     public static final String ID_CARD_SIDE_FRONT = "front";
     public static final String ID_CARD_SIDE_BACK = "back";
+
+    public boolean IdcardCode  ;
+
+    private boolean IdcardCodes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +83,8 @@ public class IDCardProveActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        idcard_front_image = findViewById(R.id.id_card_front_image);
-        idcard_back_image = findViewById(R.id.id_card_back_image);
+        // idcard_front_image = findViewById(R.id.id_card_front_image);
+        // idcard_back_image = findViewById(R.id.id_card_back_image);
 
 
         btn = findViewById(R.id.personal_button);
@@ -85,17 +92,31 @@ public class IDCardProveActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-              ToastUtils.showLong(IDCardProveActivity.this,"核实成功");
+                if(IdcardCode==false){
+
+                    Intent intent=new Intent(getApplication(), FaceOnlineVerifyActivity.class);
+                    startActivity(intent);
+                    IdcardCode=true;
+                    SPUtils.putBoolean(getApplication(),"IdcardCode",IdcardCode);
+                    L.i(String.valueOf(IdcardCode));
+
+                }else {
+
+                    ToastUtils.showLong(IDCardProveActivity.this, "核实成功");
+
+                }
+
             }
         });
-        ImageView backimage=findViewById(R.id.backimage);
+        ImageView backimage = findViewById(R.id.backimage);
         backimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
+    }
+/*
         //身份证正面
         findViewById(R.id.id_card_front_image).setOnClickListener(new View.OnClickListener() {
 
@@ -121,7 +142,7 @@ public class IDCardProveActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
         });
-    }
+    }*/
 
 
     private void recIDCard(String idCardSide, String filePath) {
@@ -341,5 +362,13 @@ public class IDCardProveActivity extends AppCompatActivity {
                 window.setAttributes(attributes);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        IdcardCode = SPUtils.getBoolean(getApplication(), "IdcardCode", IdcardCodes);
+        L.i(String.valueOf(IdcardCode));
     }
 }

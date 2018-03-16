@@ -46,6 +46,7 @@ public class ZxingfaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fullScreen(ZxingfaceActivity.this);
         setContentView(R.layout.activity_zxingface);
         DoPost();
 
@@ -69,25 +70,25 @@ public class ZxingfaceActivity extends AppCompatActivity {
                 intent.putExtra("identity_card",identity_card);
                 intent.putExtra("truename",truename);
                 intent.putExtra("username",username);
-
+                L.i("brushface", String.valueOf(brushface));
                 L.i("booe",avatar.toString());
                 L.i("booe",identity_card.toString());
                 L.i("booe",truename.toString());
-                L.i("booe",username.toString());
+                L.i("booe", String.valueOf(booe));
                 startActivity(intent);
 
             }
         });
-        fullScreen(ZxingfaceActivity.this);
+
     }
 
     private void DoPost() {
         avatar = SPUtils.getString(ZxingfaceActivity.this, "avatar", Avatar);
-        L.i("username",avatar.toString());
+
         identity_card = SPUtils.getString(ZxingfaceActivity.this, "identity_card", Identity_card);
         truename = SPUtils.getString(ZxingfaceActivity.this, "truename", Truename);
         username = SPUtils.getString(ZxingfaceActivity.this, "username", Username);
-        L.i("username",username.toString());
+
     }
 
     @Override
@@ -156,18 +157,19 @@ public class ZxingfaceActivity extends AppCompatActivity {
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
                 brushface = data.getExtras().getInt("brushface");
-                L.i("8888888888888882", String.valueOf(brushface).toString());
-                // SharedPreferencesUtils.setParam(BrushfaceActivity.this,"brushface",brushface);
-
+                L.i("88888888888888800", String.valueOf(brushface).toString());
                 SPUtils.putInt(ZxingfaceActivity.this, "brushface", brushface);
+                L.i("8888888888888882", String.valueOf(brushface).toString());
+
+                L.e("3333333333333333333333333333333333333");
             }
         }
 
     }
 
-    /**
+/*    *//**
      * 重写返回键，实现双击退出效果
-     */
+     *//*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -180,7 +182,7 @@ public class ZxingfaceActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
 
 }

@@ -13,7 +13,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="79.5dp"
+            android:layout_height="60dp"
             android:background="#25b5ff" />
 
         <ImageView
@@ -21,39 +21,33 @@
             android:layout_width="15dp"
             android:layout_height="19dp"
             android:layout_marginLeft="12.5dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="35dp"
             android:background="@mipmap/allbackbutton" />
 
         <TextView
             android:layout_width="70dp"
             android:layout_height="19dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="人脸核身"
+            android:layout_marginTop="35dp"
+            android:text="公安认证"
             android:textColor="#ffffff"
             android:textSize="14.3sp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="330.5dp"
-            android:layout_height="65dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="75dp"
-            android:background="@mipmap/personalbutton"
-            android:gravity="center"
-            android:text=" 注 :请在光线充足的情况下,拍摄二代身份证原件
 
+    </RelativeLayout>
 
-（拍摄时禁用闪光灯，确保相片符合规格）"
-            android:textColor="#222222"
-            android:textSize="13.5sp" />
+    <RelativeLayout
+        android:background="#25b5ff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:background="@mipmap/facebody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 
-    <ImageView
+<!--    <ImageView
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="8.5dp"
@@ -72,31 +66,9 @@
         android:layout_width="match_parent"
         android:layout_height="171dp"
         android:visibility="visible"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText" />-->
 
-    <!--   <Button
-           android:id="@+id/gallery_button_front"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="相册选择 正面"
-           android:visibility="gone"
-           tools:ignore="HardcodedText" />
 
-       <Button
-           android:id="@+id/gallery_button_back"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="相册选择 反面"
-           android:visibility="gone"
-           tools:ignore="HardcodedText" />-->
-
-    <!--   <Button
-           android:id="@+id/id_card_front_button"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="身份证正面"
-           android:visibility="gone"
-           tools:ignore="HardcodedText" />-->
 
     <Button
         android:id="@+id/personal_button"
@@ -112,13 +84,7 @@
         android:textSize="14sp" />
 
 
-    <!--   <Button
-           android:id="@+id/id_card_back_button"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="身份证反面"
-           android:visibility="gone"
-           tools:ignore="HardcodedText" />-->
+
 
 
 </LinearLayout>

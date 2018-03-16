@@ -46,8 +46,10 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
     private String filePath;
     private boolean policeVerifyFinish = false;
     private boolean waitAccesstoken = true;
-    private String idnumber1;
 
+    private String idnumbers;
+    private String usernames;
+    public boolean IdcardCode  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +57,16 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
         setContentView(R.layout.activity_face_online_check);
 
 
-        Intent intent = getIntent();
-        if (intent != null && username.isEmpty() && idnumber.isEmpty()) {
+        //Intent intent = getIntent();
+       /* if (intent != null && username.isEmpty() && idnumber.isEmpty()) {
             username = intent.getStringExtra("username");
             idnumber = intent.getStringExtra("idnumber");
-        }
+        }*/
 
-        //idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idnumber", this.idnumber);
-        //username = SPUtils.getString(FaceOnlineVerifyActivity.this, "username", this.username);
-
+       // idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idNumber", this.idnumbers);
+        L.i(idnumber);
+      //  username = SPUtils.getString(FaceOnlineVerifyActivity.this, "name", this.usernames);
+        L.i(username);
 
         resultTipTV = (TextView) findViewById(R.id.result_tip_tv);
         onlineFacelivenessTipTV = (TextView) findViewById(R.id.online_faceliveness_tip_tv);
@@ -183,6 +186,10 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
                     displayTip(resultTipTV, "核身成功");
                     displayTip(onlineFacelivenessTipTV, "在线活体分数：" + result.getFaceliveness());
                     displayTip(scoreTV, "公安验证分数：" + result.getScore());
+                    IdcardCode=true;
+                    SPUtils.putBoolean(getApplication(),"IdcardCode",IdcardCode);
+                    L.i(String.valueOf(IdcardCode));
+
                 } else {
                     displayTip(resultTipTV, "核身失败");
                     displayTip(scoreTV, "公安验证分数过低：" + result.getScore());

@@ -14,6 +14,8 @@ import com.baidu.idl.face.platform.FaceStatusEnum;
 import com.baidu.idl.face.platform.ui.FaceLivenessActivity;
 import com.touedian.com.facetyd.ocr_face.OcrFaceActivity;
 import com.touedian.com.facetyd.utilsx.L;
+import com.touedian.com.facetyd.utilsx.SPUtils;
+import com.touedian.com.facetyd.utilsx.ToastUtils;
 import com.touedian.com.facetyd.wigdet.DefaultDialog;
 
 import java.io.File;
@@ -45,6 +47,8 @@ public class FaceLivenessExpActivity extends FaceLivenessActivity {
             truename = intent.getStringExtra("truename");
             username = intent.getStringExtra("username");
         }
+        L.i("brushface", String.valueOf(brushface));
+        L.i("booe", String.valueOf(booe));
         L.i("booe",avatar.toString());
         L.i("booe",identity_card.toString());
         L.i("booe",truename.toString());
@@ -61,10 +65,11 @@ public class FaceLivenessExpActivity extends FaceLivenessActivity {
             Intent intent = new Intent();
             intent.putExtra("file_path", bestImagePath);
             intent.putExtra("brushface", brushface);
-
+            setResult(Activity.RESULT_OK, intent);
             L.i("99999999999999", String.valueOf(brushface).toString());
 
-            setResult(Activity.RESULT_OK, intent);
+            SPUtils.putInt(getApplication(),"brushface",brushface);
+
             if(booe==1){
                 Intent intents=new Intent(FaceLivenessExpActivity.this, OcrFaceActivity.class);
                 intents.putExtra("avatar",avatar);
@@ -78,6 +83,7 @@ public class FaceLivenessExpActivity extends FaceLivenessActivity {
                 L.i("88888888888888",username.toString());
                 startActivity(intents);
             }else {
+
                 finish();
             }
 
@@ -116,7 +122,7 @@ public class FaceLivenessExpActivity extends FaceLivenessActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    mDefaultDialog.dismiss();
+                                    //mDefaultDialog.dismiss();
                                     Intent intent = new Intent();
                                     intent.putExtra("file_path", bestImagePath);
                                     setResult(Activity.RESULT_OK, intent);
@@ -126,7 +132,7 @@ public class FaceLivenessExpActivity extends FaceLivenessActivity {
             mDefaultDialog = builder.create();
             mDefaultDialog.setCancelable(true);
         }
-        mDefaultDialog.dismiss();
+        //mDefaultDialog.dismiss();
         mDefaultDialog.show();
     }
 

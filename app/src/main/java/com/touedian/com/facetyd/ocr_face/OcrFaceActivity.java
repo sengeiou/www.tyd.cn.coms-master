@@ -90,6 +90,8 @@ public class OcrFaceActivity extends AppCompatActivity {
     private String username;
     private ImageView btninstall;
     private String data;
+    private boolean IdcardCodes;
+    private boolean IdcardCode;
 
 
     @Override
@@ -97,6 +99,11 @@ public class OcrFaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fullScreen(OcrFaceActivity.this);
         setContentView(R.layout.activity_ocr_face);
+
+
+        IdcardCode = SPUtils.getBoolean(getApplication(), "IdcardCode", IdcardCodes);
+        L.i(String.valueOf(IdcardCode));
+
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -123,11 +130,13 @@ public class OcrFaceActivity extends AppCompatActivity {
             SPUtils.putString(OcrFaceActivity.this, "username", username);
             uisd = SPUtils.getInt(OcrFaceActivity.this, "uid", uisd);
 
-            SPUtils.putString(OcrFaceActivity.this, "identity_card", identity_card.toString());
+            if(identity_card!=null){
+                SPUtils.putString(OcrFaceActivity.this, "identity_card", identity_card.toString());
+            }
+
             L.i("IeGrid", "" + uisd);
             L.i("IeGrid", "" + avatar);
             L.i("IeGrid", "" + identity_card);
-            L.i("IeGrid", "" + identity_card.toString());
             L.i("IeGrid", "" + truename);
             L.i("IeGrid", "" + username);
 
@@ -244,15 +253,30 @@ public class OcrFaceActivity extends AppCompatActivity {
                     }
 
                     if (position == 5) {
-                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
-                        Intent intent = new Intent(getApplicationContext(), PayingFaceActivity.class);
-                        startActivity(intent);
+                        IdcardCode = SPUtils.getBoolean(getApplication(), "IdcardCode", IdcardCodes);
+                        L.i(String.valueOf(IdcardCode));
+
+                        if(IdcardCode==true){
+                            Intent intent = new Intent(getApplicationContext(), PayingFaceActivity.class);
+                            startActivity(intent);
+                        }else {
+                            ToastUtils.showShort(OcrFaceActivity.this, "请先进行人脸核身");
+                        }
+
+
                     }
 
                     if (position == 6) {
-                        ToastUtils.showShort(OcrFaceActivity.this, "进入成功");
-                        Intent intent = new Intent(getApplicationContext(), CxchangeActivity.class);
-                        startActivity(intent);
+                        IdcardCode = SPUtils.getBoolean(getApplication(), "IdcardCode", IdcardCodes);
+                        L.i(String.valueOf(IdcardCode));
+                        if(IdcardCode==true){
+                            Intent intent = new Intent(getApplicationContext(), CxchangeActivity.class);
+                            startActivity(intent);
+                        }else {
+                            ToastUtils.showShort(OcrFaceActivity.this, "请先进行人脸核身");
+                        }
+
+
                     }
 
                     if (position == 7) {
