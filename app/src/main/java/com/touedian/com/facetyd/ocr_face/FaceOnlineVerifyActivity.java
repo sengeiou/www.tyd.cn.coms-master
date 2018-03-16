@@ -35,9 +35,10 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
     public static final int OFFLINE_FACE_LIVENESS_REQUEST = 100;
 
-    private String username="韩文瑞";
-    private String idnumber="140202199601112039";
-
+   // private String username="韩文瑞";
+   // private String idnumber="140202199601112039";
+    private String username;
+    private String idnumber;
     private TextView resultTipTV;
     private TextView onlineFacelivenessTipTV;
     private TextView scoreTV;
@@ -63,9 +64,9 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
             idnumber = intent.getStringExtra("idnumber");
         }*/
 
-       // idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idNumber", this.idnumbers);
+        idnumber = SPUtils.getString(FaceOnlineVerifyActivity.this, "idNumber", this.idnumbers);
         L.i(idnumber);
-      //  username = SPUtils.getString(FaceOnlineVerifyActivity.this, "name", this.usernames);
+        username = SPUtils.getString(FaceOnlineVerifyActivity.this, "name", this.usernames);
         L.i(username);
 
         resultTipTV = (TextView) findViewById(R.id.result_tip_tv);

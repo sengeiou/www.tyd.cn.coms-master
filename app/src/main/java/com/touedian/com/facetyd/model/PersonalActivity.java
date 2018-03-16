@@ -233,7 +233,7 @@ public class PersonalActivity extends AppCompatActivity {
         //用户姓名  ok
         personal_user_name = findViewById(R.id.Personal_user_name);
         personal_user_name.setText(truename);
-        L.i("truename", truename);
+      //  L.i("truename", truename);
 
 
         //用户手机号
