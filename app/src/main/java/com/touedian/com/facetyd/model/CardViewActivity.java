@@ -127,7 +127,8 @@ public class CardViewActivity extends AppCompatActivity {
                         cardviewBean = JsonUtil.parseJsonToBean(s, CardviewBean.class);
 
                         adapter.setDatas(cardviewBean);
-                        adapter.notifyDataSetChanged();
+
+
 
 
                     } catch (Exception e) {
@@ -135,9 +136,25 @@ public class CardViewActivity extends AppCompatActivity {
                     }
 
                 }
+
+
+                Rues();
             }
         });
         mRecyclerView.setAdapter(adapter);
+
+    }
+
+    private void Rues() {
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //这里面进行UI的更新操作
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
