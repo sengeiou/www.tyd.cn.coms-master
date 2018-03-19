@@ -273,7 +273,7 @@ public class OcrFaceActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), CxchangeActivity.class);
                             startActivity(intent);
                         }else {
-                            ToastUtils.showShort(OcrFaceActivity.this, "请先进行人脸核身");
+                            ToastUtils.showShort(OcrFaceActivity.this, "请先进行人脸对比");
                         }
 
 

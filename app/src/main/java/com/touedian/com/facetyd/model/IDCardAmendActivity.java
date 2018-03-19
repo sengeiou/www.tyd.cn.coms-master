@@ -90,22 +90,29 @@ public class IDCardAmendActivity extends AppCompatActivity {
 
 
         idcard_amend_btn = findViewById(R.id.Idcard_amend_btn);
-        idcard_amend_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(idcard_amend_idnumber.getText().length()==18||idcard_amend_idnumber.getText().length()==15  &&  idcard_amend_name.getText().length()>=1){
+
+            idcard_amend_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
 
-                ToastUtils.showShort(IDCardAmendActivity.this, "确认成功");
-                //身份证认证标识
+                    ToastUtils.showShort(IDCardAmendActivity.this, "确认成功");
+                    //身份证认证标识
 
-                Intent intt= new Intent(IDCardAmendActivity.this, OcrFaceActivity.class);
-                IeGrid = 1;
-                intt.putExtra("identity_status",IeGrid);
-                SPUtils.putInt(IDCardAmendActivity.this,"identity_status",IeGrid);
+                    Intent intt= new Intent(IDCardAmendActivity.this, OcrFaceActivity.class);
+                    IeGrid = 1;
+                    intt.putExtra("identity_status",IeGrid);
+                    SPUtils.putInt(IDCardAmendActivity.this,"identity_status",IeGrid);
 
-                startActivity(intt);
-            }
-        });
+                    startActivity(intt);
+                }
+            });
+        }else {
+
+            ToastUtils.showLong(getApplication(),"请重新拍摄身份证");
+        }
+
 
         ImageView idcard_amend_back = findViewById(R.id.idcard_amend_back);
         idcard_amend_back.setOnClickListener(new View.OnClickListener() {

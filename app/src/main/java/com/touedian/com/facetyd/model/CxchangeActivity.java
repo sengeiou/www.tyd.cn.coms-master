@@ -126,29 +126,42 @@ public class CxchangeActivity extends AppCompatActivity {
                         cxchangeBean = JsonUtil.parseJsonToBean(s,CxchangeBean.class);
 
                         view = new View(CxchangeActivity.this);
-                        new Thread(){
-                            @Override
-                            public void run() {
-                                if (cxchangeBean.getStatus()==1){
-                                    exchangeEditText.setVisibility(view.GONE);
-                                    exchangeTextText.setVisibility(view.VISIBLE);
-                                }else {
-                                    exchangeEditText.setVisibility(view.VISIBLE);
-                                    exchangeTextText.setVisibility(view.GONE);
-                                }
-                            }
-                        }.start();
 
+
+                        CxchangeDa();
 
                     } catch ( Exception e) {
                         e.printStackTrace();
                     }
 
-                   // ToastUtils.showLong(CxchangeActivity.this,"成功");
+
                 }
 
             }
         });
+    }
+
+    private void CxchangeDa() {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //这里面进行UI的更新操作
+                if (cxchangeBean.getStatus()==1){
+                    exchangeEditText.setVisibility(view.GONE);
+                    exchangeTextText.setVisibility(view.VISIBLE);
+                }else {
+                    exchangeEditText.setVisibility(view.VISIBLE);
+                    exchangeTextText.setVisibility(view.GONE);
+                }
+            }
+        });
+       /* new Thread(){
+            @Override
+            public void run() {
+
+            }
+        }.start();*/
     }
 
     /**

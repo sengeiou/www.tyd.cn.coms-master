@@ -129,7 +129,7 @@ public class CardViewActivity extends AppCompatActivity {
                         adapter.setDatas(cardviewBean);
                         adapter.notifyDataSetChanged();
 
-                        //notify();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

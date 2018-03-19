@@ -119,6 +119,7 @@ public class IDCardActivity extends AppCompatActivity {
 
     private String front_stringBase64;
     private String back_stringBase64;
+    private Button personal_button;
 
     private boolean checkGalleryPermission() {
         int ret = ActivityCompat.checkSelfPermission(IDCardActivity.this, Manifest.permission
@@ -161,7 +162,9 @@ public class IDCardActivity extends AppCompatActivity {
         id_card_front_button = findViewById(R.id.id_card_front_button);
 
         id_card_back_button = findViewById(R.id.id_card_back_button);
-        Button personal_button = findViewById(R.id.personal_button);
+        personal_button = findViewById(R.id.personal_button);
+
+
         personal_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,6 +339,7 @@ public class IDCardActivity extends AppCompatActivity {
                                             .into(id_card_front_button);
 
                                 }
+
                                 //URL 转bitmap
                                 Glide.with(IDCardActivity.this)
                                         .load(filePathls_front)
@@ -350,6 +354,11 @@ public class IDCardActivity extends AppCompatActivity {
                                                 //得到bitmap
                                                 L.i(bitmap.toString());
                                                 front_stringBase64 = PictureUtil.bitmapToString(bitmap);
+
+
+                                                if(front_stringBase64==null){
+                                                    ToastUtils.showLong(getApplication(),"请拍摄正确的身份证");
+                                                }
 
                                                 L.i("88888"+front_stringBase64.toString());
                                             }
@@ -399,6 +408,9 @@ public class IDCardActivity extends AppCompatActivity {
                                                 L.i(bitmap.toString());
                                                 back_stringBase64 = PictureUtil.bitmapToString(bitmap);
 
+                                                if(back_stringBase64==null) {
+                                                    ToastUtils.showLong(getApplication(), "请拍摄正确的身份证");
+                                                }
                                             }
                                         });
 
@@ -594,6 +606,7 @@ public class IDCardActivity extends AppCompatActivity {
         //这里是头像接口，通过Post请求，拼接接口地址和ID，上传数据。
 
 
+
         params = new HashMap<String, String>();
 
         params.put("uid", String.valueOf(uid));
@@ -602,49 +615,54 @@ public class IDCardActivity extends AppCompatActivity {
 
         params.put("cardimg2", back_stringBase64);
 
-        HttpUtils.doPost(Config.TYD_IdCardpicture, params, new Callback() {
+        if(params!=null && front_stringBase64!=null && back_stringBase64!=null){
+            HttpUtils.doPost(Config.TYD_IdCardpicture, params, new Callback() {
 
 
-            @Override
-            public void onFailure(Call call, IOException e) {
-                L.d("11111111111", "### fileName : " + e.toString());
-                L.d("11111111111", "失败");
-
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-
-                if (response.code() == 200) {
-
-                   // String s = response.body().string();
-
-                    try {
-                        //JSONObject jsonObject = new JSONObject(s);
-
-                      //  personalIConBean = JsonUtil.parseJsonToBean(s, PersonalIConBean.class);
-
-
-                        L.i("Base64+++++++++1111111111", "成功");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    L.d("11111111111", "### fileName : " + e.toString());
+                    L.d("11111111111", "失败");
 
 
                 }
 
-                //   ToastUtils.showShort(PersonalActivity.this, "上传成功");
-
-                L.i("身份证照片上传成功", response.body().string());
-                L.d("Base64+++++++++22222222222", response.body().string());
-                L.d("Base64+++++++++33333333333", "成功");
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
 
 
-            }
-        });
+                    if (response.code() == 200) {
+
+                        // String s = response.body().string();
+
+                        try {
+                            //JSONObject jsonObject = new JSONObject(s);
+
+                            //  personalIConBean = JsonUtil.parseJsonToBean(s, PersonalIConBean.class);
+
+
+                            L.i("Base64+++++++++1111111111", "成功");
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    //   ToastUtils.showShort(PersonalActivity.this, "上传成功");
+
+                    L.i("身份证照片上传成功", response.body().string());
+                    L.d("Base64+++++++++22222222222", response.body().string());
+                    L.d("Base64+++++++++33333333333", "成功");
+
+
+                }
+            });
+        }else {
+            ToastUtils.showLong(getBaseContext(),"请拍摄");
+        }
+
 
     }
 
