@@ -31,7 +31,7 @@ android {
         minSdkVersion 20
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 加了其他的文件夹（比如 armeabi-v7a，x86等）可能会出问题

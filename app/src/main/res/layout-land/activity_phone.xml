@@ -16,46 +16,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
+           <!-- <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:background="@mipmap/newground" />
+                android:background="@mipmap/newground" />-->
             <ImageView
+                android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/newicon"
-                android:layout_marginTop="40dp"
                 android:background="@mipmap/ren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
 
-                android:layout_below="@+id/newicon"
-                android:layout_centerHorizontal="true"
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="330dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayout2"
+                android:layout_centerHorizontal="true"
                 android:background="@mipmap/signin" />
 
             <TextView
-
                 android:layout_marginLeft="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/phone_name"
-                android:background="@mipmap/newphoneicon" />
-            <EditText
+                android:background="@mipmap/newphoneicon"
+                android:id="@+id/textView4" />
 
+            <EditText
                 android:id="@+id/phone_name"
                 android:layout_width="220dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/imageView4"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="50dp"
+                android:layout_alignTop="@+id/newicon"
+                android:layout_marginTop="11dp"
+                android:layout_toEndOf="@+id/textView4"
                 android:background="@null"
                 android:digits="1234567890"
                 android:hint="手机号"
@@ -92,10 +89,11 @@
                     android:layout_alignBottom="@+id/timebutton" />
 
                 <Button
+                    android:layout_marginRight="50dp"
                     android:id="@+id/timebutton"
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
-                    android:layout_marginLeft="220dp"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/denglu_button"
                     android:text="获取"
                     android:textColor="@color/skyblue"
@@ -148,9 +146,8 @@
             <LinearLayout
                 android:id="@+id/Phone_Liner"
                 android:layout_below="@+id/request_button"
-                android:layout_marginRight="47dp"
-                android:layout_marginLeft="47dp"
-                android:layout_width="match_parent"
+                 android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">

@@ -162,7 +162,7 @@ public class PhoneActivity extends AppCompatActivity {
                 } else if (editText_yzm.length() < 11 && edit_passwords.length() < 4) {
                     ToastUtils.showShort(PhoneActivity.this, "请输入正确的手机号和验证码");
                 }else if (editText_yzm.length() == 11 && edit_passwords.length() == 4 && !radiobutton.isChecked() ) {
-                    ToastUtils.showShort(PhoneActivity.this, "请请阅读后勾选");
+                    ToastUtils.showShort(PhoneActivity.this, "请阅读后勾选");
                 }
 
 
