@@ -49,6 +49,7 @@
             android:id="@+id/imageView5" />
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/vehicle_license_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

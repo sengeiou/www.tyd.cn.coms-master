@@ -40,6 +40,7 @@
 
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/textView2"
             android:background="@mipmap/bankcar_ground"
             android:layout_width="wrap_content"
@@ -47,6 +48,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp" />
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/bankcard_carme"
             android:layout_marginTop="80dp"
             android:layout_marginLeft="18dp"

@@ -18,13 +18,13 @@
 
             <ImageView
                 android:background="@mipmap/newground"
-                android:layout_width="wrap_content"
-                android:layout_height="210dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/imageView4" />
             <ImageView
+                android:layout_centerHorizontal="true"
                 android:id="@+id/newicon"
                 android:layout_marginTop="40dp"
-                android:layout_marginLeft="92dp"
                 android:background="@mipmap/ren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
