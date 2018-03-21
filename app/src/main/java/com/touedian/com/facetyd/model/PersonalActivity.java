@@ -155,14 +155,6 @@ public class PersonalActivity extends AppCompatActivity {
 
         //用户昵称
         setTextName = findViewById(R.id.setTextName);
-       /* if (username != null) {
-            setTextName.setText(username);//从接口调用
-        } else {
-            String Username = SPUtils.getString(PersonalActivity.this, "username", username);
-            setTextName.setText(Username);
-        }*/
-
-//       L.i("username", username);
 
 
         //头像点击事件触发弹出框
@@ -190,35 +182,7 @@ public class PersonalActivity extends AppCompatActivity {
 
         //头像
         userPictureicon = findViewById(R.id.UserPictureicon);
-        /*L.i("-------------------------", "88888888888");
-        Glide.with(PersonalActivity.this).load(avatar)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model,
-                                               Target<GlideDrawable> target,
-                                               boolean isFirstResource) {
 
-                        // 可替换成进度条
-                        Toast.makeText(PersonalActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model,
-                                                   Target<GlideDrawable> target,
-                                                   boolean isFromMemoryCache,
-                                                   boolean isFirstResource) {
-
-                        L.i("GlideDrawable", resource.toString());
-                        // 图片加载完成，取消进度条
-                        Toast.makeText(PersonalActivity.this, "图片加载成功", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }).error(R.mipmap.ic_launcher_round)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(userPictureicon);
-
-*/
         //退出登录
         userbutton_back = findViewById(R.id.Userbutton_back);
         userbutton_back.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +197,7 @@ public class PersonalActivity extends AppCompatActivity {
         //用户姓名  ok
         personal_user_name = findViewById(R.id.Personal_user_name);
         personal_user_name.setText(truename);
-      //  L.i("truename", truename);
+
 
 
         //用户手机号
@@ -268,15 +232,7 @@ public class PersonalActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 call();
-              /*  //点击拨打电话是,因为是危险权限,所以需要动态申请.
-                //首先判断这个权限是否已被申请通过.
-                if (ContextCompat.checkSelfPermission(PersonalActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED) {
-                    //未通过,继续申请
-                    ActivityCompat.requestPermissions(PersonalActivity.this,new String[] {Manifest.permission.CALL_PHONE},1);
-                } else {
-                    //通过,直接拨打电话
-                    call();
-                }*/
+
             }
         });
 
@@ -294,7 +250,7 @@ public class PersonalActivity extends AppCompatActivity {
 
     private void call() {
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:13935225970"));
+        intent.setData(Uri.parse("tel:01057126691"));
         startActivity(intent);
     }
 

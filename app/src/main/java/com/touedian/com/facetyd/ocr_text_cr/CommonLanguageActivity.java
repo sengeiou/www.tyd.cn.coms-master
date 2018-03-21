@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class CommonLanguageActivity extends AppCompatActivity {
     private TextView common_text2;
     private TextView common_text3;
     private TextView common_text4;
+    private Button common_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,14 @@ public class CommonLanguageActivity extends AppCompatActivity {
                 finish();
             }
         });
+        common_btn = findViewById(R.id.common_btn);
+        common_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         common_general_button = findViewById(R.id.Common_general_button);
 
         common_text = findViewById(R.id.Common_text0);

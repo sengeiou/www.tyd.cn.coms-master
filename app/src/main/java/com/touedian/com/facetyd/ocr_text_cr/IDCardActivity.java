@@ -546,7 +546,7 @@ public class IDCardActivity extends AppCompatActivity {
 
 
 
-        SPUtils.putString(IDCardActivity.this, "name", name);
+        SPUtils.putString(IDCardActivity.this, "truename", name);
 
         SPUtils.putString(IDCardActivity.this, "idNumber", idNumber);
         HttpUtils.doPost(Config.TYD_IDcardMessage_up, Idcard_up, new Callback() {

@@ -106,13 +106,8 @@ public class DrivingActivity extends AppCompatActivity {
         initAccessTokenWithAkSk();
         //从本地获取Uid
         usid = SPUtils.getInt(DrivingActivity.this, "uid", uid);
-        L.i("usid", String.valueOf(usid));
 
-        identity_status = SPUtils.getString(DrivingActivity.this, "identity_card", idNumber);
 
-        //identity_card
-
-        L.i("identity_card", identity_status.toString());
 
         InitDate();
         // 驾驶证识别
@@ -370,7 +365,9 @@ public class DrivingActivity extends AppCompatActivity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            L.i("55555" + result);
+
+
+
                             infoPopText(result);
                             absolutePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
                             Glide
