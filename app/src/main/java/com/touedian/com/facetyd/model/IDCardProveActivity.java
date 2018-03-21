@@ -74,6 +74,10 @@ public class IDCardProveActivity extends AppCompatActivity {
     public boolean IdcardCode  ;
 
     private boolean IdcardCodes;
+    private int Score;
+    private int zero= 0;
+    private int eighty= 83;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,8 @@ public class IDCardProveActivity extends AppCompatActivity {
         fullScreen(IDCardProveActivity.this);
         setContentView(R.layout.activity_idcardprove);
         ButterKnife.bind(this);
-
+        score = SPUtils.getInt(getApplication(), "Score", Score);
+        L.i("score++"+String.valueOf(score));
 
         // idcard_front_image = findViewById(R.id.id_card_front_image);
         // idcard_back_image = findViewById(R.id.id_card_back_image);
@@ -96,14 +101,15 @@ public class IDCardProveActivity extends AppCompatActivity {
 
                     Intent intent=new Intent(getApplication(), FaceOnlineVerifyActivity.class);
                     startActivity(intent);
-                    IdcardCode=true;
-                    SPUtils.putBoolean(getApplication(),"IdcardCode",IdcardCode);
+                    SPUtils.getBoolean(getApplication(),"IdcardCode",IdcardCode);
                     L.i(String.valueOf(IdcardCode));
 
-                }else {
-
+                } if (score>zero&&score < eighty) {
+                    ToastUtils.showLong(IDCardProveActivity.this, "核实失败");
+                    IdcardCode = false;
+                } else if (score > eighty||IdcardCode==true) {
                     ToastUtils.showLong(IDCardProveActivity.this, "核实成功");
-
+                    IdcardCode = true;
                 }
 
             }

@@ -35,7 +35,7 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
 
     public static final int OFFLINE_FACE_LIVENESS_REQUEST = 100;
 
-   // private String username="韩文瑞";
+    //private String username="韩文瑞";
    // private String idnumber="140202199601112039";
     private String username;
     private String idnumber;
@@ -51,6 +51,7 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
     private String idnumbers;
     private String usernames;
     public boolean IdcardCode  ;
+    private Button retryfinal_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
         avatarIv = (ImageView) findViewById(R.id.avatar_iv);
         retBtn = (Button) findViewById(R.id.retry_btn);
         retBtn.setOnClickListener(this);
+        retryfinal_btn =(Button) findViewById(R.id.retryfinal_btn);
+        retryfinal_btn.setOnClickListener(this);
 
 
         initAccessToken();
@@ -97,7 +100,10 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
             } else {
                 policeVerify(filePath);
             }
+        }if (v == retryfinal_btn) {
+            finish();
         }
+
     }
 
     @Override
@@ -188,6 +194,7 @@ public class     FaceOnlineVerifyActivity extends AppCompatActivity implements V
                     displayTip(onlineFacelivenessTipTV, "在线活体分数：" + result.getFaceliveness());
                     displayTip(scoreTV, "公安验证分数：" + result.getScore());
                     IdcardCode=true;
+                    SPUtils.putInt(getApplication(),"Score", (int) result.getScore());
                     SPUtils.putBoolean(getApplication(),"IdcardCode",IdcardCode);
                     L.i(String.valueOf(IdcardCode));
 
